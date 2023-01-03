@@ -255,6 +255,8 @@ impl Entity {
         let data = self.data();
         let other_data = other.data();
 
+        if self.entity_type == EntityType::Drone || other.entity_type == EntityType::Drone {return false;} //edited
+        
         if data.sub_kind == EntitySubKind::Sam || other_data.sub_kind == EntitySubKind::Sam {
             // SAMs collide if within radius, simulating their blast-fragmentation warheads.
             radius_collision(
@@ -472,7 +474,11 @@ impl Entity {
 
         // max and min target altitudes.
         let max_altitude = match data.kind {
-            EntityKind::Boat => Altitude::ZERO,
+            EntityKind::Boat => match data.sub_kind {
+                EntitySubKind::Drone => Altitude::MAX,
+                EntitySubKind::Ekranoplan => Altitude(10),
+                _ => Altitude::ZERO,
+            },
             EntityKind::Aircraft => Altitude::MAX,
             EntityKind::Weapon => match data.sub_kind {
                 EntitySubKind::Missile
@@ -511,6 +517,8 @@ impl Entity {
         let target_altitude = match data.kind {
             EntityKind::Boat => match data.sub_kind {
                 EntitySubKind::Submarine => target.unwrap_or(Altitude::ZERO),
+                EntitySubKind::Drone => Altitude::MAX,
+                EntitySubKind::Ekranoplan => target.unwrap_or(Altitude::ZERO),
                 _ => Altitude::ZERO,
             },
             EntityKind::Weapon => match data.sub_kind {
@@ -552,6 +560,7 @@ impl Entity {
 
     /// Returns true if and only if two entities are friendly i.e. same player or same team.
     pub fn is_friendly(&self, other: &Self) -> bool {
+        if self.entity_type == EntityType::Drone || other.entity_type == EntityType::Drone {return true;} //edited
         self.is_friendly_to_player(other.player.as_deref())
     }
 
@@ -579,7 +588,7 @@ impl Entity {
 
     /// Returns true if and only two entities have some, identical players.
     pub fn has_same_player(&self, other: &Self) -> bool {
-        if self.player.is_none() || other.player.is_none() {
+        if self.player.is_none() || other.player.is_none() || self.entity_type == EntityType::Drone || other.entity_type == EntityType::Drone {
             return false;
         }
         self.player.as_ref().unwrap() == other.player.as_ref().unwrap()

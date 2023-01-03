@@ -60,21 +60,13 @@ impl GameArenaService for Server {
     /// new returns a game server with the specified parameters.
     fn new(min_players: usize) -> Self {
         Self {
-            world: World::new(World::target_radius(
-                min_players as f32 * EntityType::FairmileD.data().visual_area(),
-            )),
+            world: World::new(4000.0),
             counter: Ticks::ZERO,
         }
     }
 
     fn team_members_max(players: usize) -> usize {
-        match players {
-            100..=usize::MAX => 8,
-            80..=99 => 7,
-            60..=79 => 6,
-            50..=59 => 5,
-            _ => 4,
-        }
+        3 //edited
     }
 
     fn player_joined(

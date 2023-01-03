@@ -33,17 +33,17 @@ fn main() {
     );
 
     // Allows skipping audio if you don't have ffmpeg with `cargo run --no-default-features`.
-    if cfg!(feature = "audio") {
-        pack_audio_sprite_sheet(
-            audio::sounds(),
-            1,
-            44100,
-            "../assets/sounds",
-            "../client/sprites_audio",
-            "../client/src/sprites_audio",
-            "../assets/sounds/README",
-        );
-    }
+    // if cfg!(feature = "audio") {
+    //     pack_audio_sprite_sheet(
+    //         audio::sounds(),
+    //         1,
+    //         44100,
+    //         "../assets/sounds",
+    //         "../client/sprites_audio",
+    //         "../client/src/sprites_audio",
+    //         "../assets/sounds/README",
+    //     );
+    // }
 
     // Sprites that aren't entities such as animations and missing contact icon.
     let non_entity_sprites = Mutex::new(Vec::<Image>::new());
@@ -200,10 +200,10 @@ fn main() {
                 let data: &'static EntityData = entity_type.data();
                 let aspect = data.length / data.width;
                 let width = match data.kind {
-                    EntityKind::Boat => 160,
+                    EntityKind::Boat => 160.min((40.0 * aspect) as u32), //edited
                     EntityKind::Weapon | EntityKind::Decoy | EntityKind::Aircraft => {
                         120.min((40.0 * aspect) as u32)
-                    }
+                    },
                     _ => 0,
                 };
                 (width != 0).then(|| entity_sprite_params(entity_type, width))

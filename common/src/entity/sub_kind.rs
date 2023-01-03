@@ -9,6 +9,8 @@ pub enum EntitySubKind {
     Destroyer,
     Dreadnought,
     Dredger,
+    Drone,
+    Ekranoplan,
     Heli,
     Hovercraft,
     Icebreaker,

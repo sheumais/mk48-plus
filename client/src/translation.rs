@@ -45,6 +45,8 @@ pub trait Mk48Translation: Sized {
             (EntityKind::Boat, EntitySubKind::Ram) => self.entity_boat_ram_name(),
             (EntityKind::Boat, EntitySubKind::Submarine) => self.entity_boat_submarine_name(),
             (EntityKind::Boat, EntitySubKind::Tanker) => self.entity_boat_tanker_name(),
+            (EntityKind::Boat, EntitySubKind::Drone) => self.entity_boat_drone_name(), //edited
+            (EntityKind::Boat, EntitySubKind::Ekranoplan) => self.entity_boat_ekranoplan_name(), //edited
             (EntityKind::Decoy, EntitySubKind::Sonar) => self.entity_decoy_sonar_name(),
             (EntityKind::Obstacle, EntitySubKind::Structure) => {
                 self.entity_obstacle_structure_name()
@@ -86,6 +88,8 @@ pub trait Mk48Translation: Sized {
             (EntityKind::Boat, EntitySubKind::Ram) => self.entity_boat_ram_hint(),
             (EntityKind::Boat, EntitySubKind::Submarine) => self.entity_boat_submarine_hint(),
             (EntityKind::Boat, EntitySubKind::Tanker) => self.entity_boat_tanker_hint(),
+            (EntityKind::Boat, EntitySubKind::Drone) => self.entity_boat_drone_hint(), //edited
+            (EntityKind::Boat, EntitySubKind::Ekranoplan) => self.entity_boat_ekranoplan_hint(), //edited
             _ => {
                 debug_assert!(false, "missing hint for {:?}/{:?}", kind, sub_kind);
                 "???"
@@ -126,6 +130,10 @@ pub trait Mk48Translation: Sized {
     s!(entity_boat_submarine_name);
     s!(entity_boat_tanker_hint);
     s!(entity_boat_tanker_name);
+    s!(entity_boat_drone_name); //edited
+    s!(entity_boat_drone_hint);
+    s!(entity_boat_ekranoplan_name);
+    s!(entity_boat_ekranoplan_hint);
     s!(entity_decoy_sonar_name);
     s!(entity_obstacle_structure_name);
     s!(entity_weapon_depositor_name);
@@ -878,6 +886,74 @@ impl Mk48Translation for LanguageId {
             SimplifiedChinese => "油船",
             Spanish => "petrolero",
             Vietnamese => "tàu chở dầu",
+        }
+    }
+
+    fn entity_boat_drone_hint(self) -> &'static str { //edited
+        match self {
+            Arabic => "Your drone is immune to everything!",
+            Bork => "Your drone is immune to everything!",
+            English => "Your drone is immune to everything!",
+            French => "Your drone is immune to everything!",
+            German => "Your drone is immune to everything!",
+            Hindi => "Your drone is immune to everything!",
+            Italian => "Your drone is immune to everything!",
+            Japanese => "Your drone is immune to everything!",
+            Russian => "Your drone is immune to everything!",
+            SimplifiedChinese => "Your drone is immune to everything!",
+            Spanish => "Your drone is immune to everything!",
+            Vietnamese => "Your drone is immune to everything!",
+        }
+    }
+
+    fn entity_boat_drone_name(self) -> &'static str { //edited
+        match self {
+            Arabic => "Drone",
+            Bork => "Drone",
+            English => "Drone",
+            French => "Drone",
+            German => "Drone",
+            Hindi => "Drone",
+            Italian => "Drone",
+            Japanese => "Drone",
+            Russian => "Drone",
+            SimplifiedChinese => "Drone",
+            Spanish => "Drone",
+            Vietnamese => "Drone",
+        }
+    }
+
+    fn entity_boat_ekranoplan_hint(self) -> &'static str { //edited
+        match self {
+            Arabic => "Your ekranoplan can go super fast!",
+            Bork => "Your ekranoplan can go super fast!",
+            English => "Your ekranoplan can go super fast!",
+            French => "Your ekranoplan can go super fast!",
+            German => "Your ekranoplan can go super fast!",
+            Hindi => "Your ekranoplan can go super fast!",
+            Italian => "Your ekranoplan can go super fast!",
+            Japanese => "Your ekranoplan can go super fast!",
+            Russian => "Your ekranoplan can go super fast!",
+            SimplifiedChinese => "Your ekranoplan can go super fast!",
+            Spanish => "Your ekranoplan can go super fast!",
+            Vietnamese => "Your ekranoplan can go super fast!",
+        }
+    }
+
+    fn entity_boat_ekranoplan_name(self) -> &'static str { //edited
+        match self {
+            Arabic => "Ekranoplan",
+            Bork => "Ekranoplan",
+            English => "Ekranoplan",
+            French => "Ekranoplan",
+            German => "Ekranoplan",
+            Hindi => "Ekranoplan",
+            Italian => "Ekranoplan",
+            Japanese => "Ekranoplan",
+            Russian => "Ekranoplan",
+            SimplifiedChinese => "Ekranoplan",
+            Spanish => "Ekranoplan",
+            Vietnamese => "Ekranoplan",
         }
     }
 

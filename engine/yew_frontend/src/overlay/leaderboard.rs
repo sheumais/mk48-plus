@@ -61,13 +61,13 @@ enum Mode {
     Leaderboard(PeriodId),
 }
 
-impl Mode {
+impl Mode { //edited
     fn next(self) -> Self {
         match self {
-            Self::Liveboard => Self::Leaderboard(PeriodId::Daily),
+            Self::Liveboard => Self::Liveboard,
             Self::Leaderboard(period_id) => match period_id {
-                PeriodId::Daily => Self::Leaderboard(PeriodId::Weekly),
-                PeriodId::Weekly => Self::Leaderboard(PeriodId::AllTime),
+                PeriodId::Daily => Self::Liveboard,
+                PeriodId::Weekly => Self::Liveboard,
                 PeriodId::AllTime => Self::Liveboard,
             },
         }
@@ -119,14 +119,7 @@ pub fn leaderboard_overlay(props: &LeaderboardProps) -> Html {
 
     let mode = use_state(Mode::default);
 
-    let right_arrow = if props.mode_arrow {
-        let mode = mode.clone();
-        SectionArrow::always(Callback::from(move |_| {
-            mode.set(mode.deref().next());
-        }))
-    } else {
-        SectionArrow::None
-    };
+    SectionArrow::None; //edited
 
     let t = ctw.setting_cache.language;
     let core_state = use_core_state();
@@ -198,8 +191,7 @@ pub fn leaderboard_overlay(props: &LeaderboardProps) -> Html {
             id="leaderboard"
             {name}
             position={props.position}
-            style={props.style.clone()}
-            {right_arrow}
+            style={props.style.clone()} //edited
             open={ctw.setting_cache.leaderboard_dialog_shown}
             {on_open_changed}
         >

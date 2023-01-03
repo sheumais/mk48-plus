@@ -30,6 +30,7 @@ impl EntityType {
     /// on whether you are a bot.
     pub fn can_spawn_as(self, score: u32, bot: bool) -> bool {
         let data = self.data();
+        if (bot && data.sub_kind == EntitySubKind::Drone) {return false}; //edited
         data.kind == EntityKind::Boat && level_to_score(data.level) <= score && (bot || !data.npc)
     }
 
@@ -393,6 +394,15 @@ pub enum EntityType {
     #[exhaust(forward = -39, side = -0.8)]
     Dredger,
     #[info(
+        label = "Drone",
+        link = "https://en.wikipedia.org/wiki/Drone"
+    )]
+    #[entity(Boat, Drone, level = 1)]
+    #[size(length = 11.1333, width = 14.0667, draft = 0.0)]
+    #[props(speed = 100.0)]
+    #[sensors(visual = 1000, radar = 1000, sonar = 1000)]
+    Drone,
+    #[info(
         label = "España",
         link = "https://en.wikipedia.org/wiki/Espa%C3%B1a-class_battleship"
     )]
@@ -406,6 +416,18 @@ pub enum EntityType {
     #[turret(VickersMkH12In, forward = -39.8474, angle = 180, slow, azimuth_b = 45)]
     #[exhaust(forward = -0.822)]
     Espana,
+    #[info(
+        label = "Ekranoplan",
+        link = "https://en.wikipedia.org/wiki/Lun-class_ekranoplan"
+    )]
+    #[entity(Boat, Ekranoplan, level = 8)]
+    #[size(length = 73.8, width = 44.0, draft = 2.5)]
+    #[props(speed = 152.79)]
+    #[sensors(radar, visual)]
+    #[armament(Moskit, forward = 6, side = 1, angle = 0, symmetrical, hidden)]
+    #[armament(Moskit, forward = 17, side = 1, angle = 0, symmetrical, hidden)]
+    #[armament(Moskit, forward = -5.5, side = 1, angle = 0, symmetrical, hidden)]
+    Ekranoplan,
     #[info(
         label = "Essex",
         link = "https://en.wikipedia.org/wiki/Essex-class_aircraft_carrier"
@@ -1164,6 +1186,12 @@ pub enum EntityType {
     #[size(length = 2.075, width = 0.29)]
     #[props(speed = 10, lifespan = 15)]
     Mk70,
+    #[info(label = "P-270 Moskit", link = "https://en.wikipedia.org/wiki/P-270_Moskit")]
+    #[entity(Weapon, Missile, level = 9)]
+    #[size(length = 9.745, width = 0.8)]
+    #[props(speed = 1027.778, range = 130000)]
+    #[sensors(radar)]
+    Moskit,
     #[info(label = "Acacia")]
     #[entity(Obstacle, Tree)]
     #[size(length = 8, width = 8)]

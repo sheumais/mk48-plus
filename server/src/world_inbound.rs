@@ -7,6 +7,7 @@ use crate::protocol::*;
 use crate::server::Server;
 use crate::world::World;
 use common::angle::Angle;
+use common::altitude::Altitude;
 use common::entity::*;
 use common::protocol::*;
 use common::terrain::TerrainMutation;
@@ -285,6 +286,10 @@ impl CommandTrait for Fire {
                     ))
             {
                 return Err("cannot fire while surfacing as a boat");
+            }
+
+            if entity.altitude > Altitude(5) && data.sub_kind != EntitySubKind::Ekranoplan {
+                return Err("cannot fire while flying high (lol)");
             }
 
             if let Some(turret_index) = armament.turret {

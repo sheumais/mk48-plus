@@ -48,12 +48,13 @@ pub fn chat_overlay(props: &ChatProps) -> Html {
 		word-break: normal;
 		user-select: text;
 		text-align: left;
+        background-color: #00000025;
         "#
     );
-
+    //edited
     let whisper_style = css!(
         r#"
-		filter: brightness(0.7);
+		color: #75AAFF;
 	    "#
     );
 

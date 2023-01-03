@@ -26,9 +26,7 @@ pub struct DialogProps {
 pub fn spawn_overlay(props: &DialogProps) -> Html {
     let form_style = css!(
         r#"
-        display: flex;
-        flex-direction: column;
-        position: absolute;
+        position: relative;
         row-gap: 2rem;
         user-select: none;
         min-width: 50%;
@@ -43,58 +41,66 @@ pub fn spawn_overlay(props: &DialogProps) -> Html {
 
     let input_style = css!(
         r#"
+        background: #75aaff;
         border-radius: 3rem;
         border: 0;
         box-sizing: border-box;
-        color: #FFFA;
+        color: white;
         cursor: pointer;
-        font-size: 1.7rem;
+        font-size: 1.5rem;
         font-weight: bold;
-        margin-top: 0.25em;
         outline: 0;
-        padding-left: 2rem;
-        padding: 0.7em;
-        pointer-events: all;
         text-align: center;
-        white-space: nowrap;
-        width: 100%;
+        padding: 0.7em;
+        width: 58%;
+        float: left;
+        position: absolute;
+        left: 0;
+        top: 85%;
+        margin-left: 7%;
+        box-shadow: inset 0px -0.4rem 0px 0px #00000025;
+        transition: box-shadow 500ms ease;
+
+        ::placeholder {
+            color: white;
+            opacity: 1;
+        }
+        .input::-ms-input-placeholder {
+            color: white;
+        }
+        .input:hover {
+            box-shadow:none;
+        }
    "#
     );
 
     let button_style = css!(
         r#"
-        background-color: #549f57;
-        border-radius: 1rem;
-        border: 1px solid #61b365;
+        background: #28af71;
+        border-radius: 3rem;
+        border: 0;
         box-sizing: border-box;
         color: white;
         cursor: pointer;
-        font-size: 3.25rem;
-        left: 50%;
-        margin-top: 0.5em;
-        min-width: 12rem;
-        padding-bottom: 0.7rem;
-        padding-top: 0.5rem;
-        position: relative;
-        text-decoration: none;
-        transform: translate(-50%, 0%);
-        white-space: nowrap;
-        width: min-content;
+        font-size: 1.5rem;
+        font-weight: bold;
+        outline: 0;
+        text-align: center;
+        padding: 0.7em;
+        width: 30%;
+        display: inline;
+        float: right;
+        position: absolute;
+        right: 0;
+        top: 85%;
+        box-shadow: inset 0px -0.4rem 0px 0px #00000025;
+        transition: box-shadow 500ms ease;
 
-        :disabled {
-            filter: brightness(0.8);
-            cursor: initial;
-        }
-
-        :hover:not(:disabled) {
-            filter: brightness(0.95);
-        }
-
-        :active:not(:disabled) {
-            filter: brightness(0.9);
+        :hover {
+            box-shadow: none;
         }
     "#
-    );
+    ); //edited
 
     let t = use_translation();
     let (paused, transitioning, onanimationend) = use_splash_screen();
@@ -142,7 +148,6 @@ pub fn spawn_overlay(props: &DialogProps) -> Html {
                 ref={input_ref}
                 id="alias_input"
                 class={input_style}
-                style={format!("background-color: {}", props.input_background_color)}
                 disabled={*transitioning}
                 type="text"
                 minlength="1"

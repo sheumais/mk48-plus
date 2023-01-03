@@ -52,7 +52,7 @@ use web_sys::{FocusEvent, KeyboardEvent, MessageEvent, MouseEvent, TouchEvent, W
 use yew::prelude::*;
 use yew_router::prelude::*;
 
-pub const CONTACT_EMAIL: &'static str = "contact@softbear.com";
+pub const CONTACT_EMAIL: &'static str = "sheumaisgit@gmail.com";
 
 struct App<
     G: GameClient,

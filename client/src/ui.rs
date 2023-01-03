@@ -158,9 +158,6 @@ pub fn mk48_ui(props: &PropertiesWrapper<UiProps>) -> Html {
                         status={playing.clone()}
                     />
                     <Positioner id="sidebar" position={Position::CenterRight{margin}} flex={Flex::Column}>
-                        <InvitationIcon/>
-                        <ZoomIcon amount={-4}/>
-                        <ZoomIcon amount={4}/>
                         <VolumeIcon/>
                         <SettingsIcon<Mk48Route> route={Mk48Route::Settings}/>
                         <LanguageMenu/>

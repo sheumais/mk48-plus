@@ -7,3 +7,4 @@ terrain.png
 *.swp
 serde-test/*
 .ssh/*
+.DS_Store

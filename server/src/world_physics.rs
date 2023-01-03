@@ -165,12 +165,23 @@ impl World {
                         }
                     }
                     EntityKind::Boat => {
-                        entity.apply_altitude_target(
-                            terrain,
-                            Some(entity.extension().altitude_target()),
-                            2.0,
-                            delta,
-                        );
+                        match data.sub_kind {
+                            EntitySubKind::Ekranoplan => {
+                                entity.apply_altitude_target(
+                                    terrain,
+                                    Some(common::altitude::Altitude(( (10.0 * entity.transform.velocity.to_mps() / 152.79).abs() ) as i8)),
+                                    2.0,
+                                    delta,
+                                );
+                            }
+                            _ => {entity.apply_altitude_target(
+                                    terrain,
+                                    Some(entity.extension().altitude_target()),
+                                    2.0,
+                                    delta,
+                                );
+                            }
+                        }
 
                         if entity.borrow_player().data.flags != Flags::default() {
                             reset_flags
@@ -214,7 +225,8 @@ impl World {
 
                     let immune = data.sub_kind == EntitySubKind::Hovercraft
                         || (arctic && data.sub_kind == EntitySubKind::Icebreaker)
-                        || (!arctic && data.sub_kind == EntitySubKind::Dredger);
+                        || (!arctic && data.sub_kind == EntitySubKind::Dredger)
+                        || data.sub_kind == EntitySubKind::Drone; //edited
 
                     entity.transform.velocity = {
                         let Transform {
@@ -237,7 +249,7 @@ impl World {
 
                     if !matches!(
                         data.sub_kind,
-                        EntitySubKind::Hovercraft | EntitySubKind::Dredger
+                        EntitySubKind::Hovercraft | EntitySubKind::Dredger | EntitySubKind::Drone
                     ) {
                         let is_icebreaker = arctic && data.sub_kind == EntitySubKind::Icebreaker;
                         let max_breakable = if is_icebreaker {
@@ -273,7 +285,7 @@ impl World {
                             return Some((index, Fate::Remove(DeathReason::Terrain)));
                         }
                     }
-                } else if data.kind == EntityKind::Boat && !arctic {
+                } else if data.kind == EntityKind::Boat && !arctic && data.sub_kind != EntitySubKind::Drone {
                     let below_keel = entity.altitude
                         - terrain
                             .sample(entity.transform.position)
@@ -288,8 +300,10 @@ impl World {
 
                     if below_keel < Altitude::ZERO {
                         repair_eligible = false;
-                        let speed_factor =
+                        let mut speed_factor =
                             map_ranges(below_keel.to_meters(), -5.0..0.0, 0.6..1.0, true);
+
+                            if data.sub_kind == EntitySubKind::Drone {speed_factor = 1.0;} //edited
 
                         entity.transform.velocity = entity
                             .transform

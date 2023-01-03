@@ -235,10 +235,6 @@ impl Locker {
 
     fn minutes_required(entity_type: EntityType) -> u8 {
         match entity_type.data().sub_kind {
-            EntitySubKind::Dredger => 15,
-            EntitySubKind::Minelayer => 30,
-            EntitySubKind::Icebreaker => 45,
-            EntitySubKind::Tanker => 60,
             _ => 0,
         }
     }

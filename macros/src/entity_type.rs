@@ -509,7 +509,7 @@ pub(crate) fn derive_entity_type(input: TokenStream) -> TokenStream {
             }
             "Boat" => {
                 match entity.sub_kind() {
-                    "Dredger" | "Submarine" | "Tanker" => {}
+                    "Dredger" | "Submarine" | "Tanker" | "Drone" => {}
                     _ => {
                         entity.anti_aircraft =
                             map_ranges(entity.length(), 30.0..300.0, 0.1..0.5, true);
@@ -533,7 +533,10 @@ pub(crate) fn derive_entity_type(input: TokenStream) -> TokenStream {
                 }
 
                 if entity.sub_kind() == "Pirate" {
-                    entity.npc = true;
+                    entity.npc = false;
+                }
+                if entity.sub_kind() == "Drone" {
+                    entity.npc = false;
                 }
             }
             _ => {}

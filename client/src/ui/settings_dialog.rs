@@ -198,17 +198,7 @@ pub fn settings_dialog() -> Html {
                 oninput={on_select_server_id}
                 class={select_style.clone()}
             >
-                if selected_server_id.is_none() || core_state.servers.is_empty() {
-                    <option value="unknown" selected={true}>{"Unknown server"}</option>
-                }
-                {core_state.servers.values().map(|&ServerDto{server_id, region_id, player_count}| {
-                    let region_str = region_id.as_human_readable_str();
-                    html_nested!{
-                        <option value={server_id.0.to_string()} selected={selected_server_id == Some(server_id)}>
-                            {format!("Server {server_id} - {region_str} ({player_count} players)")}
-                        </option>
-                    }
-                }).collect::<Html>()}
+                    <option value="unknown" selected={true}>{"Pancake's Test Server"}</option>
             </select>
 
             <h3>{"Graphics"}</h3>

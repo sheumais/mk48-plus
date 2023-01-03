@@ -1135,13 +1135,15 @@ impl GameClient for Mk48Game {
                             };
 
                             let c = color_bytes;
-                            layer.text.draw(
+                            if data.sub_kind != EntitySubKind::Drone { //edited
+                                layer.text.draw(
                                 &text,
                                 contact.transform().position
                                     + Vec2::new(0.0, overlay_vertical_position + 0.035 * zoom),
                                 0.035 * zoom,
                                 [c[0], c[1], c[2], 255],
                             );
+                            }
                         }
                         EntityKind::Weapon | EntityKind::Decoy | EntityKind::Aircraft => {
                             let triangle_position = contact.transform().position
