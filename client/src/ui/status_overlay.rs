@@ -37,6 +37,8 @@ pub fn status_overlay(props: &StatusProps) -> Html {
                 {" "}
                 {format!("{:\u{00A0}>4.1}kn", status.velocity.to_knots())}
                 {" "}
+                {format!("{}m", status.altitude.to_meters())}
+                {" "}
                 {format!("{:\u{00A0}>3}°\u{00A0}{:\u{00A0}<4}", status.direction.to_bearing(), format!("[{}]", status.direction.to_cardinal()))}
                 {" "}
                 {fmt_position(status.position)}

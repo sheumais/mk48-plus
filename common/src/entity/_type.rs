@@ -30,7 +30,7 @@ impl EntityType {
     /// on whether you are a bot.
     pub fn can_spawn_as(self, score: u32, bot: bool) -> bool {
         let data = self.data();
-        if (bot && data.sub_kind == EntitySubKind::Drone) {return false}; //edited
+        if bot && data.sub_kind == EntitySubKind::Drone {return false}; //edited
         data.kind == EntityKind::Boat && level_to_score(data.level) <= score && (bot || !data.npc)
     }
 
@@ -39,6 +39,7 @@ impl EntityType {
     pub fn can_upgrade_to(self, upgrade: Self, score: u32, bot: bool) -> bool {
         let data = self.data();
         let upgrade_data = upgrade.data();
+        if data.sub_kind ==  EntitySubKind::Drone {return false};
         upgrade_data.level > data.level
             && upgrade_data.kind == data.kind
             && score >= level_to_score(upgrade_data.level)
@@ -356,6 +357,20 @@ pub enum EntityType {
     #[turret(Crotale, forward = -82.5578, side = 18.0462, fast)]
     #[exhaust(forward = 4.03893, side = -15.8169)]
     Clemenceau,
+    #[info(
+        label = "Catalina",
+        link = "https://en.wikipedia.org/wiki/Consolidated_PBY_Catalina"
+    )]
+    #[entity(Boat, Aeroplane, level = 5)]
+    #[size(length = 19.47863, width = 32, draft = 1.0)]
+    #[props(speed = 87.4556)]
+    #[sensors(visual = 1000, radar = 500)]
+    #[armament(Wz0839, forward = 2, side = 0, hidden)]
+    #[armament(Wz0839, forward = 2, side = 0.5, symmetrical, hidden)]
+    #[turret(_M1919, forward = 7, slow, azimuth_b = 30, symmetrical)]
+    #[turret(_M1919, forward = -8, angle = 180, slow, azimuth_b = 40)]
+    #[turret(_M1919, forward = -3, slow, azimuth_b = 30, symmetrical)]
+    Catalina, 
     #[info(
         label = "Dreadnought",
         link = "https://en.wikipedia.org/wiki/HMS_Dreadnought_(1906)"
@@ -777,8 +792,6 @@ pub enum EntityType {
     #[size(length = 95.8, width = 10.8, draft = 2.38)]
     #[props(speed = 8.5)]
     #[sensors(radar, visual)]
-    #[armament(Wz0839, forward = -38, side = 1.75, symmetrical, external)]
-    #[armament(Wz0839, forward = -39, side = 1.75, symmetrical, external)]
     #[armament(Wz0839, forward = -40, side = 1.75, symmetrical, external)]
     #[armament(Wz0839, forward = -41, side = 1.75, symmetrical, external)]
     #[armament(Wz0839, forward = -42, side = 1.75, symmetrical, external)]
@@ -1268,6 +1281,15 @@ pub enum EntityType {
     #[armament(_57X441MmR, forward = 0.5, angle = 0, hidden)]
     _88CmSkc35,
     #[info(
+        label = "M1919 Browning",
+        link = "https://en.wikipedia.org/wiki/M1919_Browning_machine_gun"
+    )]
+    #[entity(Turret, Gun)]
+    #[size(length = 1.346, width = 0.715)]
+    #[offset(forward = 0.212, side = -0.05)]
+    #[armament(_762X54MmR, forward = 0.265, angle = 0, hidden)]
+    _M1919,
+    #[info(
         label = "AK-130",
         link = "https://en.wikipedia.org/wiki/AK-100_(naval_gun)"
     )]
@@ -1430,6 +1452,11 @@ pub enum EntityType {
     #[offset(forward = 2.3553)]
     #[armament(_300X1400MmR, forward = 3, side = 0.727, angle = 0, symmetrical)]
     VickersMkH12In,
+    #[info(label = "762 x 54 mmR")]
+    #[entity(Weapon, Shell)]
+    #[size(length = 0.762, width = 0.05372)]
+    #[props(speed = 853, range = 1400)]
+    _762X54MmR,
     #[info(label = "127 x 680 mmR")]
     #[entity(Weapon, Shell)]
     #[size(length = 0.68, width = 0.127)]
@@ -1730,7 +1757,7 @@ pub enum EntityType {
     )]
     #[entity(Weapon, Mine, level = 3)]
     #[size(length = 1.0725, width = 1.32)]
-    #[props(lifespan = 900)]
+    #[props(lifespan = 300)]
     Wz0839,
     #[info(label = "YJ-18", link = "https://en.wikipedia.org/wiki/YJ-18")]
     #[entity(Weapon, Missile, level = 5)]

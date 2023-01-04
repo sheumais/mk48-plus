@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 use yew::{function_component, html, Html};
-use yew_frontend::component::link::Link;
+//use yew_frontend::component::link::Link;
 use yew_frontend::dialog::dialog::Dialog;
 use yew_frontend::frontend::use_game_id;
 use yew_frontend::translation::{use_translation, Translation};
@@ -25,6 +25,22 @@ fn changelog_2023() -> Html { //<li>{""}</li>
         <>
             <h2>{"2023"}</h2>
 
+            <h3>{"4 Jan '23"}</h3>
+
+            <ul>
+                <li>{"Added PBY Catalina as a playable aircraft"}</li>
+                
+                <li>{"Increased bounce-back when ramming terrain as Ekranoplan and Aeroplanes"}</li>
+                <li>{"Fixed Drone"}</li>
+                <li>{"Added altitude indicator to status overlay"}</li>
+                <li>{"Shells fired from an aeroplane now can hit targets at all altitudes"}</li>
+                <li>{"Reduced mine reload time"}</li>
+                <li>{"Removed mine attraction to nearby boats"}</li>
+                <li>{"Buffed mine damage"}</li>
+                <li>{"Dramatically increased mine stealth"}</li>
+                <li>{"Removed ability to upgrade as a Drone"}</li>
+            </ul>
+
             <h3>{"3 Jan '23"}</h3>
 
             <ul>
@@ -35,7 +51,6 @@ fn changelog_2023() -> Html { //<li>{""}</li>
                 <li>{"Dropped coins now transfer 100% of score"}</li>
                 <li>{"Disabled anti-air particles on Drone"}</li>
                 <li>{"Enabled Pirate Ship"}</li>
-                <li>{""}</li>
             </ul>
 
             <h3>{"2 Jan '23"}</h3>

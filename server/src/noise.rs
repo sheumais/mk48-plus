@@ -69,7 +69,7 @@ pub fn noise_generator(x: usize, y: usize) -> u8 {
 
         const F: f64 = 2.3;
         let n = fractal_noise(get_noise(), noise_x * F - 1000.0, noise_y * F, 4);
-        height += (n.powi(6) + 0.1);
+        height += n.powi(6) + 0.1;
 
         const F2: f64 = 0.47;
         let m = fractal_noise(get_noise(), noise_x * F2 - 2000.0, noise_y * F2, 3);

@@ -138,10 +138,10 @@ impl Entities {
     }
 
     /// Returns the maximum possible world radius to avoid going out of bounds of this collection.
-    pub fn max_world_radius() -> f32 {
-        // TODO: Shouldn't need "- 1", but crashes otherwise.
-        ((SIZE - 1) / 2) as f32 * SCALE
-    }
+    // pub fn max_world_radius() -> f32 {
+    //     // TODO: Shouldn't need "- 1", but crashes otherwise.
+    //     ((SIZE - 1) / 2) as f32 * SCALE
+    // }
 
     fn get_sector(&self, sector_id: SectorId) -> &Sector {
         &self.sectors[sector_id.as_sector_index()]

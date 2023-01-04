@@ -374,6 +374,9 @@ pub(crate) fn derive_entity_type(input: TokenStream) -> TokenStream {
                                     "symmetrical" => {
                                         set_bool(&mut turret.symmetrical, nested);
                                     }
+                                    "hidden" => {
+                                        set_bool(&mut turret.hidden, nested);
+                                    }
                                     _ => panic!("unexpected turret path: {path}"),
                                 }
                             }
@@ -561,8 +564,11 @@ pub(crate) fn derive_entity_type(input: TokenStream) -> TokenStream {
                         }
                          */
                     }
+                    "Sam" => {
+                        damage = Some(0.2);
+                    }
                     "Mine" => {
-                        damage = Some(1.5);
+                        damage = Some(2.25);
                     }
                     "DepthCharge" => {
                         damage = Some(0.7);
@@ -606,7 +612,7 @@ pub(crate) fn derive_entity_type(input: TokenStream) -> TokenStream {
                         "Depositor" => 1.0,
                         "Rocket" => 2.5,
                         "RocketTorpedo" => 20.0,
-                        "Mine" => 30.0,
+                        "Mine" => 10.0,
                         "Sam" => 16.0,
                         "Missile" => map_ranges(entity.length(), 1.0..6.0, 4.0..12.0, true),
                         "Shell" => map_ranges(entity.length(), 0.25..2.0, 8.0..15.0, true),
@@ -952,6 +958,7 @@ struct Turret {
     azimuth_fr: Option<Angle>,
     azimuth_fl: Option<Angle>,
     symmetrical: bool,
+    hidden: bool,
 }
 
 #[derive(Clone, Debug, Default)]
@@ -1184,6 +1191,7 @@ impl quote::ToTokens for Turret {
         let azimuth_fr = self.azimuth_fr.unwrap_or_default().0;
         let azimuth_bl = self.azimuth_bl.unwrap_or_default().0;
         let azimuth_br = self.azimuth_br.unwrap_or_default().0;
+        let hidden = self.hidden;
 
         let ts: proc_macro2::TokenStream = {
             quote! {
@@ -1197,6 +1205,7 @@ impl quote::ToTokens for Turret {
                     azimuth_fr: Angle(#azimuth_fr),
                     azimuth_bl: Angle(#azimuth_bl),
                     azimuth_br: Angle(#azimuth_br),
+                    hidden: #hidden,
                 }
             }
         }

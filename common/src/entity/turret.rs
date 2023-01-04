@@ -13,6 +13,7 @@ pub struct Turret {
     pub azimuth_fr: Angle,
     pub azimuth_bl: Angle,
     pub azimuth_br: Angle,
+    pub hidden: bool,
 }
 
 impl Turret {

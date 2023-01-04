@@ -169,7 +169,15 @@ impl World {
                             EntitySubKind::Ekranoplan => {
                                 entity.apply_altitude_target(
                                     terrain,
-                                    Some(common::altitude::Altitude(( (10.0 * entity.transform.velocity.to_mps() / 152.79).abs() ) as i8)),
+                                    Some(common::altitude::Altitude(( (10.0 * entity.transform.velocity.to_mps() / data.speed.to_mps()).abs() ) as i8)),
+                                    2.0,
+                                    delta,
+                                );
+                            }
+                            EntitySubKind::Aeroplane => {
+                                entity.apply_altitude_target(
+                                    terrain,
+                                    Some(common::altitude::Altitude((( (169.0 / data.speed.to_mps()) * (entity.transform.velocity.to_mps() - 25.0)).clamp(0.0, 169.0) ) as i8)),
                                     2.0,
                                     delta,
                                 );
@@ -244,7 +252,12 @@ impl World {
                             let push = Velocity::from_mps(dot * -150.0);
                             velocity += push;
                         }
-                        velocity.clamp_magnitude(Velocity::from_mps(5.0))
+                        if !matches!(data.sub_kind, EntitySubKind::Aeroplane | EntitySubKind::Ekranoplan) {
+                            velocity.clamp_magnitude(Velocity::from_mps(5.0))
+                        }
+                        else {
+                            velocity.clamp_magnitude(Velocity::from_mps(35.0))
+                        }
                     };
 
                     if !matches!(

@@ -9,7 +9,7 @@ use client_util::browser_storage::BrowserStorages;
 use client_util::setting::CommonSettings;
 use core_protocol::dto::LiveboardDto;
 use core_protocol::id::{LanguageId, PeriodId};
-use std::ops::Deref;
+//use std::ops::Deref;
 use stylist::yew::styled_component;
 use yew::prelude::*;
 
@@ -61,18 +61,18 @@ enum Mode {
     Leaderboard(PeriodId),
 }
 
-impl Mode { //edited
-    fn next(self) -> Self {
-        match self {
-            Self::Liveboard => Self::Liveboard,
-            Self::Leaderboard(period_id) => match period_id {
-                PeriodId::Daily => Self::Liveboard,
-                PeriodId::Weekly => Self::Liveboard,
-                PeriodId::AllTime => Self::Liveboard,
-            },
-        }
-    }
-}
+// impl Mode { //edited
+//     fn next(self) -> Self {
+//         match self {
+//             Self::Liveboard => Self::Liveboard,
+//             Self::Leaderboard(period_id) => match period_id {
+//                 PeriodId::Daily => Self::Liveboard,
+//                 PeriodId::Weekly => Self::Liveboard,
+//                 PeriodId::AllTime => Self::Liveboard,
+//             },
+//         }
+//     }
+// }
 
 #[styled_component(LeaderboardOverlay)]
 pub fn leaderboard_overlay(props: &LeaderboardProps) -> Html {
@@ -119,7 +119,7 @@ pub fn leaderboard_overlay(props: &LeaderboardProps) -> Html {
 
     let mode = use_state(Mode::default);
 
-    SectionArrow::None; //edited
+    drop(SectionArrow::None); //edited
 
     let t = ctw.setting_cache.language;
     let core_state = use_core_state();

@@ -434,7 +434,7 @@ impl Entity {
     /// underpowered.
     fn special_altitude_overlap(&self) -> bool {
         let data = self.data();
-        data.sub_kind == EntitySubKind::Torpedo && !data.sensors.any()
+        (data.sub_kind == EntitySubKind::Torpedo && !data.sensors.any()) || data.sub_kind == EntitySubKind::Mine || data.sub_kind == EntitySubKind::Shell
     }
 
     /// Returns true if two entities are overlapping, only taking into account their altitudes.
@@ -445,6 +445,10 @@ impl Entity {
             // Entities above water should never collide with entities below water.
             return false;
         }
+        if (self.altitude.is_airborne() && self.data().sub_kind == EntitySubKind::Shell && !other.altitude.is_submerged()) || (other.altitude.is_airborne() && other.data().sub_kind == EntitySubKind::Shell && !self.altitude.is_submerged()) {
+            return true;
+        }
+        if (self.altitude.is_airborne() && self.data().sub_kind == EntitySubKind::Aeroplane && other.altitude.is_airborne() ) || (other.altitude.is_airborne() && other.data().sub_kind == EntitySubKind::Aeroplane && self.altitude.is_airborne()) {return true;}
         self.altitude.difference(other.altitude)
             <= if self.special_altitude_overlap() || other.special_altitude_overlap() {
                 Altitude::SPECIAL_OVERLAP_MARGIN
@@ -475,7 +479,7 @@ impl Entity {
         // max and min target altitudes.
         let max_altitude = match data.kind {
             EntityKind::Boat => match data.sub_kind {
-                EntitySubKind::Drone => Altitude::MAX,
+                EntitySubKind::Drone | EntitySubKind::Aeroplane => Altitude::MAX,
                 EntitySubKind::Ekranoplan => Altitude(10),
                 _ => Altitude::ZERO,
             },
@@ -518,6 +522,7 @@ impl Entity {
             EntityKind::Boat => match data.sub_kind {
                 EntitySubKind::Submarine => target.unwrap_or(Altitude::ZERO),
                 EntitySubKind::Drone => Altitude::MAX,
+                EntitySubKind::Aeroplane => target.unwrap_or(Altitude::MAX),
                 EntitySubKind::Ekranoplan => target.unwrap_or(Altitude::ZERO),
                 _ => Altitude::ZERO,
             },
@@ -589,7 +594,7 @@ impl Entity {
     /// Returns true if and only two entities have some, identical players.
     pub fn has_same_player(&self, other: &Self) -> bool {
         if self.player.is_none() || other.player.is_none() || self.entity_type == EntityType::Drone || other.entity_type == EntityType::Drone {
-            return false;
+            return true;
         }
         self.player.as_ref().unwrap() == other.player.as_ref().unwrap()
     }

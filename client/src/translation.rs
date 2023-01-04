@@ -46,7 +46,8 @@ pub trait Mk48Translation: Sized {
             (EntityKind::Boat, EntitySubKind::Submarine) => self.entity_boat_submarine_name(),
             (EntityKind::Boat, EntitySubKind::Tanker) => self.entity_boat_tanker_name(),
             (EntityKind::Boat, EntitySubKind::Drone) => self.entity_boat_drone_name(), //edited
-            (EntityKind::Boat, EntitySubKind::Ekranoplan) => self.entity_boat_ekranoplan_name(), //edited
+            (EntityKind::Boat, EntitySubKind::Ekranoplan) => self.entity_boat_ekranoplan_name(),
+            (EntityKind::Boat, EntitySubKind::Aeroplane) => self.entity_boat_aeroplane_name(),
             (EntityKind::Decoy, EntitySubKind::Sonar) => self.entity_decoy_sonar_name(),
             (EntityKind::Obstacle, EntitySubKind::Structure) => {
                 self.entity_obstacle_structure_name()
@@ -90,6 +91,7 @@ pub trait Mk48Translation: Sized {
             (EntityKind::Boat, EntitySubKind::Tanker) => self.entity_boat_tanker_hint(),
             (EntityKind::Boat, EntitySubKind::Drone) => self.entity_boat_drone_hint(), //edited
             (EntityKind::Boat, EntitySubKind::Ekranoplan) => self.entity_boat_ekranoplan_hint(), //edited
+            (EntityKind::Boat, EntitySubKind::Aeroplane) => self.entity_boat_aeroplane_hint(), //edited
             _ => {
                 debug_assert!(false, "missing hint for {:?}/{:?}", kind, sub_kind);
                 "???"
@@ -134,6 +136,8 @@ pub trait Mk48Translation: Sized {
     s!(entity_boat_drone_hint);
     s!(entity_boat_ekranoplan_name);
     s!(entity_boat_ekranoplan_hint);
+    s!(entity_boat_aeroplane_name);
+    s!(entity_boat_aeroplane_hint);
     s!(entity_decoy_sonar_name);
     s!(entity_obstacle_structure_name);
     s!(entity_weapon_depositor_name);
@@ -954,6 +958,40 @@ impl Mk48Translation for LanguageId {
             SimplifiedChinese => "Ekranoplan",
             Spanish => "Ekranoplan",
             Vietnamese => "Ekranoplan",
+        }
+    }
+
+    fn entity_boat_aeroplane_hint(self) -> &'static str { //edited
+        match self {
+            Arabic => "Your aeroplane can fly above everything!",
+            Bork => "Your aeroplane can fly above everything!",
+            English => "Your aeroplane can fly above everything!",
+            French => "Your aeroplane can fly above everything!",
+            German => "Your aeroplane can fly above everything!",
+            Hindi => "Your aeroplane can fly above everything!",
+            Italian => "Your aeroplane can fly above everything!",
+            Japanese => "Your aeroplane can fly above everything!",
+            Russian => "Your aeroplane can fly above everything!",
+            SimplifiedChinese => "Your aeroplane can fly above everything!",
+            Spanish => "Your aeroplane can fly above everything!",
+            Vietnamese => "Your aeroplane can fly above everything!",
+        }
+    }
+
+    fn entity_boat_aeroplane_name(self) -> &'static str { //edited
+        match self {
+            Arabic => "Aeroplane",
+            Bork => "Aeroplane",
+            English => "Aeroplane",
+            French => "Aeroplane",
+            German => "Aeroplane",
+            Hindi => "Aeroplane",
+            Italian => "Aeroplane",
+            Japanese => "Aeroplane",
+            Russian => "Aeroplane",
+            SimplifiedChinese => "Aeroplane",
+            Spanish => "Aeroplane",
+            Vietnamese => "Aeroplane",
         }
     }
 

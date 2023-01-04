@@ -288,7 +288,7 @@ impl CommandTrait for Fire {
                 return Err("cannot fire while surfacing as a boat");
             }
 
-            if entity.altitude > Altitude(5) && data.sub_kind != EntitySubKind::Ekranoplan {
+            if entity.altitude > Altitude(20) && !(matches!(data.sub_kind, EntitySubKind::Ekranoplan | EntitySubKind::Aeroplane) ){
                 return Err("cannot fire while flying high (lol)");
             }
 
@@ -320,6 +320,18 @@ impl CommandTrait for Fire {
                     world.terrain.modify(TerrainMutation::simple(pos, 60.0));
                 } else {
                     return Err("cannot deposit without aim target");
+                }
+            } else if armament_entity_data.sub_kind == EntitySubKind::Mine { 
+                let player_arc = Arc::clone(player_tuple);
+
+                drop(player);
+                let mut armament_entity = Entity::new(armament.entity_type, Some(player_arc));
+
+                armament_entity.transform = armament_transform;
+                armament_entity.altitude = entity.altitude;
+                armament_entity.transform.velocity = armament_entity.transform.velocity * 0.667;
+                if !world.spawn_here_or_nearby(armament_entity, 0.0, None) {
+                    return Err("failed to fire from current location");
                 }
             } else {
                 // Fire weapon.
@@ -385,7 +397,7 @@ impl CommandTrait for Pay {
 
             // Clamp pay to range or error if too far.
             let max_range = entity.data().radii().end;
-            let cutoff_range = (max_range * 2.0).min(max_range + 60.0);
+            let cutoff_range = max_range * 4.0;
             let target =
                 clamp_to_range(entity.transform.position, target, max_range, cutoff_range)?;
 

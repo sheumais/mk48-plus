@@ -1,5 +1,6 @@
 #[derive(Copy, Clone, Debug, Eq, PartialEq, Hash)]
 pub enum EntitySubKind {
+    Aeroplane,
     Battleship,
     Carrier,
     Corvette,

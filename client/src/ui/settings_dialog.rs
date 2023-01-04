@@ -6,7 +6,7 @@ use crate::ui::UiEvent;
 use crate::Mk48Game;
 use client_util::browser_storage::BrowserStorages;
 use client_util::setting::CommonSettings;
-use core_protocol::dto::ServerDto;
+//use core_protocol::dto::ServerDto;
 use core_protocol::id::ServerId;
 use std::str::FromStr;
 use stylist::yew::styled_component;
@@ -47,7 +47,7 @@ pub fn settings_dialog() -> Html {
 
     let t = use_translation();
     let ctw = use_ctw();
-    let core_state = use_core_state();
+    //let core_state = use_core_state();
     let gctw = use_gctw::<Mk48Game>();
     let graphics_callback = gctw
         .send_ui_event_callback
@@ -157,7 +157,7 @@ pub fn settings_dialog() -> Html {
         })
     };
 
-    let selected_server_id = ctw.setting_cache.server_id;
+    //let selected_server_id = ctw.setting_cache.server_id;
     let on_select_server_id = {
         ctw.set_server_id_callback.reform(move |event: InputEvent| {
             let value = event.target_unchecked_into::<HtmlSelectElement>().value();

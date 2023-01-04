@@ -716,6 +716,10 @@ impl GameClient for Mk48Game {
                 for (i, turret) in data.turrets.iter().enumerate() {
                     if let Some(turret_type) = turret.entity_type {
                         let pos = turret.position();
+                        if turret.hidden
+                        {
+                            continue;
+                        }
                         sortable_sprites.push(SortableSprite::new_child_entity(
                             entity_id,
                             entity_type,
@@ -1620,7 +1624,7 @@ impl GameClient for Mk48Game {
     }
 }
 
-impl Mk48Game {
+impl Mk48Game { //sounds edited
     fn set_active(&mut self, active: bool, context: &Context<Self>) {
         if let Some(contact) = context.state.game.player_contact() {
             if active && contact.data().sensors.sonar.range >= 0.0 {

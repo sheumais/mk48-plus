@@ -163,13 +163,6 @@ impl World {
                         }
 
                         if !friendly {
-                            // Mines also gravitate towards boats (even submerged subs).
-                            if boats.len() == 1 && weapons.len() == 1 && weapons[0].data().sub_kind == EntitySubKind::Mine && weapons[0].is_in_proximity_to(boats[0], Entity::CLOSE_PROXIMITY) {
-                                let weapon_position = weapons[0].transform.position;
-                                let closest_point = boats[0].closest_point_on_keel_to(weapon_position, 1.0);
-                                mutate(weapons[0], Mutation::Attraction(closest_point - weapon_position, Velocity::from_mps(MINE_SPEED), boats[0].altitude - weapons[0].altitude));
-                            }
-
                             // Make sure to consider case of 2 weapons, a SAM and a missile, not
                             // just the case of a weapon/aircraft and a non-weapon/aircraft target.
                             for weapon in weapons.iter() {
@@ -192,7 +185,7 @@ impl World {
                                         // Different targets are relevant to each weapon.
                                         let relevant = match weapon_data.sub_kind {
                                             EntitySubKind::Sam => {
-                                                target_data.kind == EntityKind::Aircraft || matches!(target_data.sub_kind, EntitySubKind::Missile | EntitySubKind::Rocket | EntitySubKind::RocketTorpedo)
+                                                target_data.kind == EntityKind::Aircraft || matches!(target_data.sub_kind, EntitySubKind::Aeroplane | EntitySubKind::Missile | EntitySubKind::Rocket | EntitySubKind::RocketTorpedo)
                                             },
                                             EntitySubKind::Torpedo => {
                                                 target_data.kind == EntityKind::Boat || target_data.kind == EntityKind::Decoy
@@ -449,7 +442,7 @@ impl World {
                                         // Rams take less damage from ramming.
                                         damage *= 1.0 / data.ram_damage;
                                     }
-                                    EntitySubKind::Submarine => {
+                                    EntitySubKind::Submarine | EntitySubKind::Aeroplane => {
                                         // Subs take more damage from ramming because they are fRaGiLe.
                                         damage *= 1.5
                                     }
@@ -489,11 +482,15 @@ impl World {
                         let r2 = boat_data.radius.powi(2);
 
                         let damage_resistance = boat_data.resistance_to_subkind(weapon_data.sub_kind) * boats[0].extension().spawn_protection();
-
-                        let damage = ticks::from_damage(
+                        
+                        let mut damage = ticks::from_damage(
                             weapon_data.damage * collision_multiplier(d2, r2, boat_data.sub_kind == EntitySubKind::Submarine) * damage_resistance,
                         );
 
+                        if weapon_data.sub_kind == EntitySubKind::Sam && boat_data.sub_kind != EntitySubKind::Aeroplane {
+                            damage = ticks::from_damage(0.0);
+                        }
+                        
                         mutate(
                             boats[0],
                             Mutation::HitBy(

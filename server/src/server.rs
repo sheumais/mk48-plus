@@ -58,14 +58,14 @@ impl GameArenaService for Server {
     type PlayerExtension = PlayerExtension;
 
     /// new returns a game server with the specified parameters.
-    fn new(min_players: usize) -> Self {
+    fn new(_min_players: usize) -> Self {
         Self {
             world: World::new(4000.0),
             counter: Ticks::ZERO,
         }
     }
 
-    fn team_members_max(players: usize) -> usize {
+    fn team_members_max(_players: usize) -> usize {
         3 //edited
     }
 

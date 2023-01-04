@@ -258,11 +258,11 @@ impl World {
                             Entity::CLOSE_PROXIMITY,
                         )
                     {
-                        // Give players a fighting chance by showing mines that are attracted
+                        // Give players a fighting chance by (maybe) showing mines that are attracted
                         // towards them.
-                        uncertainty = 0.4;
+                        uncertainty += 0.4;
                     }
-
+                    
                     if uncertainty >= 1.0 {
                         // This player has no knowledge of this entity,
                         // so it is not a contact.

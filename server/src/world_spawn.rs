@@ -19,7 +19,7 @@ use std::time::Instant;
 
 impl World {
     /// Target square meters of world per square meter of player vision.
-    pub const BOAT_VISUAL_OVERLAP: f32 = 0.32;
+    // pub const BOAT_VISUAL_OVERLAP: f32 = 0.32;
     /// Target density of crates (per square meter).
     const CRATE_DENSITY: f32 = 1.0 / 30000.0;
     /// Target density of obstacles (per square meter).

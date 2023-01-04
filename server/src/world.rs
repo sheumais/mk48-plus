@@ -7,7 +7,7 @@ use crate::entity::Entity;
 use crate::noise::noise_generator;
 use crate::world_mutation::Mutation;
 use common::death_reason::DeathReason;
-use common::entity::{EntityKind, EntityType};
+//use common::entity::{EntityKind, EntityType};
 use common::terrain::Terrain;
 use common::ticks::Ticks;
 
@@ -37,16 +37,16 @@ impl World {
         self.physics_radius(delta);
         self.arena.recycle();
 
-        let total_visual_area = EntityType::iter()
-            .map(|t| {
-                let data = t.data();
-                if data.kind == EntityKind::Boat {
-                    self.arena.count(t) as f32 * data.visual_area()
-                } else {
-                    0.0
-                }
-            })
-            .sum::<f32>();
+        // let total_visual_area = EntityType::iter()
+        //     .map(|t| {
+        //         let data = t.data();
+        //         if data.kind == EntityKind::Boat {
+        //             self.arena.count(t) as f32 * data.visual_area()
+        //         } else {
+        //             0.0
+        //         }
+        //     })
+        //     .sum::<f32>();
 
         let target_radius: f32 = 4000.0; //edited
         let s = delta.to_secs();
@@ -79,15 +79,15 @@ impl World {
         (self.area() * density) as usize
     }
 
-    /// Returns the eventual size of the world, assuming it is nudged in the direction
-    /// of meeting the target visual overlap.
-    pub fn target_radius(total_visual_area: f32) -> f32 {
-        (total_visual_area * Self::BOAT_VISUAL_OVERLAP / std::f32::consts::PI)
-            .sqrt()
-            .clamp(400.0, Self::max_radius())
-    }
+    // Returns the eventual size of the world, assuming it is nudged in the direction
+    // of meeting the target visual overlap.
+    // pub fn target_radius(total_visual_area: f32) -> f32 {
+    //     (total_visual_area * Self::BOAT_VISUAL_OVERLAP / std::f32::consts::PI)
+    //         .sqrt()
+    //         .clamp(400.0, Self::max_radius())
+    // }
 
-    fn max_radius() -> f32 {
-        Entities::max_world_radius().min(Terrain::max_world_radius())
-    }
+    // fn max_radius() -> f32 {
+    //     Entities::max_world_radius().min(Terrain::max_world_radius())
+    // }
 }
