@@ -568,7 +568,7 @@ pub(crate) fn derive_entity_type(input: TokenStream) -> TokenStream {
                         damage = Some(0.2);
                     }
                     "Mine" => {
-                        damage = Some(2.25);
+                        damage = Some(2.0979 * entity.length());
                     }
                     "DepthCharge" => {
                         damage = Some(0.7);
@@ -612,7 +612,7 @@ pub(crate) fn derive_entity_type(input: TokenStream) -> TokenStream {
                         "Depositor" => 1.0,
                         "Rocket" => 2.5,
                         "RocketTorpedo" => 20.0,
-                        "Mine" => 10.0,
+                        "Mine" => 15.0,
                         "Sam" => 16.0,
                         "Missile" => map_ranges(entity.length(), 1.0..6.0, 4.0..12.0, true),
                         "Shell" => map_ranges(entity.length(), 0.25..2.0, 8.0..15.0, true),
@@ -624,7 +624,7 @@ pub(crate) fn derive_entity_type(input: TokenStream) -> TokenStream {
                             }
                             reload
                         }
-                        "DepthCharge" => 16.0,
+                        "DepthCharge" => 5.0,
                         _ => 8.0,
                     });
                 }

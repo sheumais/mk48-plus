@@ -197,19 +197,10 @@ pub fn mk48_ui(props: &PropertiesWrapper<UiProps>) -> Html {
                 </Positioner>
             }
             if !matches!(props.status, UiStatus::Playing(_)) {
-                <Positioner id="invite" position={Position::BottomLeft{margin}}>
-                    <InvitationLink/>
-                </Positioner>
-                <Positioner id="links" position={Position::BottomMiddle{margin}} flex={Flex::Row}>
-                    <RouteLink<Mk48Route> route={Mk48Route::Help}>{t.help_hint()}</RouteLink<Mk48Route>>
-                    <RouteLink<Mk48Route> route={Mk48Route::About}>{t.about_hint()}</RouteLink<Mk48Route>>
-                    <PrivacyLink/>
-                    <TermsLink/>
-                </Positioner>
                 if outbound_enabled {
                     <Positioner id="social" position={Position::BottomRight{margin}} flex={Flex::Row}>
                         <DiscordIcon/>
-                        <GithubIcon repository_link={"https://github.com/SoftbearStudios/mk48"}/>
+                        <GithubIcon repository_link={"https://github.com/Sheumais/mk48-plus"}/>
                     </Positioner>
                 }
                 if !matches!(rewarded_ad, RewardedAd::Unavailable) {

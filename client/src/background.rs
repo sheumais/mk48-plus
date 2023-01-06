@@ -499,9 +499,22 @@ fn generate_vegetation(
             let index = i + j * width;
             let v = terrain_bytes[index];
 
+            let mut tree_type = EntityType::Acacia;
+
+            let v_modulus = v.rem_euclid(3);
+
             // Trees only exist on land.
-            if v <= 10 * 16 {
+            // 160 leaves some trees floating on water, so use 161
+            if v <= 161 {
                 return None;
+            }
+            else if v > 161 && v <= 190 {tree_type = EntityType::Palm;}
+            else if v > 190 {
+                match v_modulus {
+                    0 => tree_type = EntityType::Acacia,
+                    2 => tree_type = EntityType::AverageTree,
+                    _ => tree_type = EntityType::AverageTree
+                }
             }
 
             let mut position = terrain::signed_coord_corner(x, y);
@@ -511,7 +524,9 @@ fn generate_vegetation(
             let [dx, dy, da, _] = hash.to_le_bytes();
 
             // Generate within the center of the terrain pixel.
+            // transform.position refers to physical xy space as viewed by player
             position += (vec2(dx as f32, dy as f32) - 127.5) * (terrain::SCALE * 0.5 / 255.0);
+
             let direction = Angle((da as AngleRepr) << 8);
 
             let transform = Transform {
@@ -523,7 +538,7 @@ fn generate_vegetation(
             // TODO don't use a fake EntityId.
             Some(SortableSprite::new_entity(
                 EntityId::new(u32::MAX).unwrap(),
-                EntityType::Acacia,
+                tree_type,
                 transform,
                 0.0,
                 1.0,

@@ -25,11 +25,22 @@ fn changelog_2023() -> Html { //<li>{""}</li>
         <>
             <h2>{"2023"}</h2>
 
+            <h3>{"7 Jan '23"}</h3>
+
+            <ul>
+                <li>{"Added Japanese Aircraft Carrier Kaga"}</li>
+                <li>{"Added two new trees (which took way too long because I got side tracked)"}</li>
+                <li>{"Slightly rebalanced mines and depth charges"}</li>
+                <li>{"Reduced point multiplier from 5x to 3x to more accurately assess ship balance in the real game"}</li>
+                <li>{"Added a twin gun to the Ekranoplan"}</li>
+                <li>{"Reduced Catalina's bomb count by one"}</li>
+                <li>{"Added the legendary Zudredger!"}</li>
+            </ul>
+
             <h3>{"4 Jan '23"}</h3>
 
             <ul>
                 <li>{"Added PBY Catalina as a playable aircraft"}</li>
-                
                 <li>{"Increased bounce-back when ramming terrain as Ekranoplan and Aeroplanes"}</li>
                 <li>{"Fixed Drone"}</li>
                 <li>{"Added altitude indicator to status overlay"}</li>
