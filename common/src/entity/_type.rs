@@ -228,6 +228,16 @@ pub enum EntityType {
     #[armament(Mark54, side = 1, symmetrical)]
     Seahawk,
     #[info(
+        label = "Mitsubishi A5M",
+        link = "https://en.wikipedia.org/wiki/Mitsubishi_A5M"
+    )]
+    #[entity(Aircraft, Plane, level = 7)]
+    #[size(length = 7.565, width = 11)]
+    #[props(speed = 334.7222, range = 1201000)]
+    #[sensors(visual)]
+    #[armament(Type96Bomb)]
+    Type96,
+    #[info(
         label = "Super Étendard",
         link = "https://en.wikipedia.org/wiki/Dassault-Breguet_Super_%C3%89tendard"
     )]
@@ -358,6 +368,40 @@ pub enum EntityType {
     #[exhaust(forward = 4.03893, side = -15.8169)]
     Clemenceau,
     #[info(
+        label = "Kaga",
+        link = "https://en.wikipedia.org/wiki/Clemenceau-class_aircraft_carrier"
+    )]
+    #[entity(Boat, Carrier, level = 10)]
+    #[size(length = 247.65, width = 32.5, draft = 9.48, mast = 61.5)]
+    #[props(speed = 14.4044)]
+    #[sensors(radar, visual)]
+    #[armament(Type96, forward = 54, external)]
+    #[armament(Type96, forward = 36, external)]
+    #[armament(Type96, forward = 18, external)]
+    #[armament(Type96, forward = 0, external)]
+    #[armament(Type96, forward = -18, external)]
+    #[armament(Type96, forward = -36, external)]
+    #[armament(Type96, forward = -54, external)]
+    #[armament(Type96, forward = -72, external)]
+    #[armament(Type96, forward = 45, side = 10, symmetrical, external)]
+    #[armament(Type96, forward = 27, side = 10, symmetrical, external)]
+    #[armament(Type96, forward = 9, side = 10, symmetrical, external)]
+    #[armament(Type96, forward = -9, side = 10, symmetrical, external)]
+    #[armament(Type96, forward = -27, side = 10, symmetrical, external)]
+    #[armament(Type96, forward = -45, side = 10, symmetrical, external)]
+    #[armament(Type96, forward = -63, side = 10, symmetrical, external)]
+    #[armament(Type96, forward = -81, side = 10, symmetrical, external)]
+    #[turret(_200Mm, forward = -37, side = -20, medium)]
+    #[turret(_200Mm, forward = -19.5, side = -20, medium)]
+    #[turret(_200Mm, forward = -37, side = 19, medium)]
+    #[turret(_200Mm, forward = -19.5, side = 19, medium)]
+    #[turret(_200Mm, forward = -5, side = 19, medium)]
+    #[turret(_200Mm, forward = 69.7, side = 16, medium)]
+    #[turret(_200Mm, forward = 70, side = -16.5, medium)]
+    #[turret(_200Mm, forward = 84.6, side = -15, medium)]
+    #[exhaust(forward = 35, side = -16)]
+    Kaga,
+    #[info(
         label = "Catalina",
         link = "https://en.wikipedia.org/wiki/Consolidated_PBY_Catalina"
     )]
@@ -442,6 +486,7 @@ pub enum EntityType {
     #[armament(Moskit, forward = 6, side = 1, angle = 0, symmetrical, hidden)]
     #[armament(Moskit, forward = 17, side = 1, angle = 0, symmetrical, hidden)]
     #[armament(Moskit, forward = -5.5, side = 1, angle = 0, symmetrical, hidden)]
+    #[turret(_2M3M, forward = 19, side = 1, azimuth_b = 120, symmetrical, fast)]
     Ekranoplan,
     #[info(
         label = "Essex",
@@ -1147,6 +1192,16 @@ pub enum EntityType {
     #[exhaust(forward = -22.5)]
     #[exhaust(forward = -22.5, side = 6.91, symmetrical)]
     Zubr,
+    #[info(label = "Zudredger", link = "https://en.wikipedia.org/wiki/Zubr-class_LCAC")]
+    #[entity(Boat, Hovercraft, level = 11)]
+    #[size(length = 57, width = 21.152344, draft = 1.6)]
+    #[props(speed = 28.29446)]
+    #[sensors(radar, visual)]
+    #[armament(Depositor, forward = 7, turret = 0, external)]
+    #[turret(forward = 17.5, medium)]
+    #[exhaust(forward = -22.5)]
+    #[exhaust(forward = -22.5, side = 6.91, symmetrical)]
+    Zudredger,
     #[info(
         label = "Zumwalt",
         link = "https://en.wikipedia.org/wiki/Zumwalt-class_destroyer"
@@ -1207,8 +1262,16 @@ pub enum EntityType {
     Moskit,
     #[info(label = "Acacia")]
     #[entity(Obstacle, Tree)]
-    #[size(length = 8, width = 8)]
+    #[size(length = 10, width = 10)]
     Acacia,
+    #[info(label = "Average Tree")]
+    #[entity(Obstacle, Tree)]
+    #[size(length = 12, width = 12)]
+    AverageTree,
+    #[info(label = "Palm Tree")]
+    #[entity(Obstacle, Tree)]
+    #[size(length = 14, width = 14)]
+    Palm,
     #[info(label = "HQ")]
     #[entity(Obstacle, Structure)]
     #[size(length = 90, width = 90)]
@@ -1227,6 +1290,12 @@ pub enum EntityType {
     #[offset(forward = 1.034)]
     #[armament(_127X680MmR, forward = 2, angle = 0)]
     _100Mm,
+    #[info(label = "200mm Gun")]
+    #[entity(Turret, Gun)]
+    #[size(length = 6.7, width = 4.1875)]
+    #[offset(forward = 1.034)]
+    #[armament(_200X1070MmR, forward = 2, angle = 0)]
+    _200Mm,
     #[info(
         label = "2M-3M",
         link = "http://www.navweaps.com/Weapons/WNRussian_25mm-79_2m-3.php"
@@ -1457,6 +1526,11 @@ pub enum EntityType {
     #[size(length = 0.762, width = 0.05372)]
     #[props(speed = 853, range = 1400)]
     _762X54MmR,
+    #[info(label = "200 x 1070 mmR")]
+    #[entity(Weapon, Shell)]
+    #[size(length = 1.07, width = 0.2)]
+    #[props(speed = 853, range = 10000)]
+    _200X1070MmR,
     #[info(label = "127 x 680 mmR")]
     #[entity(Weapon, Shell)]
     #[size(length = 0.68, width = 0.127)]
@@ -1759,6 +1833,14 @@ pub enum EntityType {
     #[size(length = 1.0725, width = 1.32)]
     #[props(lifespan = 300)]
     Wz0839,
+    #[info(
+        label = "Type 96 Bomb",
+        link = "https://en.wikipedia.org/wiki/Mitsubishi_A5M"
+    )]
+    #[entity(Weapon, Mine, level = 3)]
+    #[size(length = 0.5, width = 0.75)]
+    #[props(lifespan = 15)]
+    Type96Bomb,
     #[info(label = "YJ-18", link = "https://en.wikipedia.org/wiki/YJ-18")]
     #[entity(Weapon, Missile, level = 5)]
     #[size(length = 8.1, width = 4.11328)]
