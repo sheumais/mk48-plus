@@ -317,9 +317,24 @@ impl CommandTrait for Fire {
                     let pos =
                         clamp_to_range(depositor, target, DEPOSITOR_RANGE, DEPOSITOR_RANGE * 2.0)?;
 
-                    world.terrain.modify(TerrainMutation::simple(pos, 60.0));
+                    world.terrain.modify(TerrainMutation::simple(pos, 120.0));
                 } else {
                     return Err("cannot deposit without aim target");
+                }
+            } else if armament_entity_data.sub_kind == EntitySubKind::Shovel { 
+                if let Some(mut target) = aim_target {
+                    // Can't deposit in arctic.
+                    target.y = target.y.min((ARCTIC-50.0) - 2.0 * common::terrain::SCALE);
+
+                    // Clamp target is in valid range from depositor or error if too far.
+                    const DEPOSITOR_RANGE: f32 = 60.0;
+                    let shovel = armament_transform.position;
+                    let pos =
+                        clamp_to_range(shovel, target, DEPOSITOR_RANGE, DEPOSITOR_RANGE * 2.0)?;
+
+                    world.terrain.modify(TerrainMutation::simple(pos, -120.0));
+                } else {
+                    return Err("cannot shovel without aim target");
                 }
             } else if armament_entity_data.sub_kind == EntitySubKind::Mine { 
                 let player_arc = Arc::clone(player_tuple);

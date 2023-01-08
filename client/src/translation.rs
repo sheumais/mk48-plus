@@ -53,6 +53,7 @@ pub trait Mk48Translation: Sized {
                 self.entity_obstacle_structure_name()
             }
             (EntityKind::Weapon, EntitySubKind::Depositor) => self.entity_weapon_depositor_name(),
+            (EntityKind::Weapon, EntitySubKind::Shovel) => self.entity_weapon_shovel_name(),
             (EntityKind::Weapon, EntitySubKind::DepthCharge) => {
                 self.entity_weapon_depth_charge_name()
             }
@@ -141,6 +142,7 @@ pub trait Mk48Translation: Sized {
     s!(entity_decoy_sonar_name);
     s!(entity_obstacle_structure_name);
     s!(entity_weapon_depositor_name);
+    s!(entity_weapon_shovel_name);
     s!(entity_weapon_depth_charge_name);
     s!(entity_weapon_mine_name);
     s!(entity_weapon_missile_name);
@@ -1043,6 +1045,23 @@ impl Mk48Translation for LanguageId {
             SimplifiedChinese => "储户",
             Spanish => "transportadora",
             Vietnamese => "người gửi tiền",
+        }
+    }
+
+    fn entity_weapon_shovel_name(self) -> &'static str {
+        match self {
+            Arabic => "Shovel",
+            Bork => "Shovel",
+            English => "Shovel",
+            French => "Shovel",
+            German => "Shovel",
+            Hindi => "Shovel",
+            Italian => "Shovel",
+            Japanese => "Shovel",
+            Russian => "Shovel",
+            SimplifiedChinese => "Shovel",
+            Spanish => "Shovel",
+            Vietnamese => "Shovel",
         }
     }
 

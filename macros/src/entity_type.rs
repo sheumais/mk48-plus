@@ -447,7 +447,7 @@ pub(crate) fn derive_entity_type(input: TokenStream) -> TokenStream {
             *entity.speed.as_mut().unwrap() = entity.speed.unwrap().min(1000.0);
         }
 
-        if entity.range.is_some() && variant != "Depositor" {
+        if entity.range.is_some() && variant != "Depositor" && variant != "Shovel" {
             let mut max_range = 1500.0;
             let mut avg_speed = entity.speed.unwrap();
 
@@ -611,6 +611,7 @@ pub(crate) fn derive_entity_type(input: TokenStream) -> TokenStream {
                 "Weapon" => {
                     entity.reload = Some(match entity.sub_kind() {
                         "Depositor" => 1.0,
+                        "Shovel" => 1.0,
                         "Rocket" => 2.5,
                         "RocketTorpedo" => 20.0,
                         "Mine" => 15.0,
@@ -749,6 +750,8 @@ pub(crate) fn derive_entity_type(input: TokenStream) -> TokenStream {
         armaments.sort_by_key(|armament| {
             let armament_data = original_entities.get(armament._type()).unwrap();
             -match (armament_data.kind(), armament_data.sub_kind()) {
+                ("Weapon", "Depositor") => 12,
+                ("Weapon", "Shovel") => 11,
                 ("Weapon", "Torpedo") => 10,
                 ("Weapon", "Missile") => 9,
                 ("Weapon", "Rocket") | ("Weapon", "RocketTorpedo") => 8,

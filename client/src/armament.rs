@@ -42,7 +42,8 @@ impl Mk48Game {
                 // Don't limit dredger fire rate so players with bad ping can build faster.
                 // TODO fix ping reducing fire rate for all weapons.
                 if !((player_contact.reloads()[i] && fire_rate_limiter.is_ready(i as u8))
-                    || armament_entity_data.sub_kind == EntitySubKind::Depositor)
+                    || armament_entity_data.sub_kind == EntitySubKind::Depositor
+                    || armament_entity_data.sub_kind == EntitySubKind::Shovel)
                 {
                     // Recently fired, shouldn't try to fire again (server will just block).
                     continue;
@@ -71,6 +72,7 @@ impl Mk48Game {
                 if armament.vertical
                     || armament_entity_data.kind == EntityKind::Aircraft
                     || armament_entity_data.sub_kind == EntitySubKind::Depositor
+                    || armament_entity_data.sub_kind == EntitySubKind::Shovel
                     || armament_entity_data.sub_kind == EntitySubKind::DepthCharge
                     || armament_entity_data.sub_kind == EntitySubKind::Mine
                 {

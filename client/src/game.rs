@@ -938,7 +938,7 @@ impl GameClient for Mk48Game {
                                     })
                                 {
                                     let armament = &data.armaments[i];
-                                    if armament.entity_type != EntityType::Depositor {
+                                    if armament.entity_type != EntityType::Depositor || armament.entity_type != EntityType::Shovel {
                                         let transform = *contact.transform();
                                         let direction = contact.transform().direction;
                                         let color = hud_color;

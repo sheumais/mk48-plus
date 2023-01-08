@@ -29,6 +29,7 @@ pub enum EntitySubKind {
     Sam,
     Score,
     Shell,
+    Shovel,
     Sonar,
     Structure,
     Submarine,

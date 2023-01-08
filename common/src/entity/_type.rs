@@ -1208,10 +1208,12 @@ pub enum EntityType {
     #[info(label = "Zudredger", link = "https://en.wikipedia.org/wiki/Zubr-class_LCAC")]
     #[entity(Boat, Hovercraft, level = 11)]
     #[size(length = 57, width = 21.152344, draft = 1.6)]
-    #[props(speed = 28.29446)]
+    #[props(speed = 38.29446)]
     #[sensors(radar, visual)]
     #[armament(Depositor, forward = 7, turret = 0, external)]
-    #[turret(forward = 17.5, medium)]
+    #[armament(Shovel, forward = 7, turret = 1, external)]
+    #[turret(side = 3, forward = 15, medium)]
+    #[turret(side = -3, forward = 15, medium)]
     #[exhaust(forward = -22.5)]
     #[exhaust(forward = -22.5, side = 6.91, symmetrical)]
     Zudredger,
@@ -1622,6 +1624,11 @@ pub enum EntityType {
     #[size(length = 21.9, width = 5.1328)]
     #[props(range = 60)]
     Depositor,
+    #[info(label = "Shovel")]
+    #[entity(Weapon, Shovel)]
+    #[size(length = 21.9, width = 5.1328)]
+    #[props(range = 60)]
+    Shovel,
     #[info(label = "ESSM", link = "https://en.wikipedia.org/wiki/RIM-162_ESSM")]
     #[entity(Weapon, Sam, level = 4)]
     #[size(length = 3.66, width = 0.4575)]
