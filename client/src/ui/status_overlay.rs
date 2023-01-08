@@ -39,8 +39,6 @@ pub fn status_overlay(props: &StatusProps) -> Html {
                 {" "}
                 {format!("{}m", status.altitude.to_meters())}
                 {" "}
-                {format!("{:\u{00A0}>3}°\u{00A0}{:\u{00A0}<4}", status.direction.to_bearing(), format!("[{}]", status.direction.to_cardinal()))}
-                {" "}
                 {fmt_position(status.position)}
                 if let Some(fps) = props.fps {
                     {" "}

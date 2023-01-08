@@ -25,6 +25,21 @@ fn changelog_2023() -> Html { //<li>{""}</li>
         <>
             <h2>{"2023"}</h2>
 
+            <h3>{"8 Jan '23"}</h3>
+
+            <ul>
+                <li>{"Added the Spitfire"}</li>
+                <li>{"Changed Bot names to Capital Cities"}</li>
+                <li>{"SAMs now target and damage all airborne entities"}</li>
+                <li>{"Aeroplanes no-longer collide with launched airplanes/helicopters"}</li>
+                <li>{"Increased height at which non-aircraft can launch weapons"}</li>
+                <li>{"Moved Ekranoplan to level 6"}</li>
+                <li>{"Removed bearing from status overlay because it was stupid"}</li>
+                <li>{"Stopped spillover of land into arctic"}</li>
+                <li>{"Re-added speed limitations to ships"}</li>
+                <li>{"Increased noise from aeroplanes"}</li>
+            </ul>
+
             <h3>{"7 Jan '23"}</h3>
 
             <ul>
@@ -33,7 +48,6 @@ fn changelog_2023() -> Html { //<li>{""}</li>
                 <li>{"Slightly rebalanced mines and depth charges"}</li>
                 <li>{"Reduced point multiplier from 5x to 3x to more accurately assess ship balance in the real game"}</li>
                 <li>{"Added a twin gun to the Ekranoplan"}</li>
-                <li>{"Reduced Catalina's bomb count by one"}</li>
                 <li>{"Added the legendary Zudredger!"}</li>
             </ul>
 

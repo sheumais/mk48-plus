@@ -177,8 +177,8 @@ impl World {
                             EntitySubKind::Aeroplane => {
                                 entity.apply_altitude_target(
                                     terrain,
-                                    Some(common::altitude::Altitude((( (169.0 / data.speed.to_mps()) * (entity.transform.velocity.to_mps() - 25.0)).clamp(0.0, 169.0) ) as i8)),
-                                    2.0,
+                                    Some(common::altitude::Altitude((( (169.0 / data.speed.to_mps()) * (entity.transform.velocity.to_mps() - 25.0)).clamp(0.0, 250.0) ) as i8)),
+                                    4.0,
                                     delta,
                                 );
                             }
@@ -373,6 +373,10 @@ impl World {
                         };
                         entity.repair(delta * repair_amount);
                     }
+                    entity.transform.velocity = entity
+                            .transform
+                            .velocity
+                            .clamp_magnitude(Velocity::from_mps(max_speed * 3.0));
 
                     if data.sub_kind == EntitySubKind::Dredger {
                         // Dredgers excavate land they come into contact with.

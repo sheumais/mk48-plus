@@ -256,6 +256,7 @@ impl Entity {
         let other_data = other.data();
 
         if self.entity_type == EntityType::Drone || other.entity_type == EntityType::Drone {return false;} //edited
+        if (data.sub_kind == EntitySubKind::Aeroplane && other_data.kind == EntityKind::Aircraft) || (other_data.sub_kind == EntitySubKind::Aeroplane && data.kind == EntityKind::Aircraft) {return false;}
         
         if data.sub_kind == EntitySubKind::Sam || other_data.sub_kind == EntitySubKind::Sam {
             // SAMs collide if within radius, simulating their blast-fragmentation warheads.
@@ -445,7 +446,7 @@ impl Entity {
             // Entities above water should never collide with entities below water.
             return false;
         }
-        if (self.altitude.is_airborne() && self.data().sub_kind == EntitySubKind::Shell && !other.altitude.is_submerged()) || (other.altitude.is_airborne() && other.data().sub_kind == EntitySubKind::Shell && !self.altitude.is_submerged()) {
+        if (self.altitude.is_airborne() && (self.data().sub_kind == EntitySubKind::Shell || self.data().sub_kind == EntitySubKind::Rocket) && !other.altitude.is_submerged()) || (other.altitude.is_airborne() && (other.data().sub_kind == EntitySubKind::Shell || other.data().sub_kind == EntitySubKind::Rocket) && !self.altitude.is_submerged()) {
             return true;
         }
         if (self.altitude.is_airborne() && self.data().sub_kind == EntitySubKind::Aeroplane && other.altitude.is_airborne() ) || (other.altitude.is_airborne() && other.data().sub_kind == EntitySubKind::Aeroplane && self.altitude.is_airborne()) {return true;}

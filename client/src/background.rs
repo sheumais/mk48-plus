@@ -501,16 +501,16 @@ fn generate_vegetation(
 
             let mut tree_type = EntityType::Acacia;
 
-            let v_modulus = v.rem_euclid(3);
+            let modulus = hash.rem_euclid(3);
 
             // Trees only exist on land.
-            // 160 leaves some trees floating on water, so use 161
-            if v <= 161 {
+            // 160 & 161 leaves some trees floating on water, so use 162
+            if v <= 162 {
                 return None;
             }
-            else if v > 161 && v <= 190 {tree_type = EntityType::Palm;}
+            else if v <= 190 {tree_type = EntityType::Palm;}
             else if v > 190 {
-                match v_modulus {
+                match modulus {
                     0 => tree_type = EntityType::Acacia,
                     2 => tree_type = EntityType::AverageTree,
                     _ => tree_type = EntityType::AverageTree

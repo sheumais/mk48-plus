@@ -416,6 +416,19 @@ pub enum EntityType {
     #[turret(_M1919, forward = -3, slow, azimuth_b = 30, symmetrical)]
     Catalina, 
     #[info(
+        label = "Spitfire",
+        link = "https://en.wikipedia.org/wiki/Supermarine_Spitfire"
+    )]
+    #[entity(Boat, Aeroplane, level = 8)]
+    #[size(length = 18.24, width = 22.46, draft = 1.0)]
+    #[props(speed = 165)]
+    #[sensors(visual = 1100, radar = 1000)]
+    #[armament(RP3, forward = 8.5, side = 8, symmetrical)]
+    #[turret(_M1919, forward = 7, side = 8, slow, azimuth_b = 30, symmetrical)]
+    #[turret(_M1919, forward = 7, side = 6, slow, azimuth_b = 30, symmetrical)]
+    #[turret(_M1919, forward = -8, side = 2, slow, azimuth_b = 30, symmetrical)]
+    Spitfire, 
+    #[info(
         label = "Dreadnought",
         link = "https://en.wikipedia.org/wiki/HMS_Dreadnought_(1906)"
     )]
@@ -479,7 +492,7 @@ pub enum EntityType {
         label = "Ekranoplan",
         link = "https://en.wikipedia.org/wiki/Lun-class_ekranoplan"
     )]
-    #[entity(Boat, Ekranoplan, level = 8)]
+    #[entity(Boat, Ekranoplan, level = 6)]
     #[size(length = 73.8, width = 44.0, draft = 2.5)]
     #[props(speed = 152.79)]
     #[sensors(radar, visual)]
@@ -1727,6 +1740,14 @@ pub enum EntityType {
     #[size(length = 1.125, width = 0.29883)]
     #[props(speed = 200, range = 9810)]
     Of45,
+    #[info(
+        label = "RP-3",
+        link = "https://en.wikipedia.org/wiki/RP-3"
+    )]
+    #[entity(Weapon, Rocket, level = 7)]
+    #[size(length = 1.4, width = 0.08)]
+    #[props(speed = 380, range = 40000)]
+    RP3,
     #[info(
         label = "P-15 Termit",
         link = "https://en.wikipedia.org/wiki/P-15_Termit"

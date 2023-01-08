@@ -185,7 +185,7 @@ impl World {
                                         // Different targets are relevant to each weapon.
                                         let relevant = match weapon_data.sub_kind {
                                             EntitySubKind::Sam => {
-                                                target_data.kind == EntityKind::Aircraft || matches!(target_data.sub_kind, EntitySubKind::Aeroplane | EntitySubKind::Missile | EntitySubKind::Rocket | EntitySubKind::RocketTorpedo)
+                                                target.altitude.is_airborne()
                                             },
                                             EntitySubKind::Torpedo => {
                                                 target_data.kind == EntityKind::Boat || target_data.kind == EntityKind::Decoy
@@ -298,6 +298,7 @@ impl World {
                                         EntitySubKind::Heli => 2.5,
                                         // Rocket torpedoes are fast, need to drop later.
                                         EntitySubKind::RocketTorpedo => 1.1,
+                                        EntitySubKind::Mine => 1.5,
                                         _ => 1.75
                                     };
 
@@ -487,7 +488,7 @@ impl World {
                             weapon_data.damage * collision_multiplier(d2, r2, boat_data.sub_kind == EntitySubKind::Submarine) * damage_resistance,
                         );
 
-                        if weapon_data.sub_kind == EntitySubKind::Sam && boat_data.sub_kind != EntitySubKind::Aeroplane {
+                        if weapon_data.sub_kind == EntitySubKind::Sam && !boats[0].altitude.is_airborne() {
                             damage = ticks::from_damage(0.0);
                         }
                         

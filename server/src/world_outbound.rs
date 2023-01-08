@@ -208,7 +208,7 @@ impl World {
                         {
                             noise *= 2.0;
 
-                            if data.kind != EntityKind::Boat {
+                            if data.kind != EntityKind::Boat || data.sub_kind == EntitySubKind::Aeroplane {
                                 noise += 100.0;
                             } else if entity.extension().is_active()
                                 && data.sensors.sonar.range > 0.0

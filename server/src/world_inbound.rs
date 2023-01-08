@@ -288,7 +288,7 @@ impl CommandTrait for Fire {
                 return Err("cannot fire while surfacing as a boat");
             }
 
-            if entity.altitude > Altitude(20) && !(matches!(data.sub_kind, EntitySubKind::Ekranoplan | EntitySubKind::Aeroplane) ){
+            if entity.altitude > Altitude(50) && !(matches!(data.sub_kind, EntitySubKind::Aeroplane) ){
                 return Err("cannot fire while flying high (lol)");
             }
 
@@ -309,7 +309,7 @@ impl CommandTrait for Fire {
             if armament_entity_data.sub_kind == EntitySubKind::Depositor {
                 if let Some(mut target) = aim_target {
                     // Can't deposit in arctic.
-                    target.y = target.y.min(ARCTIC - 2.0 * common::terrain::SCALE);
+                    target.y = target.y.min((ARCTIC-50.0) - 2.0 * common::terrain::SCALE);
 
                     // Clamp target is in valid range from depositor or error if too far.
                     const DEPOSITOR_RANGE: f32 = 60.0;

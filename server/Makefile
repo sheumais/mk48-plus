@@ -12,7 +12,7 @@ SERVER_4 := 172.105.50.67
 all: debug_core
 
 debug_core:
-	RUST_BACKTRACE=1 cargo run -- --debug-core debug --max-bots 0 --database-read-only --http-port 8081
+	RUST_BACKTRACE=1 cargo run -- --debug-core debug --max-bots 20 --database-read-only --http-port 8081
 
 debug_bots:
 	RUST_BACKTRACE=1 cargo run --release -- --min-bots 50000 --database-read-only
