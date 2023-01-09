@@ -258,7 +258,7 @@ impl World {
     pub fn spawn_statics(&mut self, ticks: Ticks) {
         let crate_count = self.arena.count(EntityType::Crate);
         let platform_count =
-            self.arena.count(EntityType::OilPlatform) + self.arena.count(EntityType::Hq);
+            self.arena.count(EntityType::OilPlatform) + self.arena.count(EntityType::Hq) + self.arena.count(EntityType::SuperOilPlatform);
 
         self.spawn_static_amount(
             |_| Some(EntityType::Crate),
@@ -269,7 +269,9 @@ impl World {
 
         self.spawn_static_amount(
             |position| {
-                Some(if position.y >= common::world::ARCTIC + 300.0 {
+                Some(if position.y >= common::world::ARCTIC + 2250.0 {
+                    EntityType::SuperOilPlatform
+                } else if position.y > common::world::ARCTIC + 300.0 {
                     EntityType::Hq
                 } else if position.y < common::world::ARCTIC && thread_rng().gen_bool(0.2) {
                     EntityType::OilPlatform

@@ -255,9 +255,9 @@ impl Entity {
         let data = self.data();
         let other_data = other.data();
 
-        if self.entity_type == EntityType::Drone || other.entity_type == EntityType::Drone {return false;} //edited
-        if (data.sub_kind == EntitySubKind::Aeroplane && other_data.kind == EntityKind::Aircraft) || (other_data.sub_kind == EntitySubKind::Aeroplane && data.kind == EntityKind::Aircraft) {return false;}
-        
+        if self.entity_type == EntityType::Drone {return false;} //edited
+        if data.sub_kind == EntitySubKind::Aeroplane && other_data.kind == EntityKind::Aircraft {return false;}
+
         if data.sub_kind == EntitySubKind::Sam || other_data.sub_kind == EntitySubKind::Sam {
             // SAMs collide if within radius, simulating their blast-fragmentation warheads.
             radius_collision(

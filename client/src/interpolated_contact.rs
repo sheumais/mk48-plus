@@ -212,10 +212,6 @@ impl Mk48Game {
                     | EntitySubKind::Shell => "explosion",
                     _ => "splash",
                 },
-                EntityKind::Collectible => {
-                    audio_layer.play_with_volume(Audio::Collect, volume);
-                    return;
-                }
                 _ => return,
             };
 

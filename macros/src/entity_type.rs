@@ -538,9 +538,6 @@ pub(crate) fn derive_entity_type(input: TokenStream) -> TokenStream {
                 if entity.sub_kind() == "Pirate" {
                     entity.npc = false;
                 }
-                if entity.sub_kind() == "Drone" {
-                    entity.npc = false;
-                }
             }
             _ => {}
         }

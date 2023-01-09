@@ -25,6 +25,23 @@ fn changelog_2023() -> Html { //<li>{""}</li>
         <>
             <h2>{"2023"}</h2>
 
+            <h3>{"9 Jan '23"}</h3>
+            <ul>
+                <li>{"Changed status overlay and level meter"}</li>
+                <li>{"Added aeroplane sounds to the playable aeroplanes"}</li>
+                <li>{"Removed ridiculously annoying coin sound when losing contact of dropped items"}</li>
+                <li>{"Increased border radius to 5000 (from 4000)"}</li>
+                <li>{"Changed border colour for literally no reason"}</li>
+                <li>{"Changed tab title"}</li>
+                <li>{"Added Super Oil Rigs to the upper arctic (they found TONS of oil!!1!)"}</li>
+                <li>{"Gave the Kolkata one helicopter"}</li>
+                <li>{"Removed username above your own ship"}</li>
+                <li>{"Changed some things about the UI"}</li>
+                <li>{"The Spitfire can no-longer fire backwards"}</li>
+                <li>{"Gave level 1s the ability to reverse with the mouse"}</li>
+                <li>{"Deployed airplanes will now use anti-air missiles against player aeroplanes"}</li>
+            </ul>
+
             <h3>{"8 Jan '23"}</h3>
 
             <ul>
@@ -38,6 +55,7 @@ fn changelog_2023() -> Html { //<li>{""}</li>
                 <li>{"Stopped spillover of land into arctic"}</li>
                 <li>{"Re-added speed limitations to ships"}</li>
                 <li>{"Increased noise from aeroplanes"}</li>
+                <li>{"Gave Zudredger a shovel"}</li>
             </ul>
 
             <h3>{"7 Jan '23"}</h3>

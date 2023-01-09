@@ -202,6 +202,7 @@ impl World {
                         let rate: f32 = match entity.entity_type {
                             EntityType::OilPlatform => 1.0 / 4.0,
                             EntityType::Hq => 2.0 / 4.0,
+                            EntityType::SuperOilPlatform => 3.0/4.0,
                             _ => 0.0,
                         };
 

@@ -129,7 +129,7 @@ impl Mk48Game {
 
     // Level 1 ships can't reverse with mouse controls.
     fn has_reverse(player_contact: &Contact) -> bool {
-        player_contact.entity_type().unwrap().data().level > 1
+        player_contact.entity_type().unwrap().data().level > 0
     }
 
     // Right button down or left button down and time has passed.
@@ -336,7 +336,7 @@ impl GameClient for Mk48Game {
                 let friendly = context.state.core.is_friendly(contact.player_id());
                 let volume = Self::volume_at(distance);
 
-                if data.kind == EntityKind::Aircraft {
+                if data.kind == EntityKind::Aircraft || data.sub_kind == EntitySubKind::Aeroplane {
                     if matches!(entity_type, EntityType::SuperEtendard) {
                         jet_volume += volume;
                     } else {
@@ -1139,7 +1139,7 @@ impl GameClient for Mk48Game {
                             };
 
                             let c = color_bytes;
-                            if data.sub_kind != EntitySubKind::Drone { //edited
+                            if data.sub_kind != EntitySubKind::Drone && !(context.state.core.player_id.is_some() && contact.player_id() == context.state.core.player_id) { //edited
                                 layer.text.draw(
                                 &text,
                                 contact.transform().position

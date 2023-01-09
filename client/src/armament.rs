@@ -125,7 +125,7 @@ impl Mk48Game {
             view: aa_target, ..
         } in contacts.values()
         {
-            if aa_target.entity_type().map(|t| t.data().kind) != Some(EntityKind::Aircraft) {
+            if aa_target.entity_type().map(|t| t.data().kind) != Some(EntityKind::Aircraft) && aa_target.entity_type().map(|t| t.data().sub_kind) != Some(EntitySubKind::Aeroplane) {
                 // Not an aircraft.
                 continue;
             }

@@ -424,9 +424,9 @@ pub enum EntityType {
     #[props(speed = 165)]
     #[sensors(visual = 1100, radar = 1000)]
     #[armament(RP3, forward = 8.5, side = 8, symmetrical)]
-    #[turret(_M1919, forward = 7, side = 8, slow, azimuth_b = 30, symmetrical)]
-    #[turret(_M1919, forward = 7, side = 6, slow, azimuth_b = 30, symmetrical)]
-    #[turret(_M1919, forward = -8, side = 2, slow, azimuth_b = 30, symmetrical)]
+    #[turret(_M1919, forward = 7, side = 8, slow, azimuth_b = 150, symmetrical)]
+    #[turret(_M1919, forward = 7, side = 6, slow, azimuth_b = 150, symmetrical)]
+    #[turret(_M1919, forward = -8, side = 2, slow, azimuth_b = 150, symmetrical)]
     Spitfire, 
     #[info(
         label = "Dreadnought",
@@ -770,6 +770,7 @@ pub enum EntityType {
     #[armament(BrahMos, forward = 43.4, side = 1.4, count = 3, symmetrical, vertical)]
     #[armament(Barak8, forward = 37.5, side = 2, symmetrical, vertical)]
     #[armament(Barak8, forward = -36.3, side = 1.5, symmetrical, vertical)]
+    #[armament(Ka25, forward = -70, external)]
     #[turret(forward = -2.5, side = -2.5, angle = -90, medium, azimuth_b = 155)]
     #[turret(forward = -5.3, side = 2.5, angle = 90, medium, azimuth_b = 155)]
     #[turret(OtoMelara76Mm, forward = 54, fast, azimuth_b = 20)]
@@ -1299,6 +1300,13 @@ pub enum EntityType {
     #[exhaust(forward = 7, side = 21)]
     #[exhaust(forward = -23, side = 21)]
     OilPlatform,
+    #[info(label = "Super Oil Platform")]
+    #[entity(Obstacle, Structure)]
+    #[size(length = 90, width = 90)]
+    #[props(lifespan = 600)]
+    #[exhaust(forward = 7, side = 21)]
+    #[exhaust(forward = -23, side = 21)]
+    SuperOilPlatform,
     #[info(label = "100mm Gun")]
     #[entity(Turret, Gun)]
     #[size(length = 6.7, width = 4.1875)]
@@ -1622,12 +1630,12 @@ pub enum EntityType {
     #[info(label = "Depositor")]
     #[entity(Weapon, Depositor)]
     #[size(length = 21.9, width = 5.1328)]
-    #[props(range = 60)]
+    #[props(range = 60, reload = 0.5)]
     Depositor,
     #[info(label = "Shovel")]
     #[entity(Weapon, Shovel)]
     #[size(length = 21.9, width = 5.1328)]
-    #[props(range = 60)]
+    #[props(range = 60, reload = 0.5)]
     Shovel,
     #[info(label = "ESSM", link = "https://en.wikipedia.org/wiki/RIM-162_ESSM")]
     #[entity(Weapon, Sam, level = 4)]
@@ -1753,7 +1761,7 @@ pub enum EntityType {
     )]
     #[entity(Weapon, Rocket, level = 7)]
     #[size(length = 1.4, width = 0.08)]
-    #[props(speed = 380, range = 40000)]
+    #[props(speed = 380, range = 30000)]
     RP3,
     #[info(
         label = "P-15 Termit",

@@ -269,7 +269,7 @@ impl World {
                                     match target_data.kind {
                                         EntityKind::Boat => {
                                             weapon_data.armaments.iter().map(|a| a.entity_type.data().sub_kind).find(|&s| {
-                                                if s == EntitySubKind::Sam {
+                                                if s == EntitySubKind::Sam && !target.altitude.is_airborne(){
                                                     return false;
                                                 }
                                                 if s == EntitySubKind::Missile && target.altitude.is_submerged() {
@@ -298,7 +298,6 @@ impl World {
                                         EntitySubKind::Heli => 2.5,
                                         // Rocket torpedoes are fast, need to drop later.
                                         EntitySubKind::RocketTorpedo => 1.1,
-                                        EntitySubKind::Mine => 1.5,
                                         _ => 1.75
                                     };
 

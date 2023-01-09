@@ -33,11 +33,15 @@ pub fn status_overlay(props: &StatusProps) -> Html {
     html! {
         <>
             <h2 style="margin-bottom: 0.25rem; font-family: monospace, sans-serif;">
-                {t.score(props.score).replace(' ', "\u{00A0}")}
-                {" "}
+                if next_level > EntityData::MAX_BOAT_LEVEL {
+                    {t.score(props.score).replace(' ', "\u{00A0}")}
+                    {" "}
+                }
                 {format!("{:\u{00A0}>4.1}kn", status.velocity.to_knots())}
                 {" "}
                 {format!("{}m", status.altitude.to_meters())}
+                {" "}
+                {format!("{:\u{00A0}>3}°", status.direction.to_bearing())}
                 {" "}
                 {fmt_position(status.position)}
                 if let Some(fps) = props.fps {
@@ -46,7 +50,7 @@ pub fn status_overlay(props: &StatusProps) -> Html {
                 }
             </h2>
             if next_level <= EntityData::MAX_BOAT_LEVEL {
-                <Meter value={progress}>{t.upgrade_to_level_progress((progress * 100.0) as u8, next_level as u32)}</Meter>
+                <Meter value={progress}>{t.score(props.score).replace(' ', "\u{00A0}")}{" | "}{t.upgrade_to_level_progress((progress * 100.0) as u8, next_level as u32)}</Meter>
             }
         </>
     }

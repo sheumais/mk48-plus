@@ -308,7 +308,7 @@ pub fn chat_overlay(props: &ChatProps) -> Html {
                 >
                     {dto.team_name.map(|team_name| format!("[{}] {}", team_name, dto.alias)).unwrap_or(dto.alias.to_string())}
                 </span>
-                <span class={no_select_style.clone()}>{" "}</span>
+                <span class={no_select_style.clone()}>{": "}</span>
                 {segments(&dto.text, &mention_string).map(|Segment{contents, mention}| html_nested!{
                     <span class={classes!(mention.then(|| mention_style.clone()))}>{contents.to_owned()}</span>
                 }).collect::<Html>()}
