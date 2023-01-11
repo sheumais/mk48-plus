@@ -57,6 +57,7 @@ impl Transform {
             && !matches!(
                 data.sub_kind,
                 EntitySubKind::Shell
+                    | EntitySubKind::TankShell
                     | EntitySubKind::Rocket
                     | EntitySubKind::Mine
                     | EntitySubKind::DepthCharge

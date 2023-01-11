@@ -186,9 +186,13 @@ impl World {
                         return false;
                     }
                 }
+                if data.sub_kind == EntitySubKind::TankShell {
+                    return true
+                } else {
                 return entity
                     .collides_with_terrain(&self.terrain, Ticks::PERIOD_SECS)
                     .is_none();
+                }
             }
             EntityKind::Collectible | EntityKind::Aircraft => {
                 return entity.collides_with_terrain(&self.terrain, 0.0).is_none();
@@ -201,7 +205,10 @@ impl World {
                 {
                     return false;
                 }
-
+                
+                if data.sub_kind == EntitySubKind::Tank {
+                    return !entity.collides_with_terrain(&self.terrain, Ticks::PERIOD_SECS).is_none();
+                }
                 // TODO: Terrain/keel depth check.
             }
             _ => {}

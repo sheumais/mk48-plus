@@ -109,6 +109,7 @@ impl InterpolatedContact {
                     if !matches!(
                         armament_entity_data.sub_kind,
                         EntitySubKind::Shell
+                            | EntitySubKind::TankShell
                             | EntitySubKind::Rocket
                             | EntitySubKind::RocketTorpedo
                             | EntitySubKind::Missile
@@ -209,7 +210,8 @@ impl Mk48Game {
                     | EntitySubKind::Sam
                     | EntitySubKind::Rocket
                     | EntitySubKind::RocketTorpedo
-                    | EntitySubKind::Shell => "explosion",
+                    | EntitySubKind::Shell 
+                    | EntitySubKind::TankShell => "explosion",
                     _ => "splash",
                 },
                 _ => return,
@@ -303,6 +305,12 @@ impl Mk48Game {
                         }
                     }
                     EntitySubKind::Shell => {
+                        audio_layer.play_with_volume(
+                            Audio::Shell,
+                            volume * map_ranges(data.length, 0.5..1.5, 0.5..1.0, true),
+                        );
+                    }
+                    EntitySubKind::TankShell => {
                         audio_layer.play_with_volume(
                             Audio::Shell,
                             volume * map_ranges(data.length, 0.5..1.5, 0.5..1.0, true),

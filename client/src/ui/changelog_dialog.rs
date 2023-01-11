@@ -25,7 +25,24 @@ fn changelog_2023() -> Html { //<li>{""}</li>
         <>
             <h2>{"2023"}</h2>
 
+            <h3>{"11 Jan '23"}</h3>
+
+            <ul>
+                <li>{"Added the M4 Sherman Tank"}</li>
+                <li>{"Gave Mac users the ability to copy text from the chat"}</li>
+                <li>{"Changed how much noise ships make"}</li>
+                <li>{"Boats will now shoot down player Aeroplanes with their anti-air defences"}</li>
+                <li>{"Added two new death messages"}</li>
+            </ul>
+
+            <h3>{"10 Jan '23"}</h3>
+
+            <ul>
+                <li>{"Changed trail of Aeroplanes to something more suiting and unique"}</li>
+            </ul>
+
             <h3>{"9 Jan '23"}</h3>
+            
             <ul>
                 <li>{"Changed status overlay and level meter"}</li>
                 <li>{"Added aeroplane sounds to the playable aeroplanes"}</li>

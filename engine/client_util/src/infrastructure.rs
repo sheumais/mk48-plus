@@ -180,7 +180,7 @@ impl<G: GameClient> Infrastructure<G> {
                     }
 
                     // Don't block CTRL+C, CTRL+V, etc.
-                    if !(e.ctrl && matches!(e.key, Key::C | Key::F | Key::R | Key::V | Key::X)) {
+                    if !((e.ctrl || event.meta_key()) && matches!(e.key, Key::C | Key::F | Key::R | Key::V | Key::X)) {
                         event.prevent_default();
                         event.stop_propagation();
                     }

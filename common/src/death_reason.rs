@@ -15,12 +15,14 @@ pub enum DeathReason {
     // For boats and non-boats.
     Border,
     Terrain,
+    Sunk,
     Unknown, // Used by boats only for leaving game.
     // Only for boats.
     Boat(PlayerAlias),
     Obstacle(EntityType),
     Ram(PlayerAlias),
     Weapon(PlayerAlias, EntityType),
+    AntiAir(PlayerAlias),
     // Allows code to convey a reason for killing an entity that is not necessarily a player's boat.
     // In release mode, Unknown is used instead.
     #[cfg(debug_assertions)]
@@ -32,10 +34,12 @@ impl DeathReason {
     /// natural causes.
     pub fn is_due_to_player(&self) -> bool {
         match self {
+            Self::AntiAir(_) => true,
             Self::Unknown => false,
             Self::Border => false,
             Self::Landing(_) => false,
             Self::Terrain => false,
+            Self::Sunk => false,
             Self::Boat(_) => true,
             Self::Obstacle(entity_type) => {
                 // The assumption here is that all boats are controlled by players, and therefore

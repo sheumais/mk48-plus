@@ -1041,6 +1041,16 @@ pub enum EntityType {
     #[turret(OtoMelara76Mm, forward = 6.02709, fast, azimuth_b = 35)]
     Skjold,
     #[info(
+        label = "M4 Sherman",
+        link = "https://en.wikipedia.org/wiki/M4_Sherman"
+    )]
+    #[entity(Boat, Tank, level = 4)]
+    #[size(length = 5.89, width = 2.87597, draft = 1.0)]
+    #[props(speed = 9.38784, ram_damage = 3)]
+    #[sensors(visual = 600, radar = 600)]
+    #[turret(ShermanTurret, forward = -0.028703, fast)]
+    Sherman,
+    #[info(
         label = "Oil Tanker",
         link = "https://en.wikipedia.org/wiki/Oil_tanker"
     )]
@@ -1307,6 +1317,12 @@ pub enum EntityType {
     #[exhaust(forward = 7, side = 21)]
     #[exhaust(forward = -23, side = 21)]
     SuperOilPlatform,
+    #[info(label = "Sherman Turret")]
+    #[entity(Turret, Gun)]
+    #[size(length = 3.3, width = 2.2171875)]
+    #[offset(forward = 0.4)]
+    #[armament(_75X667MmR, angle = 0)]
+    ShermanTurret,
     #[info(label = "100mm Gun")]
     #[entity(Turret, Gun)]
     #[size(length = 6.7, width = 4.1875)]
@@ -1566,6 +1582,12 @@ pub enum EntityType {
     #[offset(forward = 1)]
     #[props(speed = 850, range = 75000)]
     _130X720MmR,
+    #[info(label = "75 x 667 mmR")]
+    #[entity(Weapon, TankShell)]
+    #[size(length = 0.667766, width = 0.075)]
+    #[offset(forward = 1)]
+    #[props(speed = 618.744, range = 12801.6)]
+    _75X667MmR,
     #[info(label = "25 x 129 mmR")]
     #[entity(Weapon, Shell)]
     #[size(length = 0.1295, width = 0.0254)]

@@ -22,7 +22,9 @@ pub trait Mk48Translation: Sized {
         self.death_reason_collision(&entity_type.data().label)
     }
     fn death_reason_ram(self, alias: PlayerAlias) -> String;
+    fn death_reason_aa(self, alias: PlayerAlias) -> String;
     s!(death_reason_terrain);
+    s!(death_reason_sunk);
     fn death_reason_weapon(self, alias: PlayerAlias, entity_type: EntityType) -> String;
 
     fn entity_kind_name(self, kind: EntityKind, sub_kind: EntitySubKind) -> &'static str {
@@ -45,8 +47,9 @@ pub trait Mk48Translation: Sized {
             (EntityKind::Boat, EntitySubKind::Ram) => self.entity_boat_ram_name(),
             (EntityKind::Boat, EntitySubKind::Submarine) => self.entity_boat_submarine_name(),
             (EntityKind::Boat, EntitySubKind::Tanker) => self.entity_boat_tanker_name(),
-            (EntityKind::Boat, EntitySubKind::Drone) => self.entity_boat_drone_name(), //edited
+            (EntityKind::Boat, EntitySubKind::Drone) => self.entity_boat_drone_name(),
             (EntityKind::Boat, EntitySubKind::Ekranoplan) => self.entity_boat_ekranoplan_name(),
+            (EntityKind::Boat, EntitySubKind::Tank) => self.entity_boat_tank_name(),
             (EntityKind::Boat, EntitySubKind::Aeroplane) => self.entity_boat_aeroplane_name(),
             (EntityKind::Decoy, EntitySubKind::Sonar) => self.entity_decoy_sonar_name(),
             (EntityKind::Obstacle, EntitySubKind::Structure) => {
@@ -65,6 +68,7 @@ pub trait Mk48Translation: Sized {
             (EntityKind::Weapon, EntitySubKind::Rocket) => self.entity_weapon_rocket_name(),
             (EntityKind::Weapon, EntitySubKind::Sam) => self.entity_weapon_sam_name(),
             (EntityKind::Weapon, EntitySubKind::Shell) => self.entity_weapon_shell_name(),
+            (EntityKind::Weapon, EntitySubKind::TankShell) => self.entity_weapon_tankshell_name(),
             (EntityKind::Weapon, EntitySubKind::Torpedo) => self.entity_weapon_torpedo_name(),
             _ => {
                 debug_assert!(false, "missing name for {:?}/{:?}", kind, sub_kind);
@@ -90,9 +94,10 @@ pub trait Mk48Translation: Sized {
             (EntityKind::Boat, EntitySubKind::Ram) => self.entity_boat_ram_hint(),
             (EntityKind::Boat, EntitySubKind::Submarine) => self.entity_boat_submarine_hint(),
             (EntityKind::Boat, EntitySubKind::Tanker) => self.entity_boat_tanker_hint(),
-            (EntityKind::Boat, EntitySubKind::Drone) => self.entity_boat_drone_hint(), //edited
-            (EntityKind::Boat, EntitySubKind::Ekranoplan) => self.entity_boat_ekranoplan_hint(), //edited
-            (EntityKind::Boat, EntitySubKind::Aeroplane) => self.entity_boat_aeroplane_hint(), //edited
+            (EntityKind::Boat, EntitySubKind::Drone) => self.entity_boat_drone_hint(),
+            (EntityKind::Boat, EntitySubKind::Ekranoplan) => self.entity_boat_ekranoplan_hint(),
+            (EntityKind::Boat, EntitySubKind::Tank) => self.entity_boat_tank_hint(),
+            (EntityKind::Boat, EntitySubKind::Aeroplane) => self.entity_boat_aeroplane_hint(),
             _ => {
                 debug_assert!(false, "missing hint for {:?}/{:?}", kind, sub_kind);
                 "???"
@@ -133,10 +138,12 @@ pub trait Mk48Translation: Sized {
     s!(entity_boat_submarine_name);
     s!(entity_boat_tanker_hint);
     s!(entity_boat_tanker_name);
-    s!(entity_boat_drone_name); //edited
+    s!(entity_boat_drone_name);
     s!(entity_boat_drone_hint);
     s!(entity_boat_ekranoplan_name);
     s!(entity_boat_ekranoplan_hint);
+    s!(entity_boat_tank_name);
+    s!(entity_boat_tank_hint);
     s!(entity_boat_aeroplane_name);
     s!(entity_boat_aeroplane_hint);
     s!(entity_decoy_sonar_name);
@@ -150,6 +157,7 @@ pub trait Mk48Translation: Sized {
     s!(entity_weapon_rocket_name);
     s!(entity_weapon_sam_name);
     s!(entity_weapon_shell_name);
+    s!(entity_weapon_tankshell_name);
     s!(entity_weapon_torpedo_name);
 
     s!(instruction_basics_mouse);
@@ -225,7 +233,9 @@ impl Mk48Translation for LanguageId {
             DeathReason::Border => self.death_reason_border().to_owned(),
             &DeathReason::Obstacle(entity_type) => self.death_reason_obstacle(entity_type),
             &DeathReason::Ram(alias) => self.death_reason_ram(alias),
+            &DeathReason::AntiAir(alias) => self.death_reason_aa(alias),
             DeathReason::Terrain => self.death_reason_terrain().to_owned(),
+            DeathReason::Sunk => self.death_reason_sunk().to_owned(),
             &DeathReason::Weapon(alias, entity_type) => {
                 self.death_reason_weapon(alias, entity_type)
             }
@@ -287,6 +297,23 @@ impl Mk48Translation for LanguageId {
         }
     }
 
+    fn death_reason_aa(self, alias: PlayerAlias) -> String {
+        match self {
+            Arabic => format!("Shot down by {alias}!"),
+            Bork => format!("Shot down by {alias}!"),
+            English => format!("Shot down by {alias}!"),
+            French => format!("Shot down by {alias}!"),
+            German => format!("Shot down by {alias}!"),
+            Hindi => format!("Shot down by {alias}!"),
+            Italian => format!("Shot down by {alias}!"),
+            Japanese => format!("Shot down by {alias}!"),
+            Russian => format!("Shot down by {alias}!"),
+            SimplifiedChinese => format!("Shot down by {alias}!"),
+            Spanish => format!("Shot down by {alias}!"),
+            Vietnamese => format!("Shot down by {alias}!"),
+        }
+    }
+
     fn death_reason_terrain(self) -> &'static str {
         match self {
             Arabic => "تحطمت في الأرض!",
@@ -301,6 +328,23 @@ impl Mk48Translation for LanguageId {
             SimplifiedChinese => "摔在地上!",
             Spanish => "¡Se estrelló contra el suelo!",
             Vietnamese => "Đập xuống đất!",
+        }
+    }
+
+    fn death_reason_sunk(self) -> &'static str {
+        match self {
+            Arabic => "Sunk to the bottom of the ocean!",
+            Bork => "Sunk to the bottom of the ocean!",
+            English => "Sunk to the bottom of the ocean!",
+            French => "Sunk to the bottom of the ocean!",
+            German => "Sunk to the bottom of the ocean!",
+            Hindi => "Sunk to the bottom of the ocean!",
+            Italian => "Sunk to the bottom of the ocean!",
+            Japanese => "Sunk to the bottom of the ocean!",
+            Russian => "Sunk to the bottom of the ocean!",
+            SimplifiedChinese => "Sunk to the bottom of the ocean!",
+            Spanish => "Sunk to the bottom of the ocean!",
+            Vietnamese => "Sunk to the bottom of the ocean!",
         }
     }
 
@@ -963,6 +1007,40 @@ impl Mk48Translation for LanguageId {
         }
     }
 
+    fn entity_boat_tank_hint(self) -> &'static str { //edited
+        match self {
+            Arabic => "Your tank is unable to float!",
+            Bork => "Your tank is unable to float!",
+            English => "Your tank is unable to float!",
+            French => "Your tank is unable to float!",
+            German => "Your tank is unable to float!",
+            Hindi => "Your tank is unable to float!",
+            Italian => "Your tank is unable to float!",
+            Japanese => "Your tank is unable to float!",
+            Russian => "Your tank is unable to float!",
+            SimplifiedChinese => "Your tank is unable to float!",
+            Spanish => "Your tank is unable to float!",
+            Vietnamese => "Your tank is unable to float!",
+        }
+    }
+
+    fn entity_boat_tank_name(self) -> &'static str { //edited
+        match self {
+            Arabic => "Tank",
+            Bork => "Tank",
+            English => "Tank",
+            French => "Tank",
+            German => "Tank",
+            Hindi => "Tank",
+            Italian => "Tank",
+            Japanese => "Tank",
+            Russian => "Tank",
+            SimplifiedChinese => "Tank",
+            Spanish => "Tank",
+            Vietnamese => "Tank",
+        }
+    }
+
     fn entity_boat_aeroplane_hint(self) -> &'static str { //edited
         match self {
             Arabic => "Your aeroplane can fly above everything!",
@@ -1172,6 +1250,23 @@ impl Mk48Translation for LanguageId {
             Arabic => "قذيفة",
             Bork => "destructive bork",
             English => "shell",
+            French => "obus",
+            German => "Kanone",
+            Hindi => "खोल",
+            Italian => "proiettile",
+            Japanese => "弾丸",
+            Russian => "снаряд",
+            SimplifiedChinese => "炮击",
+            Spanish => "caparazón",
+            Vietnamese => "vỏ bọc",
+        }
+    }
+
+    fn entity_weapon_tankshell_name(self) -> &'static str {
+        match self {
+            Arabic => "قذيفة",
+            Bork => "destructive bork",
+            English => "tank shell",
             French => "obus",
             German => "Kanone",
             Hindi => "खोल",

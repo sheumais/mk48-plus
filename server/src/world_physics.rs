@@ -226,6 +226,16 @@ impl World {
                 let arctic = entity.transform.position.y >= ARCTIC;
 
                 let collision = entity.collides_with_terrain(terrain, delta_seconds);
+
+                // kill tanks who touch water
+                if collision.is_none() && data.sub_kind == EntitySubKind::Tank {
+                    repair_eligible = false;
+
+                        if entity.kill_in(delta, Ticks::from_secs(4.0)) {
+                            return Some((index, Fate::Remove(DeathReason::Sunk)));
+                        }
+                }
+
                 if let Some(collision) = collision {
                     // All non-boats die instantly to terrain.
                     if data.kind != EntityKind::Boat {
@@ -235,7 +245,8 @@ impl World {
                     let immune = data.sub_kind == EntitySubKind::Hovercraft
                         || (arctic && data.sub_kind == EntitySubKind::Icebreaker)
                         || (!arctic && data.sub_kind == EntitySubKind::Dredger)
-                        || data.sub_kind == EntitySubKind::Drone; //edited
+                        || data.sub_kind == EntitySubKind::Drone
+                        || data.sub_kind == EntitySubKind::Tank;
 
                     entity.transform.velocity = {
                         let Transform {
@@ -263,7 +274,7 @@ impl World {
 
                     if !matches!(
                         data.sub_kind,
-                        EntitySubKind::Hovercraft | EntitySubKind::Dredger | EntitySubKind::Drone
+                        EntitySubKind::Hovercraft | EntitySubKind::Dredger | EntitySubKind::Drone | EntitySubKind::Tank
                     ) {
                         let is_icebreaker = arctic && data.sub_kind == EntitySubKind::Icebreaker;
                         let max_breakable = if is_icebreaker {
@@ -299,7 +310,7 @@ impl World {
                             return Some((index, Fate::Remove(DeathReason::Terrain)));
                         }
                     }
-                } else if data.kind == EntityKind::Boat && !arctic && data.sub_kind != EntitySubKind::Drone {
+                } else if data.kind == EntityKind::Boat && !arctic && data.sub_kind != EntitySubKind::Drone && data.sub_kind != EntitySubKind::Tank {
                     let below_keel = entity.altitude
                         - terrain
                             .sample(entity.transform.position)
@@ -314,10 +325,8 @@ impl World {
 
                     if below_keel < Altitude::ZERO {
                         repair_eligible = false;
-                        let mut speed_factor =
+                        let speed_factor =
                             map_ranges(below_keel.to_meters(), -5.0..0.0, 0.6..1.0, true);
-
-                            if data.sub_kind == EntitySubKind::Drone {speed_factor = 1.0;} //edited
 
                         entity.transform.velocity = entity
                             .transform

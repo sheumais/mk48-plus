@@ -218,6 +218,8 @@ impl World {
                             }
                         }
 
+                        noise *= (data.length / 100.0).max(1.0);
+
                         sonar_ratio /= noise;
 
                         // Making noise of your own reduces the performance of

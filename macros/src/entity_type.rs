@@ -434,7 +434,7 @@ pub(crate) fn derive_entity_type(input: TokenStream) -> TokenStream {
         if entity.speed.is_some() {
             match entity.kind() {
                 "Weapon" => match entity.sub_kind() {
-                    "Shell" => {
+                    "Shell" | "TankShell" => {
                         *entity.speed.as_mut().unwrap() *= 0.75;
                     }
                     _ => {}
@@ -466,6 +466,9 @@ pub(crate) fn derive_entity_type(input: TokenStream) -> TokenStream {
                     }
                     match entity.sub_kind() {
                         "Shell" => {
+                            max_range = map_ranges(entity.length(), 0.2..2.0, 250.0..850.0, true);
+                        }
+                        "TankShell" => {
                             max_range = map_ranges(entity.length(), 0.2..2.0, 250.0..850.0, true);
                         }
                         "Sam" | "Rocket" | "RocketTorpedo" | "Missile" => {
@@ -585,6 +588,10 @@ pub(crate) fn derive_entity_type(input: TokenStream) -> TokenStream {
                             damage = Some(normal);
                         }
                     }
+                    "TankShell" => {
+                        let normal = entity.length().powf(0.35);
+                        damage = Some(normal);
+                    }
                     _ => {}
                 }
             }
@@ -615,6 +622,7 @@ pub(crate) fn derive_entity_type(input: TokenStream) -> TokenStream {
                         "Sam" => 16.0,
                         "Missile" => map_ranges(entity.length(), 1.0..6.0, 4.0..12.0, true),
                         "Shell" => map_ranges(entity.length(), 0.25..2.0, 8.0..15.0, true),
+                        "TankShell" => 0.333,
                         "Torpedo" => {
                             let mut reload = 8.0;
                             if !entity.sensors.is_empty() {
@@ -759,6 +767,7 @@ pub(crate) fn derive_entity_type(input: TokenStream) -> TokenStream {
                         5
                     }
                 }
+                ("Weapon", "TankShell") => 10,
                 ("Weapon", "DepthCharge") | ("Weapon", "Mine") => 1,
                 ("Weapon", "Sam") => -5,
                 ("Decoy", _) => -8,

@@ -1189,7 +1189,7 @@ impl GameClient for Mk48Game {
                     && (data.sub_kind != EntitySubKind::Submarine
                         || contact.transform().velocity > data.cavitation_speed(contact.altitude()))
                 {
-                    if data.sub_kind == EntitySubKind::Shell {
+                    if data.sub_kind == EntitySubKind::Shell || data.sub_kind == EntitySubKind::TankShell {
                         let t = contact.transform();
                         layer.trails.add_trail(
                             entity_id,
@@ -1197,6 +1197,30 @@ impl GameClient for Mk48Game {
                             t.direction.to_vec() * t.velocity.to_mps(),
                             data.width * 2.0,
                         );
+                    } else if data.sub_kind == EntitySubKind::Aeroplane && contact.altitude().is_airborne() { //aeroplane particles on wing tips
+                        let width = 0.5*data.width;
+                        let position = contact.transform().position;
+                        let velocity = Vec2::new(0.0, 0.0);
+
+                        let position1 = position + width*tangent_vector;
+                        let position2 = position - width*tangent_vector;
+
+                        let particle1 = Mk48Particle {
+                            position: position1,
+                            velocity,
+                            radius: 1.5,
+                            color: 1.0,
+                            smoothness: 0.25,
+                        };
+                        let particle2 = Mk48Particle {
+                            position: position2,
+                            velocity,
+                            radius: 1.5,
+                            color: 1.0,
+                            smoothness: 0.25,
+                        };
+                        layer.airborne_particles.add(particle1);
+                        layer.airborne_particles.add(particle2);
                     } else {
                         let is_airborne = contact.altitude().is_airborne();
                         let spread = match (data.kind, data.sub_kind) {
@@ -1213,6 +1237,13 @@ impl GameClient for Mk48Game {
                         let end = start + direction_vector * speed * elapsed_seconds;
 
                         let factor = 1.0 / amount as f32;
+
+                        let mut color = 1.0;
+
+                        if data.sub_kind == EntitySubKind::Tank {
+                            color = 0.3;
+                        }
+
                         for i in 0..amount {
                             let r = rng.gen::<f32>() - 0.5;
 
@@ -1227,7 +1258,7 @@ impl GameClient for Mk48Game {
                                 position,
                                 velocity,
                                 radius: 1.0,
-                                color: 1.0,
+                                color,
                                 smoothness: 1.0,
                             };
 
@@ -1242,6 +1273,7 @@ impl GameClient for Mk48Game {
                         if data.kind == EntityKind::Boat
                             && data.sub_kind != EntitySubKind::Submarine
                             && contact.altitude() == Altitude::ZERO
+                            && data.sub_kind != EntitySubKind::Tank
                         {
                             for _ in 0..amount * 2 {
                                 let r = rng.gen::<f32>() - 0.6;

@@ -40,7 +40,7 @@ impl Framebuffer {
             renderer,
             background_color,
             linear_filter,
-            TextureFormat::COLOR_RGBA,
+            TextureFormat::COLOR_RGBA_STRAIGHT,
             false,
         )
     }

@@ -282,7 +282,7 @@ impl CommandTrait for Fire {
                     || matches!(armament_entity_data.kind, EntityKind::Aircraft)
                     || matches!(
                         armament_entity_data.sub_kind,
-                        EntitySubKind::Shell | EntitySubKind::Sam
+                        EntitySubKind::Shell | EntitySubKind::Sam | EntitySubKind::TankShell
                     ))
             {
                 return Err("cannot fire while surfacing as a boat");
@@ -373,7 +373,7 @@ impl CommandTrait for Fire {
                 // Some weapons experience random deviation on launch
                 let deviation = match armament_entity_data.sub_kind {
                     EntitySubKind::Rocket | EntitySubKind::RocketTorpedo => 0.05,
-                    EntitySubKind::Shell => 0.01,
+                    EntitySubKind::Shell | EntitySubKind::TankShell => 0.01,
                     _ => 0.03,
                 };
                 armament_entity.transform.direction += thread_rng().gen::<Angle>() * deviation;

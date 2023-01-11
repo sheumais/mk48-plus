@@ -435,7 +435,7 @@ impl Entity {
     /// underpowered.
     fn special_altitude_overlap(&self) -> bool {
         let data = self.data();
-        (data.sub_kind == EntitySubKind::Torpedo && !data.sensors.any()) || data.sub_kind == EntitySubKind::Mine || data.sub_kind == EntitySubKind::Shell
+        (data.sub_kind == EntitySubKind::Torpedo && !data.sensors.any()) || data.sub_kind == EntitySubKind::Mine || data.sub_kind == EntitySubKind::Shell || data.sub_kind == EntitySubKind::TankShell
     }
 
     /// Returns true if two entities are overlapping, only taking into account their altitudes.
@@ -490,7 +490,8 @@ impl Entity {
                 | EntitySubKind::Sam
                 | EntitySubKind::Rocket
                 | EntitySubKind::RocketTorpedo
-                | EntitySubKind::Shell => Altitude::MAX,
+                | EntitySubKind::Shell
+                | EntitySubKind::TankShell => Altitude::MAX,
                 _ => Altitude::ZERO,
             },
             EntityKind::Decoy => match data.sub_kind {
@@ -532,6 +533,7 @@ impl Entity {
                 EntitySubKind::DepthCharge => Altitude::MIN, // Sink to bottom.
                 EntitySubKind::Mine => -unguided_weapon_altitude,
                 EntitySubKind::Shell
+                | EntitySubKind::TankShell
                 | EntitySubKind::Rocket
                 | EntitySubKind::RocketTorpedo
                 | EntitySubKind::Missile => unguided_weapon_altitude,

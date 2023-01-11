@@ -34,6 +34,8 @@ pub enum EntitySubKind {
     Structure,
     Submarine,
     Tanker,
+    Tank,
+    TankShell,
     Torpedo,
     Tree,
 }

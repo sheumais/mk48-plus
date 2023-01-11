@@ -36,6 +36,9 @@ impl World {
                 // Enough for guidance, deploying sub-armaments, etc.
                 radius = radius.max(data.sensors.max_range());
             }
+            EntityKind::Boat => {
+                radius = radius.max(data.anti_aircraft_range());
+            }
             _ => {}
         }
 
@@ -144,6 +147,23 @@ impl World {
                     }
 
                     if !entity.collides_with(other_entity, delta_seconds) || !altitude_overlap {
+                        if boats.len() == 2 {
+                            let boat = boats[0];
+                            let other_boat = boats[1];
+                            let data = boat.data();
+                            let other_data = other_boat.data();
+
+
+                            if data.anti_aircraft > 0.0 && other_data.sub_kind == EntitySubKind::Aeroplane && other_boat.altitude.is_airborne() {
+                                let d2 = other_boat.transform.position.distance_squared(boat.transform.position);
+                                let r2 = data.anti_aircraft_range().powi(2);
+                                // In range of aa.
+                                if d2 <= r2 {
+                                    mutate(other_boat, Mutation::HitByAntiAir{other_player: Arc::clone(boat.player.as_ref().unwrap()), anti_aircraft: data.anti_aircraft});
+                                }
+                            }
+                        }
+
                         if collectibles.len() == 1 && altitude_overlap {
                             // Collectibles gravitate towards players (except if the player created them).
                             if boats.len() == 1 && (!entity.has_same_player(other_entity) || collectibles[0].ticks > Ticks::from_secs(5.0)) {

@@ -149,6 +149,10 @@ impl Mk48Game {
                 continue;
             }
 
+            if !aa_target.altitude().is_airborne() {
+                continue;
+            }
+
             let time_of_flight = Mk48Particle::LIFESPAN * 0.6;
             let mut prediction = *aa_target.transform();
             prediction.do_kinematics(time_of_flight);
