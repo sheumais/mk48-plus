@@ -71,9 +71,14 @@ pub fn ship_menu(props: &ShipMenuProps) -> Html {
     );
 
     let entity_type = props.entity.map(|(entity_type, _)| entity_type);
-    let min_level = entity_type
+    let mut min_level = entity_type
         .map(|entity_type| entity_type.data().level + 1)
         .unwrap_or(1);
+    if let Some(entity_type) = entity_type {
+        if entity_type.data().level == 4 {
+            min_level = 4;
+        }
+    }
     let max_level = score_to_level(props.score);
     let level = use_state_eq(|| max_level);
     let locker = use_state(Locker::default);

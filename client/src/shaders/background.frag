@@ -251,8 +251,8 @@ void main() {
             #endif
             sandHeight += wn.x - WAVE_HEIGHT * 0.5;
 
-            vec3 deep = mix(vec3(0, 0.0331, 0.171) * 0.82, vec3(0.0, 0.0331, 0.0763), arctic) * (mix(light, waterLight, 0.6));
-            vec3 shallow = mix(vec3(0.0331, 0.113, 0.242) * 0.9, vec3(0.0, 0.05, 0.115), arctic) * waterLight;
+            vec3 deep = mix(vec3(0.,0.02,0.141), vec3(0.,0.027,0.075), arctic) * (mix(light, waterLight, 0.6));
+            vec3 shallow = mix(vec3(0.02979, 0.1017, 0.2178), vec3(0.0, 0.05, 0.115), arctic) * waterLight;
             vec3 w = mix(deep, shallow, pow(0.005, abs(sandHeight - height))); // Deep to shallow water.
 
             vec3 waveN = normalize(cross(vec3(uDerivative, 0.0, dFdx(wn.y)), vec3(0.0, uDerivative, dFdy(wn.y))));

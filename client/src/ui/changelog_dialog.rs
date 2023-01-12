@@ -25,6 +25,19 @@ fn changelog_2023() -> Html { //<li>{""}</li>
         <>
             <h2>{"2023"}</h2>
 
+            <h3>{"13 Jan '23"}</h3>
+
+            <ul>
+                <li>{"Added a Landing Ship to compensate the Tank"}</li>
+                <li>{"Added the F-35"}</li>
+                <li>{"Reduced all aeroplane speeds by 25%"}</li>
+                <li>{"Changed Admin Chat colour to Sheumais Yellow (Patent pending)"}</li>
+                <li>{"Fixed teammates being killed by anti-air"}</li>
+                <li>{"Slightly tweaked ocean colours"}</li>
+                <li>{"Attempted to stop bots accumulating millions of points"}</li>
+                <li>{"Said a couple prayers"}</li>
+            </ul>
+
             <h3>{"11 Jan '23"}</h3>
 
             <ul>

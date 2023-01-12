@@ -17,6 +17,7 @@ pub enum EntitySubKind {
     Icebreaker,
     Gun,
     Lcs,
+    LandingShip,
     Mine,
     Minelayer,
     Missile,

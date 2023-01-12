@@ -246,7 +246,8 @@ impl World {
                         || (arctic && data.sub_kind == EntitySubKind::Icebreaker)
                         || (!arctic && data.sub_kind == EntitySubKind::Dredger)
                         || data.sub_kind == EntitySubKind::Drone
-                        || data.sub_kind == EntitySubKind::Tank;
+                        || data.sub_kind == EntitySubKind::Tank
+                        || data.sub_kind == EntitySubKind::LandingShip;
 
                     entity.transform.velocity = {
                         let Transform {
@@ -274,7 +275,7 @@ impl World {
 
                     if !matches!(
                         data.sub_kind,
-                        EntitySubKind::Hovercraft | EntitySubKind::Dredger | EntitySubKind::Drone | EntitySubKind::Tank
+                        EntitySubKind::Hovercraft | EntitySubKind::Dredger | EntitySubKind::Drone | EntitySubKind::Tank | EntitySubKind::LandingShip
                     ) {
                         let is_icebreaker = arctic && data.sub_kind == EntitySubKind::Icebreaker;
                         let max_breakable = if is_icebreaker {

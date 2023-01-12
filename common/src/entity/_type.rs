@@ -39,8 +39,10 @@ impl EntityType {
     pub fn can_upgrade_to(self, upgrade: Self, score: u32, bot: bool) -> bool {
         let data = self.data();
         let upgrade_data = upgrade.data();
-        if data.sub_kind ==  EntitySubKind::Drone {return false};
-        upgrade_data.level > data.level
+        if data.sub_kind == EntitySubKind::Drone {return false};
+        if data.sub_kind == EntitySubKind::Tank && upgrade_data.sub_kind == EntitySubKind::LandingShip {return true};
+        if data.sub_kind == EntitySubKind::LandingShip && upgrade_data.sub_kind == EntitySubKind::Tank {return true};
+        upgrade_data.level > data.level 
             && upgrade_data.kind == data.kind
             && score >= level_to_score(upgrade_data.level)
             && (bot || !upgrade_data.npc)
@@ -68,7 +70,8 @@ impl EntityType {
         bot: bool,
     ) -> impl Iterator<Item = Self> + IteratorRandom {
         // Don't iterate if not enough score for next level.
-        if score >= level_to_score(self.data().level + 1) {
+         let one = !(self.data().sub_kind == EntitySubKind::Tank || self.data().sub_kind == EntitySubKind::LandingShip) as u8;
+        if score >= level_to_score(self.data().level + one) {
             Some(Self::iter().filter(move |t| self.can_upgrade_to(*t, score, bot)))
         } else {
             None
@@ -407,7 +410,7 @@ pub enum EntityType {
     )]
     #[entity(Boat, Aeroplane, level = 5)]
     #[size(length = 19.47863, width = 32, draft = 1.0)]
-    #[props(speed = 87.4556)]
+    #[props(speed = 65.5917)]
     #[sensors(visual = 1000, radar = 500)]
     #[armament(Wz0839, forward = 2, side = 0, hidden)]
     #[armament(Wz0839, forward = 2, side = 0.5, symmetrical, hidden)]
@@ -421,13 +424,22 @@ pub enum EntityType {
     )]
     #[entity(Boat, Aeroplane, level = 8)]
     #[size(length = 18.24, width = 22.46, draft = 1.0)]
-    #[props(speed = 165)]
+    #[props(speed = 123.75)]
     #[sensors(visual = 1100, radar = 1000)]
     #[armament(RP3, forward = 8.5, side = 8, symmetrical)]
     #[turret(_M1919, forward = 7, side = 8, slow, azimuth_b = 150, symmetrical)]
     #[turret(_M1919, forward = 7, side = 6, slow, azimuth_b = 150, symmetrical)]
     #[turret(_M1919, forward = -8, side = 2, slow, azimuth_b = 150, symmetrical)]
     Spitfire, 
+    #[info(
+        label = "F-35 Lightning II",
+        link = "https://en.wikipedia.org/wiki/Lockheed_Martin_F-35_Lightning_II"
+    )]
+    #[entity(Boat, Aeroplane, level = 17)]
+    #[size(length = 15.7, width = 11, draft = 1.0)]
+    #[props(speed = 411.6)]
+    #[sensors(visual = 1100, radar = 1000)]
+    F35, 
     #[info(
         label = "Dreadnought",
         link = "https://en.wikipedia.org/wiki/HMS_Dreadnought_(1906)"
@@ -470,7 +482,7 @@ pub enum EntityType {
         link = "https://en.wikipedia.org/wiki/Drone"
     )]
     #[entity(Boat, Drone, level = 1)]
-    #[size(length = 11.1333, width = 14.0667, draft = 0.0)]
+    #[size(length = 1.11333, width = 1.40667, draft = 0.0)]
     #[props(speed = 100.0)]
     #[sensors(visual = 1000, radar = 1000, sonar = 1000)]
     Drone,
@@ -1216,6 +1228,12 @@ pub enum EntityType {
     #[exhaust(forward = -22.5)]
     #[exhaust(forward = -22.5, side = 6.91, symmetrical)]
     Zubr,
+    #[info(label = "Landing Ship, Tank", link = "https://en.wikipedia.org/wiki/Landing_Ship,_Tank")]
+    #[entity(Boat, LandingShip, level = 4)]
+    #[size(length = 33.33, width = 5.66, draft = 1.0)]
+    #[props(speed = 5.65889)]
+    #[sensors(radar, visual)]
+    Lst,
     #[info(label = "Zudredger", link = "https://en.wikipedia.org/wiki/Zubr-class_LCAC")]
     #[entity(Boat, Hovercraft, level = 11)]
     #[size(length = 57, width = 21.152344, draft = 1.6)]

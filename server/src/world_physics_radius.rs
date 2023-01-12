@@ -147,7 +147,7 @@ impl World {
                     }
 
                     if !entity.collides_with(other_entity, delta_seconds) || !altitude_overlap {
-                        if boats.len() == 2 {
+                        if boats.len() == 2 && !friendly {
                             let boat = boats[0];
                             let other_boat = boats[1];
                             let data = boat.data();
@@ -318,6 +318,7 @@ impl World {
                                         EntitySubKind::Heli => 2.5,
                                         // Rocket torpedoes are fast, need to drop later.
                                         EntitySubKind::RocketTorpedo => 1.1,
+                                        EntitySubKind::Sam => 1.25,
                                         _ => 1.75
                                     };
 

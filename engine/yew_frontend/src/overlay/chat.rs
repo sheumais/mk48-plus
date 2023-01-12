@@ -71,7 +71,7 @@ pub fn chat_overlay(props: &ChatProps) -> Html {
         r#"
         font-weight: bold;
 		white-space: nowrap;
-        color: #fffd2a;
+        color: #FFCC00;
 		text-shadow: 0px 0px 3px #381616;
 		user-select: none;
         "#

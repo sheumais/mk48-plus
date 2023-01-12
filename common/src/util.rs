@@ -64,13 +64,13 @@ pub fn respawn_score(score: u32) -> u32 {
     lose_n_levels(score, levels_to_lose)
      */
 
-    score.min(level_to_score(EntityData::MAX_BOAT_LEVEL)) * 10 / 25
+    score.min(level_to_score(11)) * 10 / 25
 }
 
 /// respawn_score returns how much score a boat gets from a kill.
 pub fn kill_score(score: u32, killer_score: u32) -> u32 {
     let raw = 10 + score / 4;
-    let killer_score = killer_score.min(level_to_score(EntityData::MAX_BOAT_LEVEL));
+    let killer_score = killer_score.min(level_to_score(11));
     if killer_score / 16 >= score {
         0
     } else if killer_score / 4 >= score {

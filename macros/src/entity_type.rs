@@ -589,7 +589,7 @@ pub(crate) fn derive_entity_type(input: TokenStream) -> TokenStream {
                         }
                     }
                     "TankShell" => {
-                        let normal = entity.length().powf(0.35);
+                        let normal = entity.length() * 2.0;
                         damage = Some(normal);
                     }
                     _ => {}
@@ -622,7 +622,7 @@ pub(crate) fn derive_entity_type(input: TokenStream) -> TokenStream {
                         "Sam" => 16.0,
                         "Missile" => map_ranges(entity.length(), 1.0..6.0, 4.0..12.0, true),
                         "Shell" => map_ranges(entity.length(), 0.25..2.0, 8.0..15.0, true),
-                        "TankShell" => 0.333,
+                        "TankShell" => 3.0,
                         "Torpedo" => {
                             let mut reload = 8.0;
                             if !entity.sensors.is_empty() {

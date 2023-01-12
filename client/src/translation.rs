@@ -39,6 +39,7 @@ pub trait Mk48Translation: Sized {
             (EntityKind::Boat, EntitySubKind::Dreadnought) => self.entity_boat_dreadnought_name(),
             (EntityKind::Boat, EntitySubKind::Dredger) => self.entity_boat_dredger_name(),
             (EntityKind::Boat, EntitySubKind::Hovercraft) => self.entity_boat_hovercraft_name(),
+            (EntityKind::Boat, EntitySubKind::LandingShip) => self.entity_boat_landingship_name(),
             (EntityKind::Boat, EntitySubKind::Icebreaker) => self.entity_boat_icebreaker_name(),
             (EntityKind::Boat, EntitySubKind::Lcs) => self.entity_boat_lcs_name(),
             (EntityKind::Boat, EntitySubKind::Minelayer) => self.entity_boat_minelayer_name(),
@@ -87,6 +88,7 @@ pub trait Mk48Translation: Sized {
             (EntityKind::Boat, EntitySubKind::Dreadnought) => self.entity_boat_dreadnought_hint(),
             (EntityKind::Boat, EntitySubKind::Dredger) => self.entity_boat_dredger_hint(),
             (EntityKind::Boat, EntitySubKind::Hovercraft) => self.entity_boat_hovercraft_hint(),
+            (EntityKind::Boat, EntitySubKind::LandingShip) => self.entity_boat_landingship_hint(),
             (EntityKind::Boat, EntitySubKind::Icebreaker) => self.entity_boat_icebreaker_hint(),
             (EntityKind::Boat, EntitySubKind::Lcs) => self.entity_boat_lcs_hint(),
             (EntityKind::Boat, EntitySubKind::Minelayer) => self.entity_boat_minelayer_hint(),
@@ -123,6 +125,8 @@ pub trait Mk48Translation: Sized {
     s!(entity_boat_dredger_name);
     s!(entity_boat_hovercraft_hint);
     s!(entity_boat_hovercraft_name);
+    s!(entity_boat_landingship_hint);
+    s!(entity_boat_landingship_name);
     s!(entity_boat_icebreaker_hint);
     s!(entity_boat_icebreaker_name);
     s!(entity_boat_lcs_hint);
@@ -669,6 +673,40 @@ impl Mk48Translation for LanguageId {
             SimplifiedChinese => "气垫船",
             Spanish => "aerodeslizador",
             Vietnamese => "thủy phi cơ",
+        }
+    }
+
+    fn entity_boat_landingship_hint(self) -> &'static str {
+        match self {
+            Arabic => "Your boat transports a tank!",
+            Bork => "Your boat transports a tank!",
+            English => "Your boat transports a tank!",
+            French => "Your boat transports a tank!",
+            German => "Your boat transports a tank!",
+            Hindi => "Your boat transports a tank!",
+            Italian => "Your boat transports a tank!",
+            Japanese => "Your boat transports a tank!",
+            Russian => "Your boat transports a tank!",
+            SimplifiedChinese => "Your boat transports a tank!",
+            Spanish => "Your boat transports a tank!",
+            Vietnamese => "Your boat transports a tank!",
+        }
+    }
+
+    fn entity_boat_landingship_name(self) -> &'static str {
+        match self {
+            Arabic => "landing ship",
+            Bork => "landing ship",
+            English => "landing ship",
+            French => "landing ship",
+            German => "landing ship",
+            Hindi => "landing ship",
+            Italian => "landing ship",
+            Japanese => "landing ship",
+            Russian => "landing ship",
+            SimplifiedChinese => "landing ship",
+            Spanish => "landing ship",
+            Vietnamese => "landing ship",
         }
     }
 
