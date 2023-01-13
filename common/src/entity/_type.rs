@@ -411,7 +411,7 @@ pub enum EntityType {
     #[entity(Boat, Aeroplane, level = 5)]
     #[size(length = 19.47863, width = 32, draft = 1.0)]
     #[props(speed = 65.5917)]
-    #[sensors(visual = 1000, radar = 500)]
+    #[sensors(visual = 600, radar = 500)]
     #[armament(Wz0839, forward = 2, side = 0, hidden)]
     #[armament(Wz0839, forward = 2, side = 0.5, symmetrical, hidden)]
     #[turret(_M1919, forward = 7, slow, azimuth_b = 30, symmetrical)]
@@ -425,7 +425,7 @@ pub enum EntityType {
     #[entity(Boat, Aeroplane, level = 8)]
     #[size(length = 18.24, width = 22.46, draft = 1.0)]
     #[props(speed = 123.75)]
-    #[sensors(visual = 1100, radar = 1000)]
+    #[sensors(visual = 800, radar = 800)]
     #[armament(RP3, forward = 8.5, side = 8, symmetrical)]
     #[turret(_M1919, forward = 7, side = 8, slow, azimuth_b = 150, symmetrical)]
     #[turret(_M1919, forward = 7, side = 6, slow, azimuth_b = 150, symmetrical)]
@@ -438,7 +438,10 @@ pub enum EntityType {
     #[entity(Boat, Aeroplane, level = 17)]
     #[size(length = 15.7, width = 11, draft = 1.0)]
     #[props(speed = 411.6)]
-    #[sensors(visual = 1100, radar = 1000)]
+    #[armament(Jagm, forward = 5, side = 3, symmetrical)]
+    #[armament(Jagm, forward = 5, side = 3, symmetrical)]
+    #[armament(Jagm, forward = 5, side = 3, symmetrical)]
+    #[sensors(visual = 800, radar = 800)]
     F35, 
     #[info(
         label = "Dreadnought",
@@ -1304,6 +1307,12 @@ pub enum EntityType {
     #[props(speed = 1027.778, range = 130000)]
     #[sensors(radar)]
     Moskit,
+    #[info(label = "AGM-179 JAGM", link = "https://en.wikipedia.org/wiki/AGM-179_JAGM")]
+    #[entity(Weapon, Missile, level = 15)]
+    #[size(length = 1.8, width = 0.18)]
+    #[props(speed = 1000, range = 8000)]
+    #[sensors(radar)]
+    Jagm,
     #[info(label = "Acacia")]
     #[entity(Obstacle, Tree)]
     #[size(length = 10, width = 10)]

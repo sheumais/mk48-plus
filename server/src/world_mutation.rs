@@ -185,14 +185,15 @@ impl Mutation {
             Self::HitByAntiAir{other_player, anti_aircraft} => {
                 let entity = &mut entities[index];
                 let e_score = entity.borrow_player().score;
-                let killer_alias = {
-                    let mut other_player = other_player.borrow_player_mut();
-                    other_player.score += kill_score(entity.borrow_player().score, e_score);
-                    let alias = other_player.alias();
-                    drop(other_player);
-                    alias
-                };
+
                 if entity.kill_in(delta, Ticks::from_secs(1.0/anti_aircraft)) {
+                    let killer_alias = {
+                        let mut other_player = other_player.borrow_player_mut();
+                        other_player.score += kill_score(entity.borrow_player().score, e_score);
+                        let alias = other_player.alias();
+                        drop(other_player);
+                        alias
+                    };    
                     world.remove(index, DeathReason::AntiAir(killer_alias))
                 }
             }
