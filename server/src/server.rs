@@ -66,7 +66,7 @@ impl GameArenaService for Server {
     }
 
     fn team_members_max(_players: usize) -> usize {
-        3 //edited
+        10 //edited
     }
 
     fn player_joined(

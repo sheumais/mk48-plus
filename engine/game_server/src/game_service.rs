@@ -55,7 +55,7 @@ pub trait GameArenaService: 'static + Unpin + Sized + Send + Sync {
 
     /// Returning zero would disable teams.
     fn team_members_max(_players_online: usize) -> usize {
-        3
+        10
     }
 
     /// Called when a player joins the game.

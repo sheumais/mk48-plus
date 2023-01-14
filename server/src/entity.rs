@@ -446,7 +446,7 @@ impl Entity {
             // Entities above water should never collide with entities below water.
             return false;
         }
-        if self.altitude.is_airborne() && !other.altitude.is_submerged() {
+        if (self.altitude.is_airborne() && (self.data().sub_kind == EntitySubKind::Shell || self.data().sub_kind == EntitySubKind::Rocket || self.data().sub_kind == EntitySubKind::Missile) && !other.altitude.is_submerged()) || (other.altitude.is_airborne() && (other.data().sub_kind == EntitySubKind::Shell || other.data().sub_kind == EntitySubKind::Rocket || self.data().sub_kind == EntitySubKind::Missile) && !self.altitude.is_submerged()) {
             return true;
         }
         if (self.altitude.is_airborne() && self.data().sub_kind == EntitySubKind::Aeroplane && other.altitude.is_airborne() ) || (other.altitude.is_airborne() && other.data().sub_kind == EntitySubKind::Aeroplane && self.altitude.is_airborne()) {return true;}

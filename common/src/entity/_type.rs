@@ -410,7 +410,7 @@ pub enum EntityType {
     )]
     #[entity(Boat, Aeroplane, level = 5)]
     #[size(length = 19.47863, width = 32, draft = 1.0)]
-    #[props(speed = 65.5917)]
+    #[props(speed = 87.4556)]
     #[sensors(visual = 600, radar = 500)]
     #[armament(Wz0839, forward = 2, side = 0, hidden)]
     #[armament(Wz0839, forward = 2, side = 0.5, symmetrical, hidden)]
@@ -424,7 +424,7 @@ pub enum EntityType {
     )]
     #[entity(Boat, Aeroplane, level = 8)]
     #[size(length = 18.24, width = 22.46, draft = 1.0)]
-    #[props(speed = 123.75)]
+    #[props(speed = 165)]
     #[sensors(visual = 800, radar = 800)]
     #[armament(RP3, forward = 8.5, side = 8, symmetrical)]
     #[turret(_M1919, forward = 7, side = 8, slow, azimuth_b = 150, symmetrical)]
@@ -435,13 +435,13 @@ pub enum EntityType {
         label = "F-35 Lightning II",
         link = "https://en.wikipedia.org/wiki/Lockheed_Martin_F-35_Lightning_II"
     )]
-    #[entity(Boat, Aeroplane, level = 17)]
+    #[entity(Boat, Aeroplane, level = 14)]
     #[size(length = 15.7, width = 11, draft = 1.0)]
     #[props(speed = 411.6)]
-    #[armament(Jagm, forward = 5, side = 3, symmetrical)]
-    #[armament(Jagm, forward = 5, side = 3, symmetrical)]
-    #[armament(Jagm, forward = 5, side = 3, symmetrical)]
-    #[sensors(visual = 800, radar = 800)]
+    #[armament(Jagm, forward = -3, side = 3, symmetrical)]
+    #[armament(Jagm, forward = -3, side = 3, symmetrical)]
+    #[armament(Jagm, forward = -3, side = 3, symmetrical)]
+    #[sensors(visual = 800, radar = 1500)]
     F35, 
     #[info(
         label = "Dreadnought",
@@ -1191,6 +1191,34 @@ pub enum EntityType {
     #[turret(Bofors57MmMk3, forward = 20, fast, azimuth_b = 30)]
     Visby,
     #[info(
+        label = "Virginia",
+        link = "https://en.wikipedia.org/wiki/Virginia-class_submarine"
+    )]
+    #[entity(Boat, Submarine, level = 10)]
+    #[size(length = 115, width = 10, draft = 11)]
+    #[props(speed = 18.0056, depth = 490, stealth = 0.65)]
+    #[sensors(radar, sonar, visual)]
+    #[armament(
+        Mark48,
+        forward = 37.7849,
+        side = 4.73435,
+        angle = 0,
+        count = 4,
+        symmetrical
+    )]
+    #[armament(
+        Mk3,
+        forward = 37.7849,
+        side = 4.73435,
+        angle = 0,
+        symmetrical,
+        hidden
+    )]
+    #[armament(Tomahawk, forward = 30.3, side = 2, angle = 0, symmetrical, vertical)]
+    #[armament(Tomahawk, forward = 23.7, side = 2, angle = 0, symmetrical, vertical)]
+    #[armament(Tomahawk, forward = 17.2, side = 2, angle = 0, symmetrical, vertical)]
+    Virginia,
+    #[info(
         label = "Yamato",
         link = "https://en.wikipedia.org/wiki/Japanese_battleship_Yamato"
     )]
@@ -1236,6 +1264,7 @@ pub enum EntityType {
     #[size(length = 33.33, width = 5.66, draft = 1.0)]
     #[props(speed = 5.65889)]
     #[sensors(radar, visual)]
+    #[turret(_2M3M, forward = 10, angle = 0, fast)]
     Lst,
     #[info(label = "Zudredger", link = "https://en.wikipedia.org/wiki/Zubr-class_LCAC")]
     #[entity(Boat, Hovercraft, level = 11)]
@@ -1301,6 +1330,14 @@ pub enum EntityType {
     #[size(length = 2.075, width = 0.29)]
     #[props(speed = 10, lifespan = 15)]
     Mk70,
+    #[info(
+        label = "Mk3 Sonobuoy Countermeasure",
+        link = "http://cmano-db.com/pdf/weapon/136/"
+    )]
+    #[entity(Decoy, Sonar, level = 5)]
+    #[size(length = 2.69, width = 0.159)]
+    #[props(speed = 15, lifespan = 30)]
+    Mk3,
     #[info(label = "P-270 Moskit", link = "https://en.wikipedia.org/wiki/P-270_Moskit")]
     #[entity(Weapon, Missile, level = 9)]
     #[size(length = 9.745, width = 0.8)]

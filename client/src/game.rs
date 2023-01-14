@@ -337,10 +337,10 @@ impl GameClient for Mk48Game {
                 let volume = Self::volume_at(distance);
 
                 if data.kind == EntityKind::Aircraft || data.sub_kind == EntitySubKind::Aeroplane {
-                    if matches!(entity_type, EntityType::SuperEtendard) {
-                        jet_volume += volume;
+                    if matches!(entity_type, EntityType::SuperEtendard | EntityType::F35) {
+                        jet_volume += 1.25 * volume;
                     } else {
-                        aircraft_volume += volume;
+                        aircraft_volume += 1.25 * volume;
                     }
                 }
 

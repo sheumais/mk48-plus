@@ -347,7 +347,7 @@ impl Bot {
             }
 
             BotAction::Some(ret)
-        } else if self.spawned_at_least_once && (rng.gen_bool(1.0 / 3.0) || update.score() > 10000) {
+        } else if self.spawned_at_least_once && (rng.gen_bool(1.0 / 3.0)) {
             // Rage quit.
             BotAction::Quit
         } else {
