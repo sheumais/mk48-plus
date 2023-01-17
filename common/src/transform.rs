@@ -64,7 +64,7 @@ impl Transform {
             )
         {
             let delta_angle = guidance.direction_target - self.direction;
-            let turn_max = Angle::from_radians(
+            let mut turn_max = Angle::from_radians(
                 (delta_seconds
                     * match data.kind {
                         // Longer boats turn slower.
@@ -79,6 +79,7 @@ impl Transform {
                     })
                 .clamp(0.0, std::f32::consts::PI),
             );
+            if data.sub_kind == EntitySubKind::Drone {turn_max = Angle::from_radians(2.0 * std::f32::consts::PI)};
             self.direction += delta_angle.clamp_magnitude(turn_max);
 
             // Allow torpedoes to make a u-turn without getting too far off track.

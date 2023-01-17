@@ -9,7 +9,7 @@ use client_util::audio::AudioPlayer;
 use client_util::context::Context;
 use common::contact::{Contact, ContactTrait};
 use common::entity::EntityId;
-use common::entity::{EntityData, EntityKind, EntitySubKind};
+use common::entity::{EntityData, EntityKind, EntitySubKind, EntityType};
 use common::ticks::Ticks;
 use common_util::angle::Angle;
 use common_util::range::map_ranges;
@@ -203,6 +203,7 @@ impl Mk48Game {
             let volume =
                 Mk48Game::volume_at(player_position.distance(contact.transform().position))
                     .min(0.25);
+            if entity_type == EntityType::Uap {return};
             let name = match entity_type.data().kind {
                 EntityKind::Boat | EntityKind::Aircraft => "splash",
                 EntityKind::Weapon => match entity_type.data().sub_kind {

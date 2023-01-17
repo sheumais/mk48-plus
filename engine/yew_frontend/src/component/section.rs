@@ -136,8 +136,8 @@ pub fn section(props: &SectionProps) -> Html {
     );
     let high_contrast = use_ctw().setting_cache.high_contrast;
 
-    const ICON_WIDTH: &'static str = "1.5rem";
-    const ICON_HEIGHT: &'static str = "1.2rem";
+    const ICON_WIDTH: &'static str = "1.875rem";
+    const ICON_HEIGHT: &'static str = "1.5rem";
 
     let mut style = String::new();
     if let Some(s) = &props.style {

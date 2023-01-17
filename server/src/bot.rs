@@ -339,7 +339,7 @@ impl Bot {
             if rng.gen_bool(self.aggression as f64) && data.level < self.level_ambition {
                 // Upgrade, if possible.
                 if let Some(entity_type) = boat_type
-                    .upgrade_options(update.score(), true)
+                    .upgrade_options(update.score(), true, false)
                     .choose(&mut rng)
                 {
                     ret = Command::Upgrade(Upgrade { entity_type });
@@ -352,7 +352,7 @@ impl Bot {
             BotAction::Quit
         } else {
             BotAction::Some(Command::Spawn(Spawn {
-                entity_type: EntityType::spawn_options(0, true)
+                entity_type: EntityType::spawn_options(0, true, false)
                     .choose(&mut rng)
                     .expect("there must be at least one entity type to spawn as"),
             }))

@@ -15,7 +15,7 @@ use yew::{
 };
 use yew_frontend::component::positioner::Position;
 use yew_frontend::component::section::{Section, SectionArrow};
-use yew_frontend::frontend::{use_rewarded_ad, RewardedAd};
+use yew_frontend::frontend::{use_rewarded_ad, RewardedAd, use_core_state};
 use yew_frontend::translation::{use_translation, Translation};
 use yew_icons::{Icon, IconId};
 
@@ -75,7 +75,7 @@ pub fn ship_menu(props: &ShipMenuProps) -> Html {
         .map(|entity_type| entity_type.data().level + 1)
         .unwrap_or(1);
     if let Some(entity_type) = entity_type {
-        if entity_type.data().level == 4 {
+        if entity_type.data().sub_kind == EntitySubKind::Tank || entity_type.data().sub_kind == EntitySubKind::LandingShip {
             min_level = 4;
         }
     }
@@ -84,6 +84,9 @@ pub fn ship_menu(props: &ShipMenuProps) -> Html {
     let locker = use_state(Locker::default);
     let t = use_translation();
     let rewarded_ad = use_rewarded_ad();
+    let core_state = use_core_state();
+    let moderator = core_state.player().map(|p| p.moderator).unwrap_or(false);
+    if moderator {min_level = 1}
 
     if min_level > max_level {
         // There are no choices now. This is possible for upgrade menu, but not spawn menu.
@@ -130,7 +133,7 @@ pub fn ship_menu(props: &ShipMenuProps) -> Html {
             "upgrade",
             t.upgrade_to_level_label(*level as u32),
             entity_type
-                .upgrade_options(props.score, false)
+                .upgrade_options(props.score, false, moderator)
                 .filter(|entity_type| entity_type.data().level == *level)
                 .collect::<Vec<_>>(),
         )
@@ -138,7 +141,7 @@ pub fn ship_menu(props: &ShipMenuProps) -> Html {
         (
             "respawn",
             t.respawn_as_level_label(*level as u32),
-            EntityType::spawn_options(props.score, false)
+            EntityType::spawn_options(props.score, false, moderator)
                 .filter(|entity_type| entity_type.data().level == *level)
                 .collect::<Vec<_>>(),
         )

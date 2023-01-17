@@ -3,7 +3,7 @@
 
 use crate::ui::UiStatusPlaying;
 use common::entity::EntityData;
-use common::util::level_to_score;
+use common::util::{level_to_score, score_to_level};
 use glam::Vec2;
 use yew::{function_component, html, Html, Properties};
 use yew_frontend::component::meter::Meter;
@@ -20,9 +20,10 @@ pub struct StatusProps {
 pub fn status_overlay(props: &StatusProps) -> Html {
     let t = use_translation();
     let status = &props.status;
-    let level = status.entity_type.data().level;
-    let next_level = level + 1;
+    let score = props.score;
+    let level = score_to_level(score);
     let level_score = level_to_score(level);
+    let next_level = level + 1;
     let next_level_score = level_to_score(next_level);
     let progress = common_util::range::map_ranges(
         props.score as f32,

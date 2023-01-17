@@ -561,7 +561,8 @@ impl Terrain {
         let normal = dim_transform.transform.direction.to_vec();
         let tangent = Vec2::new(-normal.y, normal.x);
 
-        let sweep = delta_seconds * dim_transform.transform.velocity.to_mps();
+        // abs() attempts to avoid panics
+        let sweep = delta_seconds * dim_transform.transform.velocity.to_mps().abs();
         dim_transform.dimensions.x += sweep;
         dim_transform.transform.position += normal * (sweep * 0.5);
 
@@ -597,6 +598,7 @@ impl Terrain {
         for l in -(half_length as i32)..=half_length as i32 {
             for w in -(half_width as i32)..=half_width as i32 {
                 let l = l as f32 * dx;
+                // causes panics
                 debug_assert!(l > dim_transform.dimensions.x * -0.5);
                 debug_assert!(l < dim_transform.dimensions.x * 0.5);
                 let w = w as f32 * dy;

@@ -7,7 +7,7 @@ use crate::entity::Entity;
 use crate::player::Status;
 use crate::server::Server;
 use crate::world::World;
-use common::entity::{EntityKind, EntitySubKind};
+use common::entity::{EntityKind, EntitySubKind, EntityType};
 use common::ticks::Ticks;
 use common_util::range::{map_ranges, map_ranges_fast};
 use game_server::player::PlayerTuple;
@@ -262,7 +262,11 @@ impl World {
                     {
                         // Give players a fighting chance by (maybe) showing mines that are attracted
                         // towards them.
-                        uncertainty += 0.4;
+                        uncertainty += 0.25;
+                    }
+
+                    if player_entity.is_some() && entity.entity_type == EntityType::Uap {
+                        uncertainty += 0.25;
                     }
                     
                     if uncertainty >= 1.0 {

@@ -9,7 +9,7 @@ use yew_icons::IconId;
 #[derive(PartialEq, Properties)]
 pub struct DiscordIconProps {
     /// Discord invite link (defaults to Softbear discord server).
-    #[prop_or("https://discord.gg/YMheuFQWTX".into())]
+    #[prop_or("https://softbear.com/discord/".into())]
     pub invite_link: AttrValue,
     #[prop_or("2.5rem".into())]
     pub size: AttrValue,

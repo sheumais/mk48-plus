@@ -58,7 +58,6 @@ impl LeaderboardProps {
 enum Mode {
     #[default]
     Liveboard,
-    Leaderboard(PeriodId),
 }
 
 // impl Mode { //edited
@@ -162,24 +161,6 @@ pub fn leaderboard_overlay(props: &LeaderboardProps) -> Html {
                         }
                     })
             }).collect::<Html>();
-
-            (name, items)
-        }
-        Mode::Leaderboard(period_id) => {
-            let name = (props.leaderboard_label)(t, period_id);
-
-            let items = core_state
-                .leaderboard(period_id)
-                .iter()
-                .map(|dto| {
-                    html_nested! {
-                        <tr>
-                            <td class="name">{dto.alias}</td>
-                            <td class="score">{(props.fmt_score)(dto.score)}</td>
-                        </tr>
-                    }
-                })
-                .collect::<Html>();
 
             (name, items)
         }

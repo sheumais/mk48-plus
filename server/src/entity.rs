@@ -255,7 +255,7 @@ impl Entity {
         let data = self.data();
         let other_data = other.data();
 
-        if self.entity_type == EntityType::Drone {return false;} //edited
+        if data.sub_kind == EntitySubKind::Drone {return false;} //edited
         if data.sub_kind == EntitySubKind::Aeroplane && other_data.kind == EntityKind::Aircraft {return false;}
 
         if data.sub_kind == EntitySubKind::Sam || other_data.sub_kind == EntitySubKind::Sam {
@@ -568,7 +568,7 @@ impl Entity {
 
     /// Returns true if and only if two entities are friendly i.e. same player or same team.
     pub fn is_friendly(&self, other: &Self) -> bool {
-        if self.entity_type == EntityType::Drone || other.entity_type == EntityType::Drone {return true;} //edited
+        if self.data().sub_kind == EntitySubKind::Drone || other.data().sub_kind == EntitySubKind::Drone {return true;} //edited
         self.is_friendly_to_player(other.player.as_deref())
     }
 
@@ -596,7 +596,7 @@ impl Entity {
 
     /// Returns true if and only two entities have some, identical players.
     pub fn has_same_player(&self, other: &Self) -> bool {
-        if self.player.is_none() || other.player.is_none() || self.entity_type == EntityType::Drone || other.entity_type == EntityType::Drone {
+        if self.player.is_none() || other.player.is_none() || self.data().sub_kind == EntitySubKind::Drone || other.data().sub_kind == EntitySubKind::Drone {
             return true;
         }
         self.player.as_ref().unwrap() == other.player.as_ref().unwrap()

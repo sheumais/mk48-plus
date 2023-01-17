@@ -1221,6 +1221,7 @@ impl GameClient for Mk48Game {
                         };
                         layer.airborne_particles.add(particle1);
                         layer.airborne_particles.add(particle2);
+                    } else if data.sub_kind == EntitySubKind::Drone { // no particles on drones
                     } else {
                         let is_airborne = contact.altitude().is_airborne();
                         let spread = match (data.kind, data.sub_kind) {

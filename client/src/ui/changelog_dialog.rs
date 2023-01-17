@@ -25,6 +25,23 @@ fn changelog_2023() -> Html { //<li>{""}</li>
         <>
             <h2>{"2023"}</h2>
 
+            <h3>{"18 Jan '23"}</h3>
+
+            <ul>
+                <li>{"Fixed a crash bug"}</li>
+                <li>{"Took a flight over the NW coast of Mexico"}</li>
+                <li>{"Fine-tuned the Abrams Tank"}</li>
+                <li>{"Changed the Admin Chat colour (again)"}</li>
+            </ul>
+
+            <h3>{"17 Jan '23"}</h3>
+
+            <ul>
+                <li>{"Added M1 Abrams Tank"}</li>
+                <li>{"Changed level bar to always show highest level"}</li>
+                <li>{"Changed Border"}</li>
+            </ul>
+
             <h3>{"15 Jan '23"}</h3>
 
             <ul>

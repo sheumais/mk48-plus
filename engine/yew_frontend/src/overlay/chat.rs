@@ -51,7 +51,7 @@ pub fn chat_overlay(props: &ChatProps) -> Html {
         background-color: #00000025;
         "#
     );
-    //edited
+
     let whisper_style = css!(
         r#"
 		color: #75AAFF;
@@ -72,8 +72,22 @@ pub fn chat_overlay(props: &ChatProps) -> Html {
         font-weight: bold;
 		white-space: nowrap;
         color: #FFCC00;
-		text-shadow: 0px 0px 3px #381616;
+        animation: background-pan 3s linear infinite;
+        background: linear-gradient(to right, #6200EA, #EC407A, #FFC800, #EC407A);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
 		user-select: none;
+        background-size: 200%;
+
+        @keyframes background-pan {
+            from {
+              background-position: 0% center;
+            }
+            
+            to {
+              background-position: -200% center;
+            }
+          }
         "#
     );
 

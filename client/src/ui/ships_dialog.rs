@@ -5,7 +5,7 @@ use crate::armament::{group_armaments, Group};
 use crate::translation::Mk48Translation;
 use crate::ui::sprite::Sprite;
 use common::altitude::Altitude;
-use common::entity::{EntityData, EntityKind, EntityType};
+use common::entity::{EntityData, EntityKind, EntityType, EntitySubKind};
 use common::ticks::Ticks;
 use common::velocity::Velocity;
 use core_protocol::id::LanguageId;
@@ -54,6 +54,7 @@ fn entity_card(
     html! {
         <table class={table_style.clone()}>
             <tr>
+            if data.sub_kind != EntitySubKind::Drone {
                 <td>
                     <h3>
                         {data.label.clone()}
@@ -110,7 +111,13 @@ fn entity_card(
                             <li>{"NPC only"}</li>
                         }
                     </ul>
-                </td>
+                </td>}
+                else {
+                    <td>
+                        <h3>
+                            {"???"}
+                        </h3>
+                </td>}
             </tr>
             <tr>
                 <td>

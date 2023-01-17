@@ -30,7 +30,7 @@ impl CommandTrait for Spawn {
         player_tuple: &Arc<PlayerTuple<Server>>,
     ) -> Result<(), &'static str> {
         let player = player_tuple.borrow_player();
-
+        let moderator = player.client().map(|c| c.moderator).unwrap_or(false);
         if player.data.flags.left_game {
             debug_assert!(
                 false,
@@ -43,7 +43,7 @@ impl CommandTrait for Spawn {
             return Err("cannot spawn while already alive");
         }
 
-        if !self.entity_type.can_spawn_as(player.score, player.is_bot()) {
+        if !self.entity_type.can_spawn_as(player.score, player.is_bot(), moderator) {
             return Err("cannot spawn as given entity type");
         }
 
@@ -464,12 +464,14 @@ impl CommandTrait for Upgrade {
     ) -> Result<(), &'static str> {
         let mut player = player_tuple.borrow_player_mut();
         let status = &mut player.data.status;
+        
 
         if let Status::Alive { entity_index, .. } = status {
             let entity = &mut world.entities[*entity_index];
+            let moderator = player.client().map(|c| c.moderator).unwrap_or(false);
             if !entity
                 .entity_type
-                .can_upgrade_to(self.entity_type, player.score, player.is_bot())
+                .can_upgrade_to(self.entity_type, player.score, player.is_bot(), moderator)
             {
                 return Err("cannot upgrade to provided entity type");
             }

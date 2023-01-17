@@ -28,20 +28,23 @@ impl EntityType {
 
     /// can_spawn_as returns whether it is possible to spawn as the entity type, which may depend
     /// on whether you are a bot.
-    pub fn can_spawn_as(self, score: u32, bot: bool) -> bool {
+    pub fn can_spawn_as(self, score: u32, bot: bool, moderator: bool) -> bool {
         let data = self.data();
-        if bot && data.sub_kind == EntitySubKind::Drone {return false}; //edited
+        if (bot || !moderator) && data.sub_kind == EntitySubKind::Drone {return false}; //edited
         data.kind == EntityKind::Boat && level_to_score(data.level) <= score && (bot || !data.npc)
     }
 
     /// can_upgrade_to returns whether it is possible to upgrade to the entity type, which may depend
     /// on your score and whether you are a bot.
-    pub fn can_upgrade_to(self, upgrade: Self, score: u32, bot: bool) -> bool {
+    pub fn can_upgrade_to(self, upgrade: Self, score: u32, bot: bool, moderator: bool) -> bool {
         let data = self.data();
         let upgrade_data = upgrade.data();
-        if data.sub_kind == EntitySubKind::Drone {return false};
+        if moderator && upgrade_data.kind == data.kind {return true};
+        if upgrade_data.sub_kind == EntitySubKind::Drone && !moderator {return false};
+        if self == EntityType::Lst && upgrade == EntityType::Sherman {return score < level_to_score(6) && score >= level_to_score(4)};
         if data.sub_kind == EntitySubKind::Tank && upgrade_data.sub_kind == EntitySubKind::LandingShip {return true};
         if data.sub_kind == EntitySubKind::LandingShip && upgrade_data.sub_kind == EntitySubKind::Tank {return true};
+        if data.sub_kind == EntitySubKind::LandingShip && upgrade_data.sub_kind != EntitySubKind::Tank {return false};
         upgrade_data.level > data.level 
             && upgrade_data.kind == data.kind
             && score >= level_to_score(upgrade_data.level)
@@ -57,8 +60,8 @@ impl EntityType {
 
     /// spawn_options returns an iterator that visits all spawnable entity types and allows a random
     /// choice to be made.
-    pub fn spawn_options(score: u32, bot: bool) -> impl Iterator<Item = Self> + IteratorRandom {
-        Self::iter().filter(move |t| t.can_spawn_as(score, bot))
+    pub fn spawn_options(score: u32, bot: bool, moderator: bool) -> impl Iterator<Item = Self> + IteratorRandom {
+        Self::iter().filter(move |t| t.can_spawn_as(score, bot, moderator))
     }
 
     /// upgrade_options returns an iterator that visits all entity types that may be upgraded to
@@ -68,11 +71,12 @@ impl EntityType {
         self,
         score: u32,
         bot: bool,
+        moderator: bool,
     ) -> impl Iterator<Item = Self> + IteratorRandom {
         // Don't iterate if not enough score for next level.
-         let one = !(self.data().sub_kind == EntitySubKind::Tank || self.data().sub_kind == EntitySubKind::LandingShip) as u8;
-        if score >= level_to_score(self.data().level + one) {
-            Some(Self::iter().filter(move |t| self.can_upgrade_to(*t, score, bot)))
+         
+        if score >= level_to_score(self.data().level) || (self.data().sub_kind == EntitySubKind::Tank || self.data().sub_kind == EntitySubKind::LandingShip) {
+            Some(Self::iter().filter(move |t| self.can_upgrade_to(*t, score, bot, moderator)))
         } else {
             None
         }
@@ -173,6 +177,16 @@ impl<'de> Deserialize<'de> for EntityType {
     EntityTypeData,
 )]
 pub enum EntityType {
+    #[info(
+        label = "M1 Abrams",
+        link = "https://en.wikipedia.org/wiki/M1_Abrams"
+    )]
+    #[entity(Boat, Tank, level = 6)]
+    #[size(length = 7.93, width = 3.66, draft = 1.0)]
+    #[props(speed = 13.333, ram_damage = 3)]
+    #[sensors(visual = 700, radar = 700)]
+    #[turret(AbramsTurret, fast)]
+    Abrams,
     #[info(
         label = "TBF Avenger",
         link = "https://en.wikipedia.org/wiki/Grumman_TBF_Avenger"
@@ -435,7 +449,7 @@ pub enum EntityType {
         label = "F-35 Lightning II",
         link = "https://en.wikipedia.org/wiki/Lockheed_Martin_F-35_Lightning_II"
     )]
-    #[entity(Boat, Aeroplane, level = 14)]
+    #[entity(Boat, Aeroplane, level = 12)]
     #[size(length = 15.7, width = 11, draft = 1.0)]
     #[props(speed = 411.6)]
     #[armament(Jagm, forward = -3, side = 3, symmetrical)]
@@ -1156,6 +1170,15 @@ pub enum EntityType {
     #[turret(_88CmSkc35, forward = -4.35, angle = 180, medium, azimuth_b = 20)]
     TypeViic,
     #[info(
+        label = "UAP",
+        link = "https://en.wikipedia.org/wiki/Pentagon_UFO_videos"
+    )]
+    #[entity(Boat, Drone, level = 2)]
+    #[size(length = 12, width = 7.4165, draft = 0.0)]
+    #[props(speed = 1000.0, stealth = 0.95)]
+    #[sensors(visual = 750, radar = 750, sonar = 750)]
+    Uap,
+    #[info(
         label = "Visby",
         link = "https://en.wikipedia.org/wiki/Visby-class_corvette"
     )]
@@ -1387,6 +1410,12 @@ pub enum EntityType {
     #[offset(forward = 0.4)]
     #[armament(_75X667MmR, angle = 0)]
     ShermanTurret,
+    #[info(label = "Abrams Turret")]
+    #[entity(Turret, Gun)]
+    #[size(length = 7.93, width = 2.8)]
+    #[offset(forward = 1.5)]
+    #[armament(_120X570MmR, angle = 0)]
+    AbramsTurret,
     #[info(label = "100mm Gun")]
     #[entity(Turret, Gun)]
     #[size(length = 6.7, width = 4.1875)]
@@ -1650,8 +1679,14 @@ pub enum EntityType {
     #[entity(Weapon, TankShell)]
     #[size(length = 0.667766, width = 0.075)]
     #[offset(forward = 1)]
-    #[props(speed = 618.744, range = 12801.6)]
+    #[props(speed = 618.744, range = 12000)]
     _75X667MmR,
+    #[info(label = "120 x 570 mmR")]
+    #[entity(Weapon, TankShell)]
+    #[size(length = 0.570, width = 0.120)]
+    #[offset(forward = 3)]
+    #[props(speed = 1600, range = 16000)]
+    _120X570MmR,
     #[info(label = "25 x 129 mmR")]
     #[entity(Weapon, Shell)]
     #[size(length = 0.1295, width = 0.0254)]

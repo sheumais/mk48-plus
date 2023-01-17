@@ -13,7 +13,7 @@ use stylist::yew::styled_component;
 use web_sys::{HtmlSelectElement, InputEvent};
 use yew::{html, html_nested, Html, TargetCast};
 use yew_frontend::dialog::dialog::Dialog;
-use yew_frontend::frontend::{use_core_state, use_ctw, use_gctw};
+use yew_frontend::frontend::{use_ctw, use_gctw};
 use yew_frontend::translation::{use_translation, Translation};
 
 #[styled_component(SettingsDialog)]
