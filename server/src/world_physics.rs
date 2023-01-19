@@ -182,6 +182,14 @@ impl World {
                                     delta,
                                 );
                             }
+                            EntitySubKind::Helicopter => {
+                                entity.apply_altitude_target(
+                                    terrain,
+                                    Some(common::altitude::Altitude((2.0 * entity.transform.velocity.to_mps().clamp(3.0, 250.0)) as i8)),
+                                    3.0,
+                                    delta,
+                                );
+                            }
                             _ => {entity.apply_altitude_target(
                                     terrain,
                                     Some(entity.extension().altitude_target()),
@@ -227,8 +235,8 @@ impl World {
 
                 let collision = entity.collides_with_terrain(terrain, delta_seconds);
 
-                // kill tanks who touch water
-                if collision.is_none() && data.sub_kind == EntitySubKind::Tank {
+                // kill tanks & helicopters who touch water
+                if collision.is_none() && (data.sub_kind == EntitySubKind::Tank || data.sub_kind == EntitySubKind::Helicopter) && !entity.altitude.is_airborne() {
                     repair_eligible = false;
 
                         if entity.kill_in(delta, Ticks::from_secs(4.0)) {
@@ -245,6 +253,7 @@ impl World {
                     let immune = data.sub_kind == EntitySubKind::Hovercraft
                         || (arctic && data.sub_kind == EntitySubKind::Icebreaker)
                         || (!arctic && data.sub_kind == EntitySubKind::Dredger)
+                        || data.sub_kind == EntitySubKind::Helicopter
                         || data.sub_kind == EntitySubKind::Drone
                         || data.sub_kind == EntitySubKind::Tank
                         || data.sub_kind == EntitySubKind::LandingShip;

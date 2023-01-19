@@ -49,9 +49,11 @@ pub trait Mk48Translation: Sized {
             (EntityKind::Boat, EntitySubKind::Submarine) => self.entity_boat_submarine_name(),
             (EntityKind::Boat, EntitySubKind::Tanker) => self.entity_boat_tanker_name(),
             (EntityKind::Boat, EntitySubKind::Drone) => self.entity_boat_drone_name(),
+            (EntityKind::Boat, EntitySubKind::Starship) => self.entity_boat_starship_name(),
             (EntityKind::Boat, EntitySubKind::Ekranoplan) => self.entity_boat_ekranoplan_name(),
             (EntityKind::Boat, EntitySubKind::Tank) => self.entity_boat_tank_name(),
             (EntityKind::Boat, EntitySubKind::Aeroplane) => self.entity_boat_aeroplane_name(),
+            (EntityKind::Boat, EntitySubKind::Helicopter) => self.entity_boat_helicopter_name(),
             (EntityKind::Decoy, EntitySubKind::Sonar) => self.entity_decoy_sonar_name(),
             (EntityKind::Obstacle, EntitySubKind::Structure) => {
                 self.entity_obstacle_structure_name()
@@ -70,6 +72,7 @@ pub trait Mk48Translation: Sized {
             (EntityKind::Weapon, EntitySubKind::Sam) => self.entity_weapon_sam_name(),
             (EntityKind::Weapon, EntitySubKind::Shell) => self.entity_weapon_shell_name(),
             (EntityKind::Weapon, EntitySubKind::TankShell) => self.entity_weapon_tankshell_name(),
+            (EntityKind::Weapon, EntitySubKind::Laser) => self.entity_weapon_laser_name(),
             (EntityKind::Weapon, EntitySubKind::Torpedo) => self.entity_weapon_torpedo_name(),
             _ => {
                 debug_assert!(false, "missing name for {:?}/{:?}", kind, sub_kind);
@@ -97,9 +100,11 @@ pub trait Mk48Translation: Sized {
             (EntityKind::Boat, EntitySubKind::Submarine) => self.entity_boat_submarine_hint(),
             (EntityKind::Boat, EntitySubKind::Tanker) => self.entity_boat_tanker_hint(),
             (EntityKind::Boat, EntitySubKind::Drone) => self.entity_boat_drone_hint(),
+            (EntityKind::Boat, EntitySubKind::Starship) => self.entity_boat_starship_hint(),
             (EntityKind::Boat, EntitySubKind::Ekranoplan) => self.entity_boat_ekranoplan_hint(),
             (EntityKind::Boat, EntitySubKind::Tank) => self.entity_boat_tank_hint(),
             (EntityKind::Boat, EntitySubKind::Aeroplane) => self.entity_boat_aeroplane_hint(),
+            (EntityKind::Boat, EntitySubKind::Helicopter) => self.entity_boat_helicopter_hint(),
             _ => {
                 debug_assert!(false, "missing hint for {:?}/{:?}", kind, sub_kind);
                 "???"
@@ -144,12 +149,16 @@ pub trait Mk48Translation: Sized {
     s!(entity_boat_tanker_name);
     s!(entity_boat_drone_name);
     s!(entity_boat_drone_hint);
+    s!(entity_boat_starship_name);
+    s!(entity_boat_starship_hint);
     s!(entity_boat_ekranoplan_name);
     s!(entity_boat_ekranoplan_hint);
     s!(entity_boat_tank_name);
     s!(entity_boat_tank_hint);
     s!(entity_boat_aeroplane_name);
     s!(entity_boat_aeroplane_hint);
+    s!(entity_boat_helicopter_name);
+    s!(entity_boat_helicopter_hint);
     s!(entity_decoy_sonar_name);
     s!(entity_obstacle_structure_name);
     s!(entity_weapon_depositor_name);
@@ -162,6 +171,7 @@ pub trait Mk48Translation: Sized {
     s!(entity_weapon_sam_name);
     s!(entity_weapon_shell_name);
     s!(entity_weapon_tankshell_name);
+    s!(entity_weapon_laser_name);
     s!(entity_weapon_torpedo_name);
 
     s!(instruction_basics_mouse);
@@ -977,7 +987,7 @@ impl Mk48Translation for LanguageId {
         }
     }
 
-    fn entity_boat_drone_hint(self) -> &'static str { //edited
+    fn entity_boat_drone_hint(self) -> &'static str { 
         match self {
             Arabic => "Your drone is immune to everything!",
             Bork => "Your drone is immune to everything!",
@@ -994,7 +1004,7 @@ impl Mk48Translation for LanguageId {
         }
     }
 
-    fn entity_boat_drone_name(self) -> &'static str { //edited
+    fn entity_boat_drone_name(self) -> &'static str { 
         match self {
             Arabic => "Drone",
             Bork => "Drone",
@@ -1011,7 +1021,41 @@ impl Mk48Translation for LanguageId {
         }
     }
 
-    fn entity_boat_ekranoplan_hint(self) -> &'static str { //edited
+    fn entity_boat_starship_hint(self) -> &'static str {
+        match self {
+            Arabic => "Your starship is HUGE!",
+            Bork => "Your starship is HUGE!",
+            English => "Your starship is HUGE!",
+            French => "Your starship is HUGE!",
+            German => "Your starship is HUGE!",
+            Hindi => "Your starship is HUGE!",
+            Italian => "Your starship is HUGE!",
+            Japanese => "Your starship is HUGE!",
+            Russian => "Your starship is HUGE!",
+            SimplifiedChinese => "Your starship is HUGE!",
+            Spanish => "Your starship is HUGE!",
+            Vietnamese => "Your starship is HUGE!",
+        }
+    }
+
+    fn entity_boat_starship_name(self) -> &'static str {
+        match self {
+            Arabic => "Starship",
+            Bork => "Starship",
+            English => "Starship",
+            French => "Starship",
+            German => "Starship",
+            Hindi => "Starship",
+            Italian => "Starship",
+            Japanese => "Starship",
+            Russian => "Starship",
+            SimplifiedChinese => "Starship",
+            Spanish => "Starship",
+            Vietnamese => "Starship",
+        }
+    }
+
+    fn entity_boat_ekranoplan_hint(self) -> &'static str { 
         match self {
             Arabic => "Your ekranoplan can go super fast!",
             Bork => "Your ekranoplan can go super fast!",
@@ -1028,7 +1072,7 @@ impl Mk48Translation for LanguageId {
         }
     }
 
-    fn entity_boat_ekranoplan_name(self) -> &'static str { //edited
+    fn entity_boat_ekranoplan_name(self) -> &'static str { 
         match self {
             Arabic => "Ekranoplan",
             Bork => "Ekranoplan",
@@ -1045,7 +1089,7 @@ impl Mk48Translation for LanguageId {
         }
     }
 
-    fn entity_boat_tank_hint(self) -> &'static str { //edited
+    fn entity_boat_tank_hint(self) -> &'static str { 
         match self {
             Arabic => "Your tank is unable to float!",
             Bork => "Your tank is unable to float!",
@@ -1062,7 +1106,7 @@ impl Mk48Translation for LanguageId {
         }
     }
 
-    fn entity_boat_tank_name(self) -> &'static str { //edited
+    fn entity_boat_tank_name(self) -> &'static str { 
         match self {
             Arabic => "Tank",
             Bork => "Tank",
@@ -1079,7 +1123,7 @@ impl Mk48Translation for LanguageId {
         }
     }
 
-    fn entity_boat_aeroplane_hint(self) -> &'static str { //edited
+    fn entity_boat_aeroplane_hint(self) -> &'static str { 
         match self {
             Arabic => "Your aeroplane can fly above everything!",
             Bork => "Your aeroplane can fly above everything!",
@@ -1096,7 +1140,7 @@ impl Mk48Translation for LanguageId {
         }
     }
 
-    fn entity_boat_aeroplane_name(self) -> &'static str { //edited
+    fn entity_boat_aeroplane_name(self) -> &'static str { 
         match self {
             Arabic => "Aeroplane",
             Bork => "Aeroplane",
@@ -1110,6 +1154,40 @@ impl Mk48Translation for LanguageId {
             SimplifiedChinese => "Aeroplane",
             Spanish => "Aeroplane",
             Vietnamese => "Aeroplane",
+        }
+    }
+
+    fn entity_boat_helicopter_hint(self) -> &'static str { 
+        match self {
+            Arabic => "Your helicopter lands on land and is immune to anti-air!",
+            Bork => "Your helicopter lands on land and is immune to anti-air!",
+            English => "Your helicopter lands on land and is immune to anti-air!",
+            French => "Your helicopter lands on land and is immune to anti-air!",
+            German => "Your helicopter lands on land and is immune to anti-air!",
+            Hindi => "Your helicopter lands on land and is immune to anti-air!",
+            Italian => "Your helicopter lands on land and is immune to anti-air!",
+            Japanese => "Your helicopter lands on land and is immune to anti-air!",
+            Russian => "Your helicopter lands on land and is immune to anti-air!",
+            SimplifiedChinese => "Your helicopter lands on land and is immune to anti-air!",
+            Spanish => "Your helicopter lands on land and is immune to anti-air!",
+            Vietnamese => "Your helicopter lands on land and is immune to anti-air!",
+        }
+    }
+
+    fn entity_boat_helicopter_name(self) -> &'static str { 
+        match self {
+            Arabic => "Helicopter",
+            Bork => "Helicopter",
+            English => "Helicopter",
+            French => "Helicopter",
+            German => "Helicopter",
+            Hindi => "Helicopter",
+            Italian => "Helicopter",
+            Japanese => "Helicopter",
+            Russian => "Helicopter",
+            SimplifiedChinese => "Helicopter",
+            Spanish => "Helicopter",
+            Vietnamese => "Helicopter",
         }
     }
 
@@ -1314,6 +1392,23 @@ impl Mk48Translation for LanguageId {
             SimplifiedChinese => "炮击",
             Spanish => "caparazón",
             Vietnamese => "vỏ bọc",
+        }
+    }
+
+    fn entity_weapon_laser_name(self) -> &'static str {
+        match self {
+            Arabic => "laser",
+            Bork => "laser",
+            English => "laser",
+            French =>"laser",
+            German => "laser",
+            Hindi => "laser",
+            Italian => "laser",
+            Japanese => "laser",
+            Russian => "laser",
+            SimplifiedChinese => "laser",
+            Spanish => "laser",
+            Vietnamese => "laser",
         }
     }
 

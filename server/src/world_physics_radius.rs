@@ -382,7 +382,7 @@ impl World {
                             EntityType::Barrel => 6 + 6 * is_tanker as u32,
                             EntityType::Coin => 20,
                             EntityType::Crate => 6,
-                            EntityType::Scrap => 6, //edited
+                            EntityType::Scrap => 6, 
                             _ => 0,
                         };
 

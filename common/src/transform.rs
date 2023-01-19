@@ -58,6 +58,7 @@ impl Transform {
                 data.sub_kind,
                 EntitySubKind::Shell
                     | EntitySubKind::TankShell
+                    | EntitySubKind::Laser
                     | EntitySubKind::Rocket
                     | EntitySubKind::Mine
                     | EntitySubKind::DepthCharge

@@ -54,7 +54,7 @@ fn entity_card(
     html! {
         <table class={table_style.clone()}>
             <tr>
-            if data.sub_kind != EntitySubKind::Drone {
+            if data.sub_kind != EntitySubKind::Drone && data.sub_kind != EntitySubKind::Starship {
                 <td>
                     <h3>
                         {data.label.clone()}

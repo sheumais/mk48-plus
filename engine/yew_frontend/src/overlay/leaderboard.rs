@@ -60,7 +60,7 @@ enum Mode {
     Liveboard,
 }
 
-// impl Mode { //edited
+// impl Mode { 
 //     fn next(self) -> Self {
 //         match self {
 //             Self::Liveboard => Self::Liveboard,
@@ -118,7 +118,7 @@ pub fn leaderboard_overlay(props: &LeaderboardProps) -> Html {
 
     let mode = use_state(Mode::default);
 
-    drop(SectionArrow::None); //edited
+    drop(SectionArrow::None); 
 
     let t = ctw.setting_cache.language;
     let core_state = use_core_state();
@@ -172,7 +172,7 @@ pub fn leaderboard_overlay(props: &LeaderboardProps) -> Html {
             id="leaderboard"
             {name}
             position={props.position}
-            style={props.style.clone()} //edited
+            style={props.style.clone()} 
             open={ctw.setting_cache.leaderboard_dialog_shown}
             {on_open_changed}
         >

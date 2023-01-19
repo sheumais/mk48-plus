@@ -200,7 +200,7 @@ fn main() {
                 let data: &'static EntityData = entity_type.data();
                 let aspect = data.length / data.width;
                 let width = match data.kind {
-                    EntityKind::Boat => 160.min((40.0 * aspect) as u32), //edited
+                    EntityKind::Boat => 160.min((40.0 * aspect) as u32), 
                     EntityKind::Weapon | EntityKind::Decoy | EntityKind::Aircraft => {
                         120.min((40.0 * aspect) as u32)
                     },

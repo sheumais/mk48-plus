@@ -434,7 +434,7 @@ pub(crate) fn derive_entity_type(input: TokenStream) -> TokenStream {
         if entity.speed.is_some() {
             match entity.kind() {
                 "Weapon" => match entity.sub_kind() {
-                    "Shell" | "TankShell" => {
+                    "Shell" | "TankShell" | "Laser" => {
                         *entity.speed.as_mut().unwrap() *= 0.75;
                     }
                     _ => {}
@@ -470,6 +470,9 @@ pub(crate) fn derive_entity_type(input: TokenStream) -> TokenStream {
                         }
                         "TankShell" => {
                             max_range = map_ranges(entity.length(), 0.2..2.0, 250.0..1000.0, true);
+                        }
+                        "Laser" => {
+                            max_range = 2000.0;
                         }
                         "Sam" | "Rocket" | "RocketTorpedo" | "Missile" => {
                             max_range = map_ranges(entity.length(), 1.0..10.0, 500.0..1200.0, true);
@@ -515,7 +518,7 @@ pub(crate) fn derive_entity_type(input: TokenStream) -> TokenStream {
             }
             "Boat" => {
                 match entity.sub_kind() {
-                    "Dredger" | "Submarine" | "Tanker" | "Drone" | "Aeroplane" => {}
+                    "Dredger" | "Submarine" | "Tanker" | "Drone" | "Aeroplane" | "Helicopter" => {}
                     _ => {
                         entity.anti_aircraft =
                             map_ranges(entity.length(), 30.0..300.0, 0.1..0.5, true);
@@ -593,6 +596,9 @@ pub(crate) fn derive_entity_type(input: TokenStream) -> TokenStream {
                         let normal = entity.length() * 20.0 * entity.width();
                         damage = Some(normal);
                     }
+                    "Laser" => {
+                        damage = Some(2.0);
+                    }
                     _ => {}
                 }
             }
@@ -624,6 +630,7 @@ pub(crate) fn derive_entity_type(input: TokenStream) -> TokenStream {
                         "Missile" => map_ranges(entity.length(), 1.0..6.0, 4.0..12.0, true),
                         "Shell" => map_ranges(entity.length(), 0.25..2.0, 8.0..15.0, true),
                         "TankShell" => 2.0,
+                        "Laser" => 5.0,
                         "Torpedo" => {
                             let mut reload = 8.0;
                             if !entity.sensors.is_empty() {
@@ -769,6 +776,7 @@ pub(crate) fn derive_entity_type(input: TokenStream) -> TokenStream {
                     }
                 }
                 ("Weapon", "TankShell") => 10,
+                ("Weapon", "Laser") => 10,
                 ("Weapon", "DepthCharge") | ("Weapon", "Mine") => 1,
                 ("Weapon", "Sam") => -5,
                 ("Decoy", _) => -8,

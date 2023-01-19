@@ -126,7 +126,7 @@ impl EntityData {
         let weapon_data = armament.entity_type.data();
 
         // Shells start with all their velocity.
-        if weapon_data.sub_kind == EntitySubKind::Shell || weapon_data.sub_kind == EntitySubKind::TankShell {
+        if weapon_data.sub_kind == EntitySubKind::Shell || weapon_data.sub_kind == EntitySubKind::TankShell || weapon_data.sub_kind == EntitySubKind::Laser{
             transform.velocity = weapon_data.speed
         } else if weapon_data.sub_kind == EntitySubKind::Plane {
             // Planes must attain minimum airspeed.

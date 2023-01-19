@@ -100,7 +100,7 @@ pub fn spawn_overlay(props: &DialogProps) -> Html {
             box-shadow: none;
         }
     "#
-    ); //edited
+    ); 
 
     let t = use_translation();
     let (paused, transitioning, onanimationend) = use_splash_screen();

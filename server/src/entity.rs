@@ -255,7 +255,7 @@ impl Entity {
         let data = self.data();
         let other_data = other.data();
 
-        if data.sub_kind == EntitySubKind::Drone {return false;} //edited
+        if data.sub_kind == EntitySubKind::Drone {return false;} 
         if data.sub_kind == EntitySubKind::Aeroplane && other_data.kind == EntityKind::Aircraft {return false;}
 
         if data.sub_kind == EntitySubKind::Sam || other_data.sub_kind == EntitySubKind::Sam {
@@ -435,7 +435,7 @@ impl Entity {
     /// underpowered.
     fn special_altitude_overlap(&self) -> bool {
         let data = self.data();
-        (data.sub_kind == EntitySubKind::Torpedo && !data.sensors.any()) || data.sub_kind == EntitySubKind::Mine || data.sub_kind == EntitySubKind::Shell || data.sub_kind == EntitySubKind::TankShell
+        (data.sub_kind == EntitySubKind::Torpedo && !data.sensors.any()) || data.sub_kind == EntitySubKind::Mine || data.sub_kind == EntitySubKind::Shell || data.sub_kind == EntitySubKind::TankShell || data.sub_kind == EntitySubKind::Laser
     }
 
     /// Returns true if two entities are overlapping, only taking into account their altitudes.
@@ -446,7 +446,7 @@ impl Entity {
             // Entities above water should never collide with entities below water.
             return false;
         }
-        if (self.altitude.is_airborne() && (self.data().sub_kind == EntitySubKind::Shell || self.data().sub_kind == EntitySubKind::Rocket || self.data().sub_kind == EntitySubKind::Missile) && !other.altitude.is_submerged()) || (other.altitude.is_airborne() && (other.data().sub_kind == EntitySubKind::Shell || other.data().sub_kind == EntitySubKind::Rocket || self.data().sub_kind == EntitySubKind::Missile) && !self.altitude.is_submerged()) {
+        if (self.altitude.is_airborne() && (self.data().sub_kind == EntitySubKind::Shell || self.data().sub_kind == EntitySubKind::Rocket || self.data().sub_kind == EntitySubKind::Missile || self.data().sub_kind == EntitySubKind::Laser) && !other.altitude.is_submerged()) || (other.altitude.is_airborne() && (other.data().sub_kind == EntitySubKind::Shell || other.data().sub_kind == EntitySubKind::Rocket || other.data().sub_kind == EntitySubKind::Missile || other.data().sub_kind == EntitySubKind::Laser) && !self.altitude.is_submerged()) {
             return true;
         }
         if (self.altitude.is_airborne() && self.data().sub_kind == EntitySubKind::Aeroplane && other.altitude.is_airborne() ) || (other.altitude.is_airborne() && other.data().sub_kind == EntitySubKind::Aeroplane && self.altitude.is_airborne()) {return true;}
@@ -480,7 +480,7 @@ impl Entity {
         // max and min target altitudes.
         let max_altitude = match data.kind {
             EntityKind::Boat => match data.sub_kind {
-                EntitySubKind::Drone | EntitySubKind::Aeroplane => Altitude::MAX,
+                EntitySubKind::Drone | EntitySubKind::Aeroplane | EntitySubKind::Starship | EntitySubKind::Helicopter => Altitude::MAX,
                 EntitySubKind::Ekranoplan => Altitude(10),
                 _ => Altitude::ZERO,
             },
@@ -490,6 +490,7 @@ impl Entity {
                 | EntitySubKind::Sam
                 | EntitySubKind::Rocket
                 | EntitySubKind::RocketTorpedo
+                | EntitySubKind::Laser
                 | EntitySubKind::Shell
                 | EntitySubKind::TankShell => Altitude::MAX,
                 _ => Altitude::ZERO,
@@ -522,10 +523,12 @@ impl Entity {
 
         let target_altitude = match data.kind {
             EntityKind::Boat => match data.sub_kind {
-                EntitySubKind::Submarine => target.unwrap_or(Altitude::ZERO),
-                EntitySubKind::Drone => Altitude::MAX,
-                EntitySubKind::Aeroplane => target.unwrap_or(Altitude::MAX),
-                EntitySubKind::Ekranoplan => target.unwrap_or(Altitude::ZERO),
+                EntitySubKind::Submarine 
+                | EntitySubKind::Ekranoplan => target.unwrap_or(Altitude::ZERO),
+                EntitySubKind::Drone
+                | EntitySubKind::Starship => Altitude::MAX,
+                EntitySubKind::Aeroplane
+                | EntitySubKind::Helicopter => target.unwrap_or(Altitude::MAX),
                 _ => Altitude::ZERO,
             },
             EntityKind::Weapon => match data.sub_kind {
@@ -533,6 +536,7 @@ impl Entity {
                 EntitySubKind::DepthCharge => Altitude::MIN, // Sink to bottom.
                 EntitySubKind::Mine => -unguided_weapon_altitude,
                 EntitySubKind::Shell
+                | EntitySubKind::Laser
                 | EntitySubKind::TankShell
                 | EntitySubKind::Rocket
                 | EntitySubKind::RocketTorpedo
@@ -568,7 +572,7 @@ impl Entity {
 
     /// Returns true if and only if two entities are friendly i.e. same player or same team.
     pub fn is_friendly(&self, other: &Self) -> bool {
-        if self.data().sub_kind == EntitySubKind::Drone || other.data().sub_kind == EntitySubKind::Drone {return true;} //edited
+        if self.data().sub_kind == EntitySubKind::Drone || other.data().sub_kind == EntitySubKind::Drone {return true;} 
         self.is_friendly_to_player(other.player.as_deref())
     }
 

@@ -73,7 +73,7 @@ pub fn chat_overlay(props: &ChatProps) -> Html {
 		white-space: nowrap;
         color: #FFCC00;
         animation: background-pan 3s linear infinite;
-        background: linear-gradient(to right, #6200EA, #EC407A, #FFC800, #EC407A);
+        background: linear-gradient(to right, #6200EA, #EC407A, #FFC800, #EC407A, #6200EA);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
 		user-select: none;

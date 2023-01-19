@@ -336,7 +336,7 @@ impl GameClient for Mk48Game {
                 let friendly = context.state.core.is_friendly(contact.player_id());
                 let volume = Self::volume_at(distance);
 
-                if data.kind == EntityKind::Aircraft || data.sub_kind == EntitySubKind::Aeroplane {
+                if data.kind == EntityKind::Aircraft || data.sub_kind == EntitySubKind::Aeroplane || data.sub_kind == EntitySubKind::Helicopter {
                     if matches!(entity_type, EntityType::SuperEtendard | EntityType::F35) {
                         jet_volume += 1.25 * volume;
                     } else {
@@ -1139,7 +1139,7 @@ impl GameClient for Mk48Game {
                             };
 
                             let c = color_bytes;
-                            if data.sub_kind != EntitySubKind::Drone && !(context.state.core.player_id.is_some() && contact.player_id() == context.state.core.player_id) { //edited
+                            if data.sub_kind != EntitySubKind::Drone && !(context.state.core.player_id.is_some() && contact.player_id() == context.state.core.player_id) { 
                                 layer.text.draw(
                                 &text,
                                 contact.transform().position
@@ -1221,7 +1221,7 @@ impl GameClient for Mk48Game {
                         };
                         layer.airborne_particles.add(particle1);
                         layer.airborne_particles.add(particle2);
-                    } else if data.sub_kind == EntitySubKind::Drone { // no particles on drones
+                    } else if data.sub_kind == EntitySubKind::Drone || data.sub_kind == EntitySubKind::Starship || data.sub_kind == EntitySubKind::Helicopter || data.sub_kind == EntitySubKind::Laser { // no particles on drones/starship
                     } else {
                         let is_airborne = contact.altitude().is_airborne();
                         let spread = match (data.kind, data.sub_kind) {

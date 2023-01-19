@@ -30,7 +30,8 @@ impl EntityType {
     /// on whether you are a bot.
     pub fn can_spawn_as(self, score: u32, bot: bool, moderator: bool) -> bool {
         let data = self.data();
-        if (bot || !moderator) && data.sub_kind == EntitySubKind::Drone {return false}; //edited
+        if (bot || !moderator) && data.sub_kind == EntitySubKind::Drone {return false};
+        if (bot || !moderator) && data.sub_kind == EntitySubKind::Starship {return false};
         data.kind == EntityKind::Boat && level_to_score(data.level) <= score && (bot || !data.npc)
     }
 
@@ -41,6 +42,7 @@ impl EntityType {
         let upgrade_data = upgrade.data();
         if moderator && upgrade_data.kind == data.kind {return true};
         if upgrade_data.sub_kind == EntitySubKind::Drone && !moderator {return false};
+        if upgrade_data.sub_kind == EntitySubKind::Starship && !moderator {return false};
         if self == EntityType::Lst && upgrade == EntityType::Sherman {return score < level_to_score(6) && score >= level_to_score(4)};
         if data.sub_kind == EntitySubKind::Tank && upgrade_data.sub_kind == EntitySubKind::LandingShip {return true};
         if data.sub_kind == EntitySubKind::LandingShip && upgrade_data.sub_kind == EntitySubKind::Tank {return true};
@@ -207,6 +209,16 @@ pub enum EntityType {
     #[sensors(visual)]
     #[armament(Mark18)]
     E4N,
+    #[info(
+        label = "TIE Starfighter",
+        link = "https://starwars.fandom.com/wiki/TIE/ln_space_superiority_starfighter"
+    )]
+    #[entity(Aircraft, Plane, level = 12)]
+    #[size(length = 7.24, width = 6.7)]
+    #[props(speed = 333.333, range = 1000000)]
+    #[sensors(visual)]
+    #[armament(Blaster)]
+    TieFighter, //"3D T.I.E Fighter - Star Wars model" (https://skfb.ly/Q98Y) by Mickael Boitte is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
     #[info(
         label = "Harbin Z-9",
         link = "https://en.wikipedia.org/wiki/Harbin_Z-9"
@@ -418,6 +430,15 @@ pub enum EntityType {
     #[turret(_200Mm, forward = 84.6, side = -15, medium)]
     #[exhaust(forward = 35, side = -16)]
     Kaga,
+    #[info(
+        label = "CH-47 Chinook",
+        link = "https://en.wikipedia.org/wiki/Boeing_CH-47_Chinook"
+    )]
+    #[entity(Boat, Helicopter, level = 2)]
+    #[size(length = 30, width = 18, draft = 0.0)]
+    #[props(speed = 82.3111)]
+    #[sensors(visual, radar)]
+    Chinook, 
     #[info(
         label = "Catalina",
         link = "https://en.wikipedia.org/wiki/Consolidated_PBY_Catalina"
@@ -755,7 +776,7 @@ pub enum EntityType {
         label = "Kirov",
         link = "https://en.wikipedia.org/wiki/Kirov-class_battlecruiser"
     )]
-    #[entity(Boat, Cruiser, level = 8)]
+    #[entity(Boat, Cruiser, level = 9)]
     #[size(length = 252, width = 28.793, draft = 9.1, mast = 49.71)]
     #[props(speed = 16.46223)]
     #[sensors(radar, sonar, visual)]
@@ -1080,6 +1101,20 @@ pub enum EntityType {
     #[turret(ShermanTurret, forward = -0.028703, fast)]
     Sherman,
     #[info(
+        label = "Imperial II-Class Star Destroyer",
+        link = "https://starwars.fandom.com/wiki/Imperial_II-class_Star_Destroyer"
+    )]
+    #[entity(Boat, Starship, level = 1)]
+    #[size(length = 1600, width = 878, draft = 0.0)]
+    #[props(speed = 270.833)]
+    #[sensors(visual, radar)]
+    #[armament(TieFighter, forward = 0.0, side = 0.0, angle = 0.0, count = 12)]
+    #[turret(Turbolaser, forward = 130.8086, side = -215.0364, symmetrical)]
+    #[turret(Turbolaser, forward = 72.7645, side = -232.6973, symmetrical)]
+    #[turret(Turbolaser, forward = 19.7676, side = -249.5172, symmetrical)]
+    #[turret(Turbolaser, forward = -259.5174, side = -335.2989, symmetrical)]
+    StarDestroyer, //"Star Wars: Imperial II Star Destroyer" (https://skfb.ly/LuuA) by Daniel is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
+    #[info(
         label = "Oil Tanker",
         link = "https://en.wikipedia.org/wiki/Oil_tanker"
     )]
@@ -1170,10 +1205,26 @@ pub enum EntityType {
     #[turret(_88CmSkc35, forward = -4.35, angle = 180, medium, azimuth_b = 20)]
     TypeViic,
     #[info(
+        label = "Ticonderoga",
+        link = "https://en.wikipedia.org/wiki/Ticonderoga-class_cruiser"
+    )]
+    #[entity(Boat, Cruiser, level = 8)]
+    #[size(length = 173, width = 16.8, draft = 10.2)]
+    #[props(speed = 16.71944)]
+    #[sensors(radar, visual)]
+    #[armament(Seahawk, forward = -42, count = 2, external)]
+    #[armament(Harpoon, forward = 43, count = 4, side = 0, vertical)]
+    #[armament(Harpoon, forward = -62, count = 4, side = 0, vertical)]
+    #[armament(Tomahawk, forward = 43, count = 6, side = 0, vertical)]
+    #[armament(Tomahawk, forward = -62, count = 6, side = 0, vertical)]
+    #[armament(Asroc, forward = 43, side = 0, count = 2, vertical)]
+    #[armament(Mk3, forward = -85, side = 0, angle = -180, hidden)]
+    Ticonderoga, 
+    #[info(
         label = "UAP",
         link = "https://en.wikipedia.org/wiki/Pentagon_UFO_videos"
     )]
-    #[entity(Boat, Drone, level = 2)]
+    #[entity(Boat, Drone, level = 1)]
     #[size(length = 12, width = 7.4165, draft = 0.0)]
     #[props(speed = 1000.0, stealth = 0.95)]
     #[sensors(visual = 750, radar = 750, sonar = 750)]
@@ -1404,6 +1455,12 @@ pub enum EntityType {
     #[exhaust(forward = 7, side = 21)]
     #[exhaust(forward = -23, side = 21)]
     SuperOilPlatform,
+    #[info(label = "Turbolaser Batteries")]
+    #[entity(Turret, Gun)]
+    #[size(length = 1, width = 1)]
+    #[offset(forward = 0)]
+    #[armament(Blaster, angle = 0)]
+    Turbolaser,
     #[info(label = "Sherman Turret")]
     #[entity(Turret, Gun)]
     #[size(length = 3.3, width = 2.2171875)]
@@ -1653,6 +1710,11 @@ pub enum EntityType {
     #[offset(forward = 2.3553)]
     #[armament(_300X1400MmR, forward = 3, side = 0.727, angle = 0, symmetrical)]
     VickersMkH12In,
+    #[info(label = "Blaster")]
+    #[entity(Weapon, Laser)]
+    #[size(length = 2.0, width = 0.3)]
+    #[props(speed = 1184, range = 100000)]
+    Blaster,
     #[info(label = "762 x 54 mmR")]
     #[entity(Weapon, Shell)]
     #[size(length = 0.762, width = 0.05372)]
