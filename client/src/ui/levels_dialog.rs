@@ -26,7 +26,7 @@ pub fn levels_dialog() -> Html {
             {(1..=EntityData::MAX_BOAT_LEVEL).map(move |level| html_nested!{
                 <div>
                     <h3>{format!("Level {} ({})", level, t.score(level_to_score(level)))}</h3>
-                    {EntityType::iter().filter(move |entity_type| entity_type.data().kind == EntityKind::Boat && entity_type.data().level == level && entity_type.data().sub_kind != EntitySubKind::Drone && entity_type.data().sub_kind != EntitySubKind::Starship).map(|entity_type| {
+                    {EntityType::iter().filter(move |entity_type| entity_type.data().kind == EntityKind::Boat && entity_type.data().level == level && entity_type.data().sub_kind != EntitySubKind::Drone).map(|entity_type| {
                         html_nested! {
                             <Sprite {entity_type} class={sprite_style.clone()}/>
                         }

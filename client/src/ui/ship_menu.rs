@@ -79,14 +79,14 @@ pub fn ship_menu(props: &ShipMenuProps) -> Html {
             min_level = 4;
         }
     }
-    let max_level = score_to_level(props.score);
+    let mut max_level = score_to_level(props.score);
     let level = use_state_eq(|| max_level);
     let locker = use_state(Locker::default);
     let t = use_translation();
     let rewarded_ad = use_rewarded_ad();
     let core_state = use_core_state();
     let moderator = core_state.player().map(|p| p.moderator).unwrap_or(false);
-    if moderator {min_level = 1}
+    if moderator {min_level = 1; max_level = 12;}
 
     if min_level > max_level {
         // There are no choices now. This is possible for upgrade menu, but not spawn menu.

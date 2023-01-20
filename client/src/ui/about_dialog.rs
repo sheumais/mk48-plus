@@ -35,7 +35,7 @@ pub fn about_dialog() -> Html {
             <p>
                 {format!("{} is an online multiplayer ship combat game created by Softbear Studios. ", game_name)}
                 {"The goal is to level up your ship by collecting crates and sinking other ships. There are "}
-                <RouteLink<Mk48Route> route={Mk48Route::Ships}>{format!("{} boats", boat_type_count - 3 /* Remove drones */)}</RouteLink<Mk48Route>>
+                <RouteLink<Mk48Route> route={Mk48Route::Ships}>{format!("{} boats", boat_type_count - 2 /* Remove drones */)}</RouteLink<Mk48Route>>
                 {format!(" and {} weapon types to chose from, spread over ", weapon_sub_kind_count)}
                 <RouteLink<Mk48Route> route={Mk48Route::Levels}>{format!("{} progressively more powerful levels", EntityData::MAX_BOAT_LEVEL)}</RouteLink<Mk48Route>>
                 {"."}

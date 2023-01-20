@@ -257,6 +257,7 @@ impl Entity {
 
         if data.sub_kind == EntitySubKind::Drone {return false;} 
         if data.sub_kind == EntitySubKind::Aeroplane && other_data.kind == EntityKind::Aircraft {return false;}
+        if data.sub_kind == EntitySubKind::Starship && data.kind == other_data.kind {return false;}
 
         if data.sub_kind == EntitySubKind::Sam || other_data.sub_kind == EntitySubKind::Sam {
             // SAMs collide if within radius, simulating their blast-fragmentation warheads.

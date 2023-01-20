@@ -32,6 +32,9 @@ fn changelog_2023() -> Html { //<li>{""}</li>
                 <li>{"Moved the Kirov to level 9"}</li>
                 <li>{"Added the Chinook"}</li>
                 <li>{"Had a meeting with Kuat Drive Yards"}</li>
+                <li>{"Added the Star Destroyer"}</li>
+                <li>{"Big thanks to Kuat Drive Yards for producing them at just 135,000,000 credits per unit!"}</li>
+                <li>{"Reduced the missile damage of the F-35"}</li>
             </ul>
 
             <h3>{"18 Jan '23"}</h3>

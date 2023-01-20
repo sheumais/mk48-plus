@@ -268,6 +268,9 @@ impl World {
                     if player_entity.is_some() && entity.entity_type == EntityType::Uap {
                         uncertainty += 0.25;
                     }
+                    if player_entity.is_some() && data.sub_kind == EntitySubKind::Starship {
+                        uncertainty = 0.0;
+                    }
                     
                     if uncertainty >= 1.0 {
                         // This player has no knowledge of this entity,

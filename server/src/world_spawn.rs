@@ -23,7 +23,7 @@ impl World {
     /// Target density of crates (per square meter).
     const CRATE_DENSITY: f32 = 1.0 / 30000.0;
     /// Target density of obstacles (per square meter).
-    const OBSTACLE_DENSITY: f32 = 1.0 / 1000000.0;
+    const OBSTACLE_DENSITY: f32 = 1.0 / 5000000.0;
 
     /// spawn_here_or_nearby spawns an entity, adjusting it's position and/or rotation until
     /// it can spawn without colliding with world objects.
@@ -206,7 +206,7 @@ impl World {
                     return false;
                 }
                 
-                if data.sub_kind == EntitySubKind::Tank {
+                if data.sub_kind == EntitySubKind::Tank || data.sub_kind == EntitySubKind::Helicopter {
                     return !entity.collides_with_terrain(&self.terrain, Ticks::PERIOD_SECS).is_none();
                 }
                 // TODO: Terrain/keel depth check.

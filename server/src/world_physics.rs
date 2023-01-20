@@ -185,7 +185,7 @@ impl World {
                             EntitySubKind::Helicopter => {
                                 entity.apply_altitude_target(
                                     terrain,
-                                    Some(common::altitude::Altitude((2.0 * entity.transform.velocity.to_mps().clamp(3.0, 250.0)) as i8)),
+                                    Some(common::altitude::Altitude((2.0 * entity.transform.velocity.to_mps().clamp(0.0, 250.0)) as i8)),
                                     3.0,
                                     delta,
                                 );

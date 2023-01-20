@@ -31,7 +31,6 @@ impl EntityType {
     pub fn can_spawn_as(self, score: u32, bot: bool, moderator: bool) -> bool {
         let data = self.data();
         if (bot || !moderator) && data.sub_kind == EntitySubKind::Drone {return false};
-        if (bot || !moderator) && data.sub_kind == EntitySubKind::Starship {return false};
         data.kind == EntityKind::Boat && level_to_score(data.level) <= score && (bot || !data.npc)
     }
 
@@ -42,11 +41,9 @@ impl EntityType {
         let upgrade_data = upgrade.data();
         if moderator && upgrade_data.kind == data.kind {return true};
         if upgrade_data.sub_kind == EntitySubKind::Drone && !moderator {return false};
-        if upgrade_data.sub_kind == EntitySubKind::Starship && !moderator {return false};
         if self == EntityType::Lst && upgrade == EntityType::Sherman {return score < level_to_score(6) && score >= level_to_score(4)};
         if data.sub_kind == EntitySubKind::Tank && upgrade_data.sub_kind == EntitySubKind::LandingShip {return true};
         if data.sub_kind == EntitySubKind::LandingShip && upgrade_data.sub_kind == EntitySubKind::Tank {return true};
-        if data.sub_kind == EntitySubKind::LandingShip && upgrade_data.sub_kind != EntitySubKind::Tank {return false};
         upgrade_data.level > data.level 
             && upgrade_data.kind == data.kind
             && score >= level_to_score(upgrade_data.level)
@@ -77,7 +74,7 @@ impl EntityType {
     ) -> impl Iterator<Item = Self> + IteratorRandom {
         // Don't iterate if not enough score for next level.
          
-        if score >= level_to_score(self.data().level) || (self.data().sub_kind == EntitySubKind::Tank || self.data().sub_kind == EntitySubKind::LandingShip) {
+        if score >= level_to_score(self.data().level) || (self.data().sub_kind == EntitySubKind::Tank || self.data().sub_kind == EntitySubKind::LandingShip) || moderator {
             Some(Self::iter().filter(move |t| self.can_upgrade_to(*t, score, bot, moderator)))
         } else {
             None
@@ -1104,7 +1101,7 @@ pub enum EntityType {
         label = "Imperial II-Class Star Destroyer",
         link = "https://starwars.fandom.com/wiki/Imperial_II-class_Star_Destroyer"
     )]
-    #[entity(Boat, Starship, level = 1)]
+    #[entity(Boat, Starship, level = 12)]
     #[size(length = 1600, width = 878, draft = 0.0)]
     #[props(speed = 270.833)]
     #[sensors(visual, radar)]
