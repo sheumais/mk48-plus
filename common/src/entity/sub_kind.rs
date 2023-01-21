@@ -24,6 +24,7 @@ pub enum EntitySubKind {
     Minelayer,
     Missile,
     Mtb,
+    Passenger,
     Pirate,
     Plane,
     Ram,

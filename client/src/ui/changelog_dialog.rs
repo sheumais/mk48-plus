@@ -25,6 +25,15 @@ fn changelog_2023() -> Html { //<li>{""}</li>
         <>
             <h2>{"2023"}</h2>
 
+            <h3>{"21 Jan '23"}</h3>
+
+            <ul>
+                <li>{"Watched Titanic, got teary, added Titanic"}</li>
+                <li>{"Added the X-wing"}</li>
+                <li>{"Rebalanced the aeroplanes"}</li>
+                <li>{"Gave the Titanic a passive oil spawning ability, exactly like a tier 3 rig"}</li>
+            </ul>
+
             <h3>{"20 Jan '23"}</h3>
 
             <ul>

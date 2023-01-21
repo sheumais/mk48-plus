@@ -460,7 +460,7 @@ fn generate_vegetation(
     let height = view.dimensions.y as usize;
 
     // Must be power of 2.
-    let step = 2usize.pow(2);
+    let step = 2usize.pow(1);
     let step_log2 = (step - 1).count_ones();
 
     // Round starting coords down to step.

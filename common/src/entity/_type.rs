@@ -214,7 +214,7 @@ pub enum EntityType {
     #[size(length = 7.24, width = 6.7)]
     #[props(speed = 333.333, range = 1000000)]
     #[sensors(visual)]
-    #[armament(Blaster)]
+    #[armament(GreenBlaster)]
     TieFighter, //"3D T.I.E Fighter - Star Wars model" (https://skfb.ly/Q98Y) by Mickael Boitte is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
     #[info(
         label = "Harbin Z-9",
@@ -460,8 +460,7 @@ pub enum EntityType {
     #[sensors(visual = 800, radar = 800)]
     #[armament(RP3, forward = 8.5, side = 8, symmetrical)]
     #[turret(_M1919, forward = 7, side = 8, slow, azimuth_b = 150, symmetrical)]
-    #[turret(_M1919, forward = 7, side = 6, slow, azimuth_b = 150, symmetrical)]
-    #[turret(_M1919, forward = -8, side = 2, slow, azimuth_b = 150, symmetrical)]
+    #[turret(_M1919, forward = 7, slow, azimuth_b = 150)]
     Spitfire, 
     #[info(
         label = "F-35 Lightning II",
@@ -1105,7 +1104,7 @@ pub enum EntityType {
     #[size(length = 1600, width = 878, draft = 0.0)]
     #[props(speed = 270.833)]
     #[sensors(visual, radar)]
-    #[armament(TieFighter, forward = 0.0, side = 0.0, angle = 0.0, count = 12)]
+    #[armament(TieFighter, forward = 0.0, side = 0.0, angle = 0.0, count = 12, hidden)]
     #[turret(Turbolaser, forward = 130.8086, side = -215.0364, symmetrical)]
     #[turret(Turbolaser, forward = 72.7645, side = -232.6973, symmetrical)]
     #[turret(Turbolaser, forward = 19.7676, side = -249.5172, symmetrical)]
@@ -1218,6 +1217,23 @@ pub enum EntityType {
     #[armament(Mk3, forward = -85, side = 0, angle = -180, hidden)]
     Ticonderoga, 
     #[info(
+        label = "Titanic",
+        link = "https://en.wikipedia.org/wiki/Titanic"
+    )]
+    #[entity(Boat, Passenger, level = 7)]
+    #[size(length = 269.1, width = 28.2, draft = 10.5)]
+    #[props(speed = 11.8332)]
+    #[sensors(radar, visual)]
+    #[exhaust(forward = -14)]
+    #[exhaust(forward = -18)]
+    #[exhaust(forward = -48)]
+    #[exhaust(forward = -52)]
+    #[exhaust(forward = 17)]
+    #[exhaust(forward = 21)]
+    #[exhaust(forward = 54)]
+    #[exhaust(forward = 57)]
+    Titanic,
+    #[info(
         label = "UAP",
         link = "https://en.wikipedia.org/wiki/Pentagon_UFO_videos"
     )]
@@ -1289,6 +1305,16 @@ pub enum EntityType {
     #[armament(Tomahawk, forward = 23.7, side = 2, angle = 0, symmetrical, vertical)]
     #[armament(Tomahawk, forward = 17.2, side = 2, angle = 0, symmetrical, vertical)]
     Virginia,
+    #[info(
+        label = "T-65B X-wing starfighter",
+        link = "https://starwars.fandom.com/wiki/T-65B_X-wing_starfighter"
+    )]
+    #[entity(Boat, Aeroplane, level = 9)]
+    #[size(length = 13.4, width = 11.76, draft = 1.2)]
+    #[props(speed = 291.6667)]
+    #[sensors(visual = 800, radar = 1000)]
+    #[armament(Blaster, forward = 2, side = 5.6, count = 4, hidden, symmetrical)]
+    Xwing, 
     #[info(
         label = "Yamato",
         link = "https://en.wikipedia.org/wiki/Japanese_battleship_Yamato"
@@ -1712,6 +1738,11 @@ pub enum EntityType {
     #[size(length = 2.0, width = 0.3)]
     #[props(speed = 1184, range = 100000)]
     Blaster,
+    #[info(label = "Green Blaster")]
+    #[entity(Weapon, Laser)]
+    #[size(length = 2.0, width = 0.3)]
+    #[props(speed = 1184, range = 100000)]
+    GreenBlaster,
     #[info(label = "762 x 54 mmR")]
     #[entity(Weapon, Shell)]
     #[size(length = 0.762, width = 0.05372)]

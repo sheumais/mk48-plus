@@ -48,7 +48,7 @@ impl World {
         //     })
         //     .sum::<f32>();
 
-        let target_radius: f32 = 5000.0; 
+        let target_radius: f32 = 7500.0; 
         let s = delta.to_secs();
 
         

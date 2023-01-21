@@ -50,6 +50,7 @@ pub trait Mk48Translation: Sized {
             (EntityKind::Boat, EntitySubKind::Tanker) => self.entity_boat_tanker_name(),
             (EntityKind::Boat, EntitySubKind::Drone) => self.entity_boat_drone_name(),
             (EntityKind::Boat, EntitySubKind::Starship) => self.entity_boat_starship_name(),
+            (EntityKind::Boat, EntitySubKind::Passenger) => self.entity_boat_passenger_name(),
             (EntityKind::Boat, EntitySubKind::Ekranoplan) => self.entity_boat_ekranoplan_name(),
             (EntityKind::Boat, EntitySubKind::Tank) => self.entity_boat_tank_name(),
             (EntityKind::Boat, EntitySubKind::Aeroplane) => self.entity_boat_aeroplane_name(),
@@ -101,6 +102,7 @@ pub trait Mk48Translation: Sized {
             (EntityKind::Boat, EntitySubKind::Tanker) => self.entity_boat_tanker_hint(),
             (EntityKind::Boat, EntitySubKind::Drone) => self.entity_boat_drone_hint(),
             (EntityKind::Boat, EntitySubKind::Starship) => self.entity_boat_starship_hint(),
+            (EntityKind::Boat, EntitySubKind::Passenger) => self.entity_boat_passenger_hint(),
             (EntityKind::Boat, EntitySubKind::Ekranoplan) => self.entity_boat_ekranoplan_hint(),
             (EntityKind::Boat, EntitySubKind::Tank) => self.entity_boat_tank_hint(),
             (EntityKind::Boat, EntitySubKind::Aeroplane) => self.entity_boat_aeroplane_hint(),
@@ -151,6 +153,8 @@ pub trait Mk48Translation: Sized {
     s!(entity_boat_drone_hint);
     s!(entity_boat_starship_name);
     s!(entity_boat_starship_hint);
+    s!(entity_boat_passenger_name);
+    s!(entity_boat_passenger_hint);
     s!(entity_boat_ekranoplan_name);
     s!(entity_boat_ekranoplan_hint);
     s!(entity_boat_tank_name);
@@ -1052,6 +1056,40 @@ impl Mk48Translation for LanguageId {
             SimplifiedChinese => "Starship",
             Spanish => "Starship",
             Vietnamese => "Starship",
+        }
+    }
+
+    fn entity_boat_passenger_hint(self) -> &'static str {
+        match self {
+            Arabic => "Your Passenger Vessel has no weapons!",
+            Bork => "Your Passenger Vessel has no weapons!",
+            English => "Your Passenger Vessel has no weapons!",
+            French => "Your Passenger Vessel has no weapons!",
+            German => "Your Passenger Vessel has no weapons!",
+            Hindi => "Your Passenger Vessel has no weapons!",
+            Italian => "Your Passenger Vessel has no weapons!",
+            Japanese => "Your Passenger Vessel has no weapons!",
+            Russian => "Your Passenger Vessel has no weapons!",
+            SimplifiedChinese => "Your Passenger Vessel has no weapons!",
+            Spanish => "Your Passenger Vessel has no weapons!",
+            Vietnamese => "Your Passenger Vessel has no weapons!",
+        }
+    }
+
+    fn entity_boat_passenger_name(self) -> &'static str {
+        match self {
+            Arabic => "Passenger Vessel",
+            Bork => "Passenger Vessel",
+            English => "Passenger Vessel",
+            French => "Passenger Vessel",
+            German => "Passenger Vessel",
+            Hindi => "Passenger Vessel",
+            Italian => "Passenger Vessel",
+            Japanese => "Passenger Vessel",
+            Russian => "Passenger Vessel",
+            SimplifiedChinese => "Passenger Vessel",
+            Spanish => "Passenger Vessel",
+            Vietnamese => "Passenger Vessel",
         }
     }
 

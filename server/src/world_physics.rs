@@ -190,6 +190,18 @@ impl World {
                                     delta,
                                 );
                             }
+                            EntitySubKind::Passenger => {
+                                let rate: f32 = 3.0/4.0;
+        
+                                if rand::thread_rng()
+                                    .gen_bool((1.0 - (1.0 - rate).powf(delta_seconds)) as f64)
+                                {
+                                    barrel_spawns
+                                        .lock()
+                                        .unwrap()
+                                        .push(entity.transform.position)
+                                };
+                            }
                             _ => {entity.apply_altitude_target(
                                     terrain,
                                     Some(entity.extension().altitude_target()),

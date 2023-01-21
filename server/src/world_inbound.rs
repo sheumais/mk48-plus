@@ -374,6 +374,7 @@ impl CommandTrait for Fire {
                 let deviation = match armament_entity_data.sub_kind {
                     EntitySubKind::Rocket | EntitySubKind::RocketTorpedo => 0.05,
                     EntitySubKind::Shell | EntitySubKind::TankShell => 0.01,
+                    EntitySubKind::Laser => 0.0,
                     _ => 0.03,
                 };
                 armament_entity.transform.direction += thread_rng().gen::<Angle>() * deviation;
