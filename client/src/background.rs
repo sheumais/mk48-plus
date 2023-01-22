@@ -504,8 +504,8 @@ fn generate_vegetation(
             let modulus = hash.rem_euclid(3);
 
             // Trees only exist on land.
-            // 160 & 161 leaves some trees floating on water, so use 162
-            if v <= 162 {
+            // 160 & 161 & 162 leaves some trees floating on water, so use 163
+            if v <= 163 {
                 return None;
             }
             else if v <= 190 {tree_type = EntityType::Palm;}

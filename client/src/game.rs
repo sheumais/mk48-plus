@@ -659,7 +659,7 @@ impl GameClient for Mk48Game {
                         let f = map_ranges(transform.velocity.to_mps(), 0.0..4.0, 1.0..0.0, true);
 
                         // Waves modify rendered position and direction.
-                        transform.position += Vec2::new(input.x.sin(), input.y.sin()) * (f * 0.9);
+                        transform.position += Vec2::new(input.x.sin() * 3.0, input.y.sin()) * (f * 0.9);
                         transform.direction += Angle::from_radians(
                             input.dot(Vec2::new(0.7, 1.3)).sin() * (f * (PI / 10.0)),
                         );

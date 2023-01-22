@@ -272,8 +272,18 @@ void main() {
             // Foam appears near surface and is uniform width.
             float t = sandHeight - height;
             float foam = smoothstep(-0.05, 0.0, -t / (1.0001 - N.z));
-            vec3 foamColor = mix(mix(shallow, beach, 0.5), vec3(0.5), float(ocean)) * (foam * foam);
-            w = max(w, foamColor * light);
+            //vec3 foamColor = mix(mix(shallow, beach, 0.5), vec3(0.5), float(ocean)) * (foam * foam);
+            //vec3 foamColor = mix(0.5 * (shallow + beach),  vec3(0.5), float(ocean)) * (foam * foam); 
+            /* 
+            mix(x,y,a) is calculated as x*(1−a)+y*a 
+            => x*0.5 + y*0.5
+            => 0.5 * (shallow + beach)
+            */
+            //vec3 foamColor = vec3(foam * foam) * 0.5 * float(ocean);
+
+            // This gives foam to ice & uses simplification above
+            vec3 foamColor = vec3(foam * foam) * (-0.5 * float(ocean) + 1.0);
+            w = w + foamColor * light;
 
             // Antialias foam and sand.
             float delta = uDerivative * 0.015;
