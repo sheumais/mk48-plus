@@ -188,6 +188,8 @@ impl World {
                 }
                 if data.sub_kind == EntitySubKind::TankShell {
                     return true
+                } else if data.sub_kind == EntitySubKind::GlideBomb {
+                    return entity.altitude > Altitude(100)
                 } else {
                 return entity
                     .collides_with_terrain(&self.terrain, Ticks::PERIOD_SECS)

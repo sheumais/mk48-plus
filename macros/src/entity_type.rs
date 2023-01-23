@@ -491,6 +491,9 @@ pub(crate) fn derive_entity_type(input: TokenStream) -> TokenStream {
                             }
                             avg_speed /= count as f32;
                         }
+                        "GlideBomb" => {
+                            max_range = 1500.0;
+                        }
                         _ => {}
                     }
                 }
@@ -600,6 +603,9 @@ pub(crate) fn derive_entity_type(input: TokenStream) -> TokenStream {
                     "Laser" => {
                         damage = Some(0.5);
                     }
+                    "GlideBomb" => {
+                        damage = Some(entity.length());
+                    }
                     _ => {}
                 }
             }
@@ -641,6 +647,7 @@ pub(crate) fn derive_entity_type(input: TokenStream) -> TokenStream {
                             reload
                         }
                         "DepthCharge" => 5.0,
+                        "GlideBomb" => 12.0,
                         _ => 8.0,
                     });
                 }
@@ -768,6 +775,7 @@ pub(crate) fn derive_entity_type(input: TokenStream) -> TokenStream {
                 ("Weapon", "Shovel") => 11,
                 ("Weapon", "Torpedo") => 10,
                 ("Weapon", "Missile") => 9,
+                ("Weapon", "GlideBomb") => 9,
                 ("Weapon", "Rocket") | ("Weapon", "RocketTorpedo") => 8,
                 ("Weapon", "Shell") => {
                     if matches!(entity.sub_kind(), "Battleship" | "Cruiser") {

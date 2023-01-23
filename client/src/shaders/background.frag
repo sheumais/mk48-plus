@@ -249,7 +249,7 @@ void main() {
                 // Multiply by factor to account for mipmapping a value that is used non-linearly.
                 vec2 wn = v * vec2(WAVE_HEIGHT, (uDerivative * 0.35 + 0.9) * 2.5);
             #endif
-            sandHeight += wn.x - WAVE_HEIGHT * 0.5;
+            sandHeight += wn.x - 1.25 * WAVE_HEIGHT * float(ocean);
 
             vec3 deep = mix(vec3(0.,0.02,0.141), vec3(0.,0.027,0.075), arctic) * (mix(light, waterLight, 0.6));
             vec3 shallow = mix(vec3(0.02979, 0.1017, 0.2178), vec3(0.0, 0.05, 0.115), arctic) * waterLight;
@@ -272,7 +272,7 @@ void main() {
             // Foam appears near surface and is uniform width.
             float t = sandHeight - height;
             float foam = smoothstep(-0.05, 0.0, -t / (1.0001 - N.z));
-            //vec3 foamColor = mix(mix(shallow, beach, 0.5), vec3(0.5), float(ocean)) * (foam * foam);
+            vec3 foamColor = mix(mix(shallow, beach, 0.5), vec3(0.5), float(ocean)) * (foam * foam);
             //vec3 foamColor = mix(0.5 * (shallow + beach),  vec3(0.5), float(ocean)) * (foam * foam); 
             /* 
             mix(x,y,a) is calculated as x*(1−a)+y*a 
@@ -282,7 +282,7 @@ void main() {
             //vec3 foamColor = vec3(foam * foam) * 0.5 * float(ocean);
 
             // This gives foam to ice & uses simplification above
-            vec3 foamColor = vec3(foam * foam) * (-0.5 * float(ocean) + 1.0);
+            //vec3 foamColor = vec3(foam) * (-0.5 * float(ocean) + 1.0);
             w = w + foamColor * light;
 
             // Antialias foam and sand.

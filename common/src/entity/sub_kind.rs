@@ -12,6 +12,7 @@ pub enum EntitySubKind {
     Dredger,
     Drone,
     Ekranoplan,
+    GlideBomb,
     Heli,
     Helicopter,
     Hovercraft,

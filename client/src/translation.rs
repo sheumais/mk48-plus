@@ -66,6 +66,7 @@ pub trait Mk48Translation: Sized {
             }
             (EntityKind::Weapon, EntitySubKind::Mine) => self.entity_weapon_mine_name(),
             (EntityKind::Weapon, EntitySubKind::Missile) => self.entity_weapon_missile_name(),
+            (EntityKind::Weapon, EntitySubKind::GlideBomb) => self.entity_weapon_glidebomb_name(),
             (EntityKind::Weapon, EntitySubKind::RocketTorpedo) => {
                 self.entity_weapon_rocket_torpedo_name()
             }
@@ -170,6 +171,7 @@ pub trait Mk48Translation: Sized {
     s!(entity_weapon_depth_charge_name);
     s!(entity_weapon_mine_name);
     s!(entity_weapon_missile_name);
+    s!(entity_weapon_glidebomb_name);
     s!(entity_weapon_rocket_torpedo_name);
     s!(entity_weapon_rocket_name);
     s!(entity_weapon_sam_name);
@@ -1345,6 +1347,23 @@ impl Mk48Translation for LanguageId {
             SimplifiedChinese => "导弹",
             Spanish => "misil",
             Vietnamese => "hỏa tiễn",
+        }
+    }
+
+    fn entity_weapon_glidebomb_name(self) -> &'static str {
+        match self {
+            Arabic => "Glide Bomb",
+            Bork => "Glide Bomb",
+            English => "Glide Bomb",
+            French => "Glide Bomb",
+            German => "Glide Bomb",
+            Hindi => "Glide Bomb",
+            Italian => "Glide Bomb",
+            Japanese => "Glide Bomb",
+            Russian => "Glide Bomb",
+            SimplifiedChinese => "Glide Bomb",
+            Spanish => "Glide Bomb",
+            Vietnamese => "Glide Bomb",
         }
     }
 

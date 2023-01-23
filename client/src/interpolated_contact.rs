@@ -113,6 +113,7 @@ impl InterpolatedContact {
                             | EntitySubKind::Rocket
                             | EntitySubKind::RocketTorpedo
                             | EntitySubKind::Missile
+                            | EntitySubKind::GlideBomb
                     ) {
                         // Don't generate particles.
                         continue;
@@ -208,6 +209,7 @@ impl Mk48Game {
                 EntityKind::Boat | EntityKind::Aircraft => "splash",
                 EntityKind::Weapon => match entity_type.data().sub_kind {
                     EntitySubKind::Missile
+                    | EntitySubKind::GlideBomb
                     | EntitySubKind::Sam
                     | EntitySubKind::Rocket
                     | EntitySubKind::RocketTorpedo

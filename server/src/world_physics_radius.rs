@@ -213,6 +213,9 @@ impl World {
                                             EntitySubKind::Missile => {
                                                 target_data.kind == EntityKind::Boat && weapon.altitude_overlapping(target)
                                             }
+                                            EntitySubKind::GlideBomb => {
+                                                target_data.kind == EntityKind::Boat
+                                            }
                                             _ => {
                                                 target_data.kind == EntityKind::Boat
                                             }
@@ -237,6 +240,8 @@ impl World {
 
                                             let (max_angle_target_diff, max_angle_diff) = if weapon.data().sub_kind == EntitySubKind::Missile {
                                                 (Angle::from_degrees(30.0), Angle::from_degrees(40.0))
+                                            } else if weapon.data().sub_kind == EntitySubKind::GlideBomb {
+                                                (Angle::from_degrees(30.0), Angle::from_degrees(45.0))
                                             } else {
                                                 (Angle::from_degrees(60.0), Angle::from_degrees(80.0))
                                             };

@@ -463,6 +463,17 @@ pub enum EntityType {
     #[turret(_M1919, forward = 7, slow, azimuth_b = 150)]
     Spitfire, 
     #[info(
+        label = "Chengdu J-20",
+        link = "https://en.wikipedia.org/wiki/Chengdu_J-20"
+    )]
+    #[entity(Boat, Aeroplane, level = 10)]
+    #[size(length = 21.2, width = 13.01, draft = 1.0)]
+    #[props(speed = 333.3)]
+    #[armament(Ls6, forward = 2, side = 0, count = 6, hidden)]
+    #[armament(Pl12, forward = 2, side = 0, count = 12, hidden)]
+    #[sensors(visual = 800, radar = 1300)]
+    J20, 
+    #[info(
         label = "F-35 Lightning II",
         link = "https://en.wikipedia.org/wiki/Lockheed_Martin_F-35_Lightning_II"
     )]
@@ -1226,8 +1237,6 @@ pub enum EntityType {
     #[sensors(radar, visual)]
     #[exhaust(forward = -14)]
     #[exhaust(forward = -18)]
-    #[exhaust(forward = -48)]
-    #[exhaust(forward = -52)]
     #[exhaust(forward = 17)]
     #[exhaust(forward = 21)]
     #[exhaust(forward = 54)]
@@ -1827,6 +1836,12 @@ pub enum EntityType {
     #[props(speed = 662.6, range = 50000)]
     #[sensors(radar)]
     Barak8,
+    #[info(label = "PL-12", link = "https://en.wikipedia.org/wiki/PL-12")]
+    #[entity(Weapon, Sam, level = 11)]
+    #[size(length = 2.5, width = 0.5)]
+    #[props(speed = 1372, range = 50000)]
+    #[sensors(radar)]
+    Pl12,
     #[info(label = "BrahMos", link = "https://en.wikipedia.org/wiki/BrahMos")]
     #[entity(Weapon, Missile, level = 5)]
     #[size(length = 8.4, width = 0.9515625)]
@@ -2072,6 +2087,15 @@ pub enum EntityType {
     #[props(speed = 1200, range = 6000)]
     #[sensors(radar)]
     Vt1,
+    #[info(
+        label = "LS-6",
+        link = "https://en.wikipedia.org/wiki/LS_PGB"
+    )]
+    #[entity(Weapon, GlideBomb, level = 10)]
+    #[size(length = 2.14, width = 1.28)]
+    #[props(speed = 300, range = 2500)]
+    #[sensors(radar)]
+    Ls6,
     #[info(
         label = "wz. 08/39",
         link = "https://pl.wikipedia.org/wiki/Plik:Mina_morska_typu_M_1908-39.jpg"
