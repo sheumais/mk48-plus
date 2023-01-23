@@ -44,7 +44,7 @@ impl Default for Bot {
         let mut rng = thread_rng();
 
         fn random_level(rng: &mut ThreadRng) -> u8 {
-            rng.gen_range(1..=EntityData::MAX_BOAT_LEVEL)
+            rng.gen_range(5..=EntityData::MAX_BOAT_LEVEL)
         }
 
         Self {
@@ -63,7 +63,7 @@ impl Default for Bot {
 impl Bot {
     /// This arbitrary value controls how chill the bots are. If too high, bots are trigger-happy
     /// maniacs, and the waters get filled with stray torpedoes.
-    const MAX_AGGRESSION: f32 = 0.1;
+    const MAX_AGGRESSION: f32 = 0.25;
 
     /// Returns true if there is land or border at the given position.
     fn is_land_or_border(pos: Vec2, terrain: &Terrain, world_radius: f32) -> bool {

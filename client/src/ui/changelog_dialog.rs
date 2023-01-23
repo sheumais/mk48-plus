@@ -31,6 +31,9 @@ fn changelog_2023() -> Html { //<li>{""}</li>
                 <li>{"Added the J-20"}</li>
                 <li>{"Made improvements to the background shader"}</li>
                 <li>{"Removed the emissions from the fourth funnel on the Titanic"}</li>
+                <li>{"Increased bot agression and minimum level target"}</li>
+                <li>{"Increased minimum number of bots"}</li>
+                <li>{"Decreased world size"}</li>
             </ul>
 
             <h3>{"21 Jan '23"}</h3>

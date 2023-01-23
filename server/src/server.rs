@@ -60,7 +60,7 @@ impl GameArenaService for Server {
     /// new returns a game server with the specified parameters.
     fn new(_min_players: usize) -> Self {
         Self {
-            world: World::new(7500.0),
+            world: World::new(6500.0),
             counter: Ticks::ZERO,
         }
     }
