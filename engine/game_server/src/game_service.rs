@@ -125,7 +125,7 @@ pub trait GameArenaService: 'static + Unpin + Sized + Send + Sync {
 /// Implemented by game bots.
 pub trait Bot<G: GameArenaService>: Default + Unpin + Sized + Send {
     /// See bot.rs for explanation.
-    const DEFAULT_MIN_BOTS: usize = 50;
+    const DEFAULT_MIN_BOTS: usize = 100;
     /// See bot.rs for explanation.
     const DEFAULT_MAX_BOTS: usize = usize::MAX;
     /// See bot.rs for explanation.

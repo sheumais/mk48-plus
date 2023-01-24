@@ -41,6 +41,7 @@ impl EntityType {
         let upgrade_data = upgrade.data();
         if moderator && upgrade_data.kind == data.kind {return true};
         if upgrade_data.sub_kind == EntitySubKind::Drone && !moderator {return false};
+        if bot && upgrade == EntityType::Chinook {return false};
         if self == EntityType::Lst && upgrade == EntityType::Sherman {return score < level_to_score(6) && score >= level_to_score(4)};
         if data.sub_kind == EntitySubKind::Tank && upgrade_data.sub_kind == EntitySubKind::LandingShip {return true};
         if data.sub_kind == EntitySubKind::LandingShip && upgrade_data.sub_kind == EntitySubKind::Tank {return true};
@@ -297,6 +298,18 @@ pub enum EntityType {
     #[armament(Igla, forward = 4.86495, count = 2, vertical)]
     #[armament(Brosok, forward = 52, side = 0.5, angle = 0, symmetrical)]
     Akula,
+    #[info(
+        label = "AH-64 Apache",
+        link = "https://en.wikipedia.org/wiki/Boeing_AH-64_Apache"
+    )]
+    #[entity(Boat, Helicopter, level = 7)]
+    #[size(length = 17.73, width = 14.63, draft = 0.0)]
+    #[props(speed = 81.282)]
+    #[sensors(visual = 700, radar = 700)]
+    #[armament(Hellfire, forward = 5.0, side = 3.0, symmetrical, hidden)]
+    #[armament(Hellfire, forward = 5.0, side = 5.0, symmetrical, hidden)]
+    #[turret(M230, forward = 3.0, side = 0.0)]
+    Apache, 
     #[info(
         label = "Arleigh Burke",
         link = "https://en.wikipedia.org/wiki/Arleigh_Burke-class_destroyer"
@@ -1487,6 +1500,12 @@ pub enum EntityType {
     #[exhaust(forward = 7, side = 21)]
     #[exhaust(forward = -23, side = 21)]
     SuperOilPlatform,
+    #[info(label = "M230 Chain Gun")]
+    #[entity(Turret, Gun)]
+    #[size(length = 2.181, width = 0.277)]
+    #[offset(forward = 0)]
+    #[armament(_30X130MmR, count = 12, angle = 0)]
+    M230,
     #[info(label = "Turbolaser Batteries")]
     #[entity(Turret, Gun)]
     #[size(length = 1, width = 1)]
@@ -1752,6 +1771,11 @@ pub enum EntityType {
     #[size(length = 2.0, width = 0.3)]
     #[props(speed = 1184, range = 100000)]
     GreenBlaster,
+    #[info(label = "30 x 130 mmR")]
+    #[entity(Weapon, Shell)]
+    #[size(length = 0.130, width = 0.03)]
+    #[props(speed = 805, range = 4000)]
+    _30X130MmR,
     #[info(label = "762 x 54 mmR")]
     #[entity(Weapon, Shell)]
     #[size(length = 0.762, width = 0.05372)]
@@ -1848,6 +1872,12 @@ pub enum EntityType {
     #[props(speed = 993.9, range = 650000)]
     #[sensors(radar)]
     BrahMos,
+    #[info(label = "AGM-114 Hellfire", link = "https://en.wikipedia.org/wiki/AGM-114_Hellfire")]
+    #[entity(Weapon, Missile, level = 7)]
+    #[size(length = 1.6, width = 0.18)]
+    #[props(speed = 445.9, range = 11000)]
+    #[sensors(visual)]
+    Hellfire,
     #[info(label = "Cannon Ball")]
     #[entity(Weapon, Shell)]
     #[size(length = 0.091, width = 0.091)]

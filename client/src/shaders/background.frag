@@ -251,14 +251,11 @@ void main() {
             #endif
             sandHeight += wn.x - 1.25 * WAVE_HEIGHT * float(ocean);
 
-            vec2 deep, shallow; vec3 w, waveN, viewDir;
-            deep = mix(vec2(.02,.141), vec2(.027,.075), arctic) * (mix(light, waterLight, 0.6));
-            shallow = mix(vec2(.1017,.2178), vec2(.05,.115), arctic) * waterLight;
-            w.yz = mix(deep, shallow, pow(0.005, abs(sandHeight - height))), // Deep to shallow water.
-
-            waveN = normalize(cross(vec3(uDerivative, 0.0, dFdx(wn.y)), vec3(0.0, uDerivative, dFdy(wn.y)))),
-
-            viewDir = vec3(0.0, 0.0, 1.0);
+            vec3 deep = mix(vec3(0.,0.02,0.141), vec3(0.,0.027,0.075), arctic) * (mix(light, waterLight, 0.6));
+            vec3 shallow = mix(vec3(0.02979, 0.1017, 0.2178), vec3(0.0, 0.05, 0.115), arctic) * waterLight;
+            vec3 w = mix(deep, shallow, pow(0.005, abs(sandHeight - height))); // Deep to shallow water.
+            vec3 waveN = normalize(cross(vec3(uDerivative, 0.0, dFdx(wn.y)), vec3(0.0, uDerivative, dFdy(wn.y))));
+            vec3 viewDir = vec3(0.0, 0.0, 1.0);
             float r = clamp(dot(reflect(-uWaterSun, waveN), viewDir), 0.0, 1.0);
 
             // r = pow(r, 16.0);

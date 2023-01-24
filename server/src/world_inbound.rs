@@ -288,7 +288,7 @@ impl CommandTrait for Fire {
                 return Err("cannot fire while surfacing as a boat");
             }
 
-            if entity.altitude > Altitude(50) && !(matches!(data.sub_kind, EntitySubKind::Aeroplane | EntitySubKind::Starship) ){
+            if entity.altitude > Altitude(50) && !(matches!(data.sub_kind, EntitySubKind::Aeroplane | EntitySubKind::Starship | EntitySubKind::Helicopter) ){
                 return Err("cannot fire while flying high (lol)");
             }
 

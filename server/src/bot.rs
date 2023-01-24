@@ -51,7 +51,7 @@ impl Default for Bot {
             // Raise aggression to a power such that lower values are more common.
             aggression: rng.gen::<f32>().powi(2) * Self::MAX_AGGRESSION,
             steer_bias: rng.gen::<Angle>() * 0.1,
-            aim_bias: gen_radius(&mut rng, 10.0),
+            aim_bias: gen_radius(&mut rng, 5.0),
             // Bias towards lower levels.
             level_ambition: random_level(&mut rng).min(random_level(&mut rng)),
             spawned_at_least_once: false,
@@ -63,7 +63,7 @@ impl Default for Bot {
 impl Bot {
     /// This arbitrary value controls how chill the bots are. If too high, bots are trigger-happy
     /// maniacs, and the waters get filled with stray torpedoes.
-    const MAX_AGGRESSION: f32 = 0.25;
+    const MAX_AGGRESSION: f32 = 0.35;
 
     /// Returns true if there is land or border at the given position.
     fn is_land_or_border(pos: Vec2, terrain: &Terrain, world_radius: f32) -> bool {
@@ -118,12 +118,19 @@ impl Bot {
                 let angle =
                     Angle::from_radians(i as f32 * (2.0 * std::f32::consts::PI / SAMPLES as f32));
                 let delta_position = angle.to_vec() * data.length;
-                if Self::is_land_or_border(
+                if boat_type != EntityType::Sherman && boat_type != EntityType::Abrams && Self::is_land_or_border(
                     boat.transform().position + delta_position,
                     terrain,
                     update.world_radius(),
                 ) {
                     repel(&mut movement, delta_position, 0.5 * data.length.powi(2));
+                }
+                else if Self::is_land_or_border(
+                    boat.transform().position + delta_position,
+                    terrain,
+                    update.world_radius(),
+                )  {
+                    attract(&mut movement, delta_position, 0.5 * data.length.powi(2));
                 }
             }
 
@@ -166,7 +173,7 @@ impl Bot {
                             (contact_data.level + 1 >= data.level
                                 && !matches!(
                                     contact_data.sub_kind,
-                                    EntitySubKind::Dredger | EntitySubKind::Icebreaker
+                                    EntitySubKind::Dredger | EntitySubKind::Icebreaker | EntitySubKind::Passenger
                                 ))
                                 || contact.player_id().map(|id| id.is_bot()).unwrap_or(false)
                                 || distance_squared < 1.5 * data.radius.powi(2)
@@ -305,7 +312,7 @@ impl Bot {
 
             self.was_submerging = if data.sub_kind == EntitySubKind::Submarine {
                 // More positive values mean want to surface, more negative values mean want to dive.
-                let surface_bias = health_percent - self.aggression * (1.0 / Self::MAX_AGGRESSION);
+                let surface_bias = health_percent - self.aggression * (2.0 / Self::MAX_AGGRESSION);
 
                 // Hysteresis.
                 if self.was_submerging && surface_bias >= 0.1 {

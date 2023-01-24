@@ -337,7 +337,7 @@ impl GameClient for Mk48Game {
                 let volume = Self::volume_at(distance);
 
                 if data.kind == EntityKind::Aircraft || data.sub_kind == EntitySubKind::Aeroplane || data.sub_kind == EntitySubKind::Helicopter {
-                    if matches!(entity_type, EntityType::SuperEtendard | EntityType::F35) {
+                    if matches!(entity_type, EntityType::SuperEtendard | EntityType::F35 | EntityType::J20 | EntityType::Xwing) {
                         jet_volume += 1.25 * volume;
                     } else {
                         aircraft_volume += 1.25 * volume;
@@ -1154,7 +1154,7 @@ impl GameClient for Mk48Game {
                                 + Vec2::new(0.0, overlay_vertical_position);
                             layer.graphics.draw_triangle(
                                 triangle_position + Vec2::new(0.0, 0.01 * zoom),
-                                Vec2::splat(0.02 * zoom),
+                                Vec2::splat(0.0075 * zoom),
                                 180f32.to_radians(),
                                 color.extend(1.0),
                             );

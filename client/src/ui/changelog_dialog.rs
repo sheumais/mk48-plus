@@ -25,13 +25,24 @@ fn changelog_2023() -> Html { //<li>{""}</li>
         <>
             <h2>{"2023"}</h2>
 
+            <h3>{"24 Jan '23"}</h3>
+
+            <ul>
+                <li>{"Add Apache Helicopter"}</li>
+                <li>{"Fixed Background Shader"}</li>
+                <li>{"Increased bot aggression and count"}</li>
+                <li>{"Decreased maximum acceleration of boats and aeroplanes to 5 gs"}</li>
+                <li>{"Added epic particles when you shoot shells"}</li>
+                <li>{"Reduced size of triangle indicators"}</li>
+            </ul>
+
             <h3>{"23 Jan '23"}</h3>
 
             <ul>
                 <li>{"Added the J-20"}</li>
                 <li>{"Made improvements to the background shader"}</li>
                 <li>{"Removed the emissions from the fourth funnel on the Titanic"}</li>
-                <li>{"Increased bot agression and minimum level target"}</li>
+                <li>{"Increased bot aggression and minimum level target"}</li>
                 <li>{"Increased minimum number of bots"}</li>
                 <li>{"Decreased world size"}</li>
             </ul>

@@ -139,22 +139,23 @@ impl InterpolatedContact {
                         .and_then(|t| data.turrets[t].entity_type)
                         .map(|t| t.data().length * 0.4)
                         .unwrap_or(2.0);
-                    let forward_velocity = 0.5 * armament_entity_data.speed.to_mps().min(100.0);
+                    let mut forward_velocity = 0.5 * armament_entity_data.speed.to_mps().min(100.0);
 
                     let is_submerged = self.view.altitude().is_submerged();
 
                     // Add muzzle flash particles.
-                    let amount = 10;
-                    for i in 0..amount {
-                        let particle = Mk48Particle {
-                            position: armament_transform.position
-                                + direction_vector * forward_offset,
-                            velocity: boat_velocity
-                                + direction_vector
-                                    * forward_velocity
-                                    * (i as f32 * (1.0 / amount as f32))
-                                + direction_vector.perp()
-                                    * forward_velocity
+                    let amount = 25;
+                    if armament_entity_data.sub_kind != EntitySubKind::Shell {
+                        for i in 0..amount {
+                            let particle = Mk48Particle {
+                                position: armament_transform.position
+                                    + direction_vector * forward_offset,
+                                velocity: boat_velocity
+                                    + direction_vector
+                                        * forward_velocity
+                                        * (i as f32 * (1.0 / amount as f32))
+                                    + direction_vector.perp()
+                                        * forward_velocity
                                     * 0.15
                                     * (rng.gen::<f32>() - 0.5),
                             radius: (armament_entity_data.width * 5.0).clamp(1.0, 3.0),
@@ -162,10 +163,30 @@ impl InterpolatedContact {
                             smoothness: 1.0,
                         };
 
-                        if is_submerged {
-                            layer.sea_level_particles.add(particle);
-                        } else {
-                            layer.airborne_particles.add(particle);
+                            if is_submerged {
+                                layer.sea_level_particles.add(particle);
+                            } else {
+                                layer.airborne_particles.add(particle);
+                            }
+                        }
+                    } else {
+                        forward_velocity = 2.0 * forward_velocity * armament_entity_data.length.min(1.0);
+                        for i in 0..amount {
+                            let fire = Mk48Particle {
+                                position: armament_transform.position
+                                    + direction_vector * forward_offset,
+                                velocity: boat_velocity
+                                    + direction_vector
+                                        * forward_velocity
+                                        * (i as f32 * (1.0 / amount as f32))
+                                    + direction_vector.perp()
+                                        * forward_velocity
+                                        * (rng.gen::<f32>()),
+                                radius: (armament_entity_data.length * 10.0).clamp(1.0, 25.0),
+                                color: -1.0 + rng.gen::<f32>(),
+                                smoothness: 0.85,
+                            };
+                        layer.airborne_particles.add(fire);
                         }
                     }
                 }
