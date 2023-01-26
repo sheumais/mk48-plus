@@ -380,6 +380,16 @@ pub enum EntityType {
     #[turret(RatepKomar, forward = -17.8952, angle = 180, fast, azimuth_b = 40)]
     Buyan,
     #[info(
+        label = "B-2 Spirit",
+        link = "https://en.wikipedia.org/wiki/Northrop_Grumman_B-2_Spirit"
+    )]
+    #[entity(Boat, Aeroplane, level = 11)]
+    #[size(length = 21.0, width = 52.4, draft = 1.0)]
+    #[props(speed = 282.944)]
+    #[sensors(visual = 1000, radar = 1000)]
+    #[armament(Mk82, count = 12)]
+    B2, 
+    #[info(
         label = "Clemenceau",
         link = "https://en.wikipedia.org/wiki/Clemenceau-class_aircraft_carrier"
     )]
@@ -458,7 +468,6 @@ pub enum EntityType {
     #[props(speed = 87.4556)]
     #[sensors(visual = 600, radar = 500)]
     #[armament(Wz0839, forward = 2, side = 0, hidden)]
-    #[armament(Wz0839, forward = 2, side = 0.5, symmetrical, hidden)]
     #[turret(_M1919, forward = 7, slow, azimuth_b = 30, symmetrical)]
     #[turret(_M1919, forward = -8, angle = 180, slow, azimuth_b = 40)]
     #[turret(_M1919, forward = -3, slow, azimuth_b = 30, symmetrical)]
@@ -482,15 +491,15 @@ pub enum EntityType {
     #[entity(Boat, Aeroplane, level = 10)]
     #[size(length = 21.2, width = 13.01, draft = 1.0)]
     #[props(speed = 333.3)]
-    #[armament(Ls6, forward = 2, side = 0, count = 6, hidden)]
-    #[armament(Pl12, forward = 2, side = 0, count = 12, hidden)]
+    #[armament(Ls6, forward = 2, side = 0, count = 4, hidden)]
+    #[armament(Pl12, forward = 2, side = 0, count = 8, hidden)]
     #[sensors(visual = 800, radar = 1300)]
     J20, 
     #[info(
         label = "F-35 Lightning II",
         link = "https://en.wikipedia.org/wiki/Lockheed_Martin_F-35_Lightning_II"
     )]
-    #[entity(Boat, Aeroplane, level = 12)]
+    #[entity(Boat, Aeroplane, level = 11)]
     #[size(length = 15.7, width = 11, draft = 1.0)]
     #[props(speed = 411.6)]
     #[armament(Jagm, forward = -3, side = 3, symmetrical)]
@@ -1265,6 +1274,18 @@ pub enum EntityType {
     #[sensors(visual = 750, radar = 750, sonar = 750)]
     Uap,
     #[info(
+        label = "Nexar Vindicator",
+        link = "http://astroflux.org/wiki/index.php/Nexar_Vindicator"
+    )]
+    #[entity(Boat, Aeroplane, level = 12)]
+    #[size(length = 28.8, width = 29.88, draft = 1.0)]
+    #[props(speed = 350.0)]
+    #[sensors(visual = 1000, radar = 1000)]
+    #[armament(VBlaster, forward = 5.0, count = 8, hidden)]
+    #[armament(VMissiles, forward = 5.0, count = 8, hidden)]
+    #[armament(VProjector, forward = 5.0, count = 1, hidden)]
+    Vindicator, 
+    #[info(
         label = "Visby",
         link = "https://en.wikipedia.org/wiki/Visby-class_corvette"
     )]
@@ -1771,6 +1792,21 @@ pub enum EntityType {
     #[size(length = 2.0, width = 0.3)]
     #[props(speed = 1184, range = 100000)]
     GreenBlaster,
+    #[info(label = "Vindicator Blaster")]
+    #[entity(Weapon, Laser)]
+    #[size(length = 2.0, width = 0.3)]
+    #[props(speed = 1184, range = 100000)]
+    VBlaster,
+    #[info(label = "Vindicator Projector")]
+    #[entity(Weapon, Shell)]
+    #[size(length = 25.0, width = 0.0)]
+    #[props(speed = 1500, range = 100000)]
+    VProjector,
+    #[info(label = "Vindicator Cluster Missiles")]
+    #[entity(Weapon, Missile)]
+    #[size(length = 5.0, width = 6.0)]
+    #[props(speed = 1000, range = 100000)]
+    VMissiles,
     #[info(label = "30 x 130 mmR")]
     #[entity(Weapon, Shell)]
     #[size(length = 0.130, width = 0.03)]
@@ -2131,7 +2167,7 @@ pub enum EntityType {
         link = "https://pl.wikipedia.org/wiki/Plik:Mina_morska_typu_M_1908-39.jpg"
     )]
     #[entity(Weapon, Mine, level = 3)]
-    #[size(length = 1.0725, width = 1.32)]
+    #[size(length = 2.0, width = 2.6)]
     #[props(lifespan = 300)]
     Wz0839,
     #[info(
@@ -2139,9 +2175,17 @@ pub enum EntityType {
         link = "https://en.wikipedia.org/wiki/Mitsubishi_A5M"
     )]
     #[entity(Weapon, Mine, level = 3)]
-    #[size(length = 0.5, width = 0.75)]
+    #[size(length = 1.0, width = 1.5)]
     #[props(lifespan = 15)]
     Type96Bomb,
+    #[info(
+        label = "Mark 82 bomb",
+        link = "https://en.wikipedia.org/wiki/Mark_82_bomb"
+    )]
+    #[entity(Weapon, Mine, level = 10)]
+    #[size(length = 2.22, width = 0.273)]
+    #[props(lifespan = 20)]
+    Mk82,
     #[info(label = "YJ-18", link = "https://en.wikipedia.org/wiki/YJ-18")]
     #[entity(Weapon, Missile, level = 5)]
     #[size(length = 8.1, width = 4.11328)]

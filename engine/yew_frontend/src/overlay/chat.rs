@@ -58,6 +58,12 @@ pub fn chat_overlay(props: &ChatProps) -> Html {
 	    "#
     );
 
+    let team_style = css!(
+        r#"
+        color: #AAAAAA;
+        "#
+    );
+
     let name_css_class = css!(
         r#"
         cursor: pointer;
@@ -316,13 +322,16 @@ pub fn chat_overlay(props: &ChatProps) -> Html {
 
         html_nested!{
             <p class={classes!(message_css_class.clone(), dto.whisper.then(|| whisper_style.clone()))} oncontextmenu={oncontextmenu}>
+                if dto.team_name.is_some() {
+                    <span class={classes!(team_style.clone(), dto.whisper.then(|| whisper_style.clone()))}>{format!("[{}] ", dto.team_name.unwrap())}</span>
+                }
                 <span
                     onclick={move |_| onclick_reply()}
                     class={if dto.player_id.is_some() { name_css_class.clone() } else { official_name_css_class.clone() }}
                 >
-                    {dto.team_name.map(|team_name| format!("[{}] {}", team_name, dto.alias)).unwrap_or(dto.alias.to_string())}
+                    {format!("{}", dto.alias)}
                 </span>
-                <span class={no_select_style.clone()}>{": "}</span>
+                <span class={classes!(no_select_style.clone(), team_style.clone(), dto.whisper.then(|| whisper_style.clone()))}>{": "}</span>
                 {segments(&dto.text, &mention_string).map(|Segment{contents, mention}| html_nested!{
                     <span class={classes!(mention.then(|| mention_style.clone()))}>{contents.to_owned()}</span>
                 }).collect::<Html>()}

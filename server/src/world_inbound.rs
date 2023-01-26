@@ -57,8 +57,10 @@ impl CommandTrait for Spawn {
             // Default to spawning near the center of the world, with more points making you spawn further north.
             let raw_spawn_y = map_ranges(
                 score_to_level(player.score) as f32,
-                1.5..(EntityData::MAX_BOAT_LEVEL - 1) as f32,
-                -0.75 * world.radius..ARCTIC.min(0.75 * world.radius),
+                1.5..(EntityData::MAX_BOAT_LEVEL * 10/25) as f32,
+                // But lets not stop people from spawning in the arctic for evil and balance reasons
+                // now that it has become more accessible
+                -0.85 * world.radius..0.85 * world.radius,
                 true,
             );
             debug_assert!((-world.radius..=world.radius).contains(&raw_spawn_y));

@@ -164,7 +164,7 @@ float textureBicubic(sampler2D s, vec2 uv) {
 // Match Rust code "levels"
 #define LOW_LAND 0.5
 #define HIGH_LAND 0.64
-#define BORDER 200.0
+#define BORDER 750.0
 
 void main() {
     float height = textureBicubic(uHeight, vUv);
@@ -184,7 +184,7 @@ void main() {
         height -= (0.4 - d) * 0.15 * smoothstep(0.125, 0.0, abs(height - (LOW_LAND)));
     }
 
-    float heightMeters = height * 400.0 - 200.0;
+    float heightMeters = height * 600.0 - 300.0;
     vec3 N = normalize(cross(vec3(uDerivative, 0.0, dFdx(heightMeters)), vec3(0.0, uDerivative, dFdy(heightMeters))));
 
     // Contains sand, grass, snow, and waves.

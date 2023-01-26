@@ -202,7 +202,7 @@ fn main() {
                 let width = match data.kind {
                     EntityKind::Boat => 160.min((40.0 * aspect) as u32), 
                     EntityKind::Weapon | EntityKind::Decoy | EntityKind::Aircraft => {
-                        120.min((40.0 * aspect) as u32)
+                        80.min((40.0 * aspect) as u32)
                     },
                     _ => 0,
                 };

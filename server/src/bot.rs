@@ -37,6 +37,8 @@ pub struct Bot {
     spawned_at_least_once: bool,
     /// The value of submerge previously sent.
     was_submerging: bool,
+    /// Makes sure bot's planes etc despawn
+    has_waited_one_tick: bool,
 }
 
 impl Default for Bot {
@@ -56,6 +58,7 @@ impl Default for Bot {
             level_ambition: random_level(&mut rng).min(random_level(&mut rng)),
             spawned_at_least_once: false,
             was_submerging: false,
+            has_waited_one_tick: false,
         }
     }
 }
@@ -357,12 +360,15 @@ impl Bot {
         } else if self.spawned_at_least_once && (rng.gen_bool(1.0 / 3.0)) {
             // Rage quit.
             BotAction::Quit
-        } else {
+        } else if self.has_waited_one_tick {
             BotAction::Some(Command::Spawn(Spawn {
                 entity_type: EntityType::spawn_options(0, true, false)
                     .choose(&mut rng)
                     .expect("there must be at least one entity type to spawn as"),
             }))
+        } else {
+            self.has_waited_one_tick = true;
+            BotAction::None
         }
     }
 }

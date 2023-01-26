@@ -218,8 +218,6 @@ impl World {
                             }
                         }
 
-                        noise *= (data.length / 100.0).max(1.0);
-
                         sonar_ratio /= noise;
 
                         // Making noise of your own reduces the performance of
@@ -248,6 +246,7 @@ impl World {
                                 false,
                             ) + extra;
                         }
+                        visual_ratio /= (data.length / 100.0).max(1.0);
                         visible = visual_ratio < 1.0;
                         uncertainty = uncertainty.min(visual_ratio);
                     }

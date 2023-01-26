@@ -194,7 +194,7 @@ impl GameClient for Mk48Game {
             camera,
             render_chain,
             first_control: false,
-            first_zoom: false,
+            first_zoom: true,
             holding: false,
             reversing: false,
             interpolated_altitude: Interpolated::new(0.2),
@@ -1197,13 +1197,38 @@ impl GameClient for Mk48Game {
                             t.direction.to_vec() * t.velocity.to_mps(),
                             data.width * 2.0,
                         );
-                    } else if data.sub_kind == EntitySubKind::Aeroplane && contact.altitude().is_airborne() { //aeroplane particles on wing tips
+                    } else if matches!(entity_type, EntityType::Spitfire | EntityType::Catalina) && contact.altitude().is_airborne() { //aeroplane particles on wing tips
                         let width = 0.5*data.width;
                         let position = contact.transform().position;
                         let velocity = Vec2::new(0.0, 0.0);
 
                         let position1 = position + width*tangent_vector;
                         let position2 = position - width*tangent_vector;
+
+                        let particle1 = Mk48Particle {
+                            position: position1,
+                            velocity,
+                            radius: 1.5,
+                            color: 1.0,
+                            smoothness: 0.25,
+                        };
+                        let particle2 = Mk48Particle {
+                            position: position2,
+                            velocity,
+                            radius: 1.5,
+                            color: 1.0,
+                            smoothness: 0.25,
+                        };
+                        layer.airborne_particles.add(particle1);
+                        layer.airborne_particles.add(particle2);
+                    } else if matches!(entity_type, EntityType::Xwing | EntityType::J20 | EntityType::F35 | EntityType::Vindicator | EntityType::B2) && contact.altitude().is_airborne() {
+                        let width = 0.5*data.width;
+                        let length = 0.4*data.length;
+                        let position = contact.transform().position;
+                        let velocity = Vec2::new(0.0, 0.0);
+
+                        let position1 = position + width*tangent_vector - direction_vector * length;
+                        let position2 = position - width*tangent_vector - direction_vector * length;
 
                         let particle1 = Mk48Particle {
                             position: position1,

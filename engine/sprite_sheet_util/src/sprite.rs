@@ -263,8 +263,8 @@ pub fn pack_sprite_sheet(
     let items: Vec<_> = sorted
         .iter()
         .map(|(key, images)| {
-            let w = (images.width + padding) as usize;
-            let h = (images.height + padding) as usize;
+            let w = (images.width + 2 * padding) as usize;
+            let h = (images.height + 2 * padding) as usize;
             Item::new(key.to_owned(), w, h, Rotation::None /*Allowed*/)
         })
         .collect();
@@ -272,7 +272,7 @@ pub fn pack_sprite_sheet(
     for size in sizes {
         println!("Trying {}px...", size);
 
-        let padded_size = size + padding;
+        let padded_size = size + 2 * padding;
         let container = Rect::of_size(padded_size.x as usize, padded_size.y as usize);
 
         let packed_rects = match pack(container, items.clone()) {
@@ -297,8 +297,8 @@ pub fn pack_sprite_sheet(
                 let x = rect.x as u32;
                 let y = rect.y as u32;
 
-                let width = rect.w as u32 - padding;
-                let height = rect.h as u32 - padding;
+                let width = rect.w as u32 - 2 * padding;
+                let height = rect.h as u32 - 2 * padding;
                 (
                     key.to_string(),
                     Sprite {

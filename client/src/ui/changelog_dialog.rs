@@ -25,10 +25,23 @@ fn changelog_2023() -> Html { //<li>{""}</li>
         <>
             <h2>{"2023"}</h2>
 
+            <h3>{"26 Jan '23"}</h3>
+
+            <ul>
+                <li>{"Added B2 Spirit"}</li>
+                <li>{"Added Nexar Vindicator"}</li>
+                <li>{"Changed arctic terrain"}</li>
+                <li>{"Made weapon sprites smaller"}</li>
+                <li>{"Fixed bug where bot deployables wouldn't disappear"}</li>
+                <li>{"Changed background shader (again..)"}</li>
+                <li>{"Rebalanced Aeroplanes"}</li>
+                <li>{"Changed the spawning algorithm slightly"}</li>
+            </ul>
+
             <h3>{"24 Jan '23"}</h3>
 
             <ul>
-                <li>{"Add Apache Helicopter"}</li>
+                <li>{"Added Apache Helicopter"}</li>
                 <li>{"Fixed Background Shader"}</li>
                 <li>{"Increased bot aggression and count"}</li>
                 <li>{"Decreased maximum acceleration of boats and aeroplanes to 5 gs"}</li>

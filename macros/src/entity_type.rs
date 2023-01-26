@@ -575,7 +575,7 @@ pub(crate) fn derive_entity_type(input: TokenStream) -> TokenStream {
                         damage = Some(0.2);
                     }
                     "Mine" => {
-                        damage = Some(2.0979 * entity.length());
+                        damage = Some(entity.length());
                     }
                     "DepthCharge" => {
                         damage = Some(0.7);
@@ -601,7 +601,7 @@ pub(crate) fn derive_entity_type(input: TokenStream) -> TokenStream {
                         damage = Some(normal);
                     }
                     "Laser" => {
-                        damage = Some(0.5);
+                        damage = Some(entity.length() * 0.25);
                     }
                     "GlideBomb" => {
                         damage = Some(entity.length());

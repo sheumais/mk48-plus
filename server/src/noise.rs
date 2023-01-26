@@ -51,15 +51,15 @@ pub fn noise_generator(x: usize, y: usize) -> u8 {
     }
 
     if arctic_distance > 0 {
-        let ice_sheet = (arctic_distance as f64 * (1.0 / 40.0)).min(1.0);
+        let ice_sheet = (arctic_distance as f64 * (1.0 / 60.0)).min(1.0);
 
         let v = fractal_noise(get_noise(), noise_x * 0.35 + 1000.0, noise_y * 0.35, 4) * scale;
         let m = (v + 0.04).max(height + 0.25) - (1.0 - ice_sheet);
 
         // Ice sheets.
         match m {
-            m if m > 0.5 => height = height.max(10.0 / 16.0),
-            m if m > 0.3 => height = height.max(9.0 / 16.0),
+            m if m > 0.6 => height = height.max(10.0 / 16.0),
+            m if m > 0.45 => height = height.max(9.0 / 16.0),
             _ => (),
         }
     }

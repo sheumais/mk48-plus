@@ -137,6 +137,8 @@ impl EntityData {
         } else if !armament.vertical {
             // Minimal launch velocity (except if vertical, in which case only initial velocity is up).
             transform.velocity = Velocity::from_mps(1.0);
+        } else if weapon_data.sub_kind == EntitySubKind::Mine {
+            transform.velocity = Velocity::from_mps(10.0);
         }
 
         if let Some(turret_index) = armament.turret {
