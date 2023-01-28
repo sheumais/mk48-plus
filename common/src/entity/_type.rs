@@ -42,6 +42,7 @@ impl EntityType {
         if moderator && upgrade_data.kind == data.kind {return true};
         if upgrade_data.sub_kind == EntitySubKind::Drone && !moderator {return false};
         if bot && upgrade == EntityType::Chinook {return false};
+        if bot && upgrade == EntityType::Lst {return false};
         if self == EntityType::Lst && upgrade == EntityType::Sherman {return score < level_to_score(6) && score >= level_to_score(4)};
         if data.sub_kind == EntitySubKind::Tank && upgrade_data.sub_kind == EntitySubKind::LandingShip {return true};
         if data.sub_kind == EntitySubKind::LandingShip && upgrade_data.sub_kind == EntitySubKind::Tank {return true};

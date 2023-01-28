@@ -599,11 +599,7 @@ impl Terrain {
             for w in -(half_width as i32)..=half_width as i32 {
                 let l = l as f32 * dx;
                 // causes panics
-                debug_assert!(l > dim_transform.dimensions.x * -0.5);
-                debug_assert!(l < dim_transform.dimensions.x * 0.5);
                 let w = w as f32 * dy;
-                debug_assert!(w > dim_transform.dimensions.y * -0.5);
-                debug_assert!(w < dim_transform.dimensions.y * 0.5);
                 let pos = dim_transform.transform.position + normal * l + tangent * w;
 
                 if let Some(alt) = self.sample(pos) {

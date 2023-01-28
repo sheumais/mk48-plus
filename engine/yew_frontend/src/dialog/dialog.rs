@@ -37,6 +37,7 @@ pub fn dialog(props: &DialogProps) -> Html {
         position: absolute;
         text-align: center;
         user-select: text;
+        scrollbar-color: #75AAFF transparent;
     "#
     );
 

@@ -61,6 +61,7 @@ pub fn chat_overlay(props: &ChatProps) -> Html {
     let team_style = css!(
         r#"
         color: #AAAAAA;
+        user-select: none;
         "#
     );
 
@@ -129,6 +130,14 @@ pub fn chat_overlay(props: &ChatProps) -> Html {
         border: 0;
         color: white;
         width: 100%;
+        "#
+    );
+
+    let chat_box_container = css!(
+        r#"
+        overflow-y:auto;
+        max-height:12rem;
+        scrollbar-color: #75AAFF transparent;
         "#
     );
 
@@ -252,6 +261,10 @@ pub fn chat_overlay(props: &ChatProps) -> Html {
                     if input.value().is_empty() {
                         input.set_value(&at_alias);
                         focus(&input);
+                    } else {
+                        let new_string = format!("{}{}", input.value(), at_alias).to_string();
+                        input.set_value(&new_string);
+                        focus(&input);
                     }
                 }
             }
@@ -354,10 +367,12 @@ pub fn chat_overlay(props: &ChatProps) -> Html {
             open={ctw.setting_cache.chat_dialog_shown}
             {on_open_changed}
         >
+        <div class={chat_box_container.clone()}>
             {items}
             if let Some(help_hint) = *help_hint {
                 <p><b>{"Automated help: "}{help_hint}</b></p>
             }
+        </div>
             <input
                 type="text"
                 name="message"

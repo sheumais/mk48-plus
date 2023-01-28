@@ -27,7 +27,7 @@ use std::time::{Duration, Instant};
 /// Component of [`Context`] dedicated to chat.
 pub struct ChatRepo<G> {
     /// For new players' chat to start full.
-    recent: HistoryBuffer<Arc<MessageDto>, 16>,
+    recent: HistoryBuffer<Arc<MessageDto>, 32>,
     /// Safe mode (profanity filter setting) is on until this time.
     safe_mode_until: Option<Instant>,
     /// Slow mode (more aggressive rate limits for all players) is on until this time.
@@ -46,7 +46,7 @@ pub struct ClientChatData {
     /// Players this client has muted.
     muted: HashSet<PlayerId>,
     /// Messages that need to be sent to the client.
-    inbox: HistoryBuffer<Arc<MessageDto>, 16>,
+    inbox: HistoryBuffer<Arc<MessageDto>, 32>,
 }
 
 impl ClientChatData {
@@ -70,7 +70,7 @@ impl ClientChatData {
     }
 
     /// Gets all messages that need to be sent.
-    fn take_inbox(&mut self) -> HistoryBuffer<Arc<MessageDto>, 16> {
+    fn take_inbox(&mut self) -> HistoryBuffer<Arc<MessageDto>, 32> {
         std::mem::take(&mut self.inbox)
     }
 }
