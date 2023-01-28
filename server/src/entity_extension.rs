@@ -25,6 +25,10 @@ pub struct EntityExtension {
     active: bool,
     deactivate_delay: Ticks,
 
+    /// Whether to sound horn
+    pub horn: bool,
+    horn_delay: Ticks,
+
     /// Ticks of protection ticks remaining, zeroed if showing signs of aggression.
     spawn_protection_remaining: Ticks,
 
@@ -45,6 +49,8 @@ impl EntityExtension {
     const DEACTIVATE_DELAY: Ticks = Ticks::from_repr(5);
     /// How long submerging is delayed.
     const SUBMERGE_DELAY: Ticks = Ticks::from_repr(8);
+    /// How long horns are delayed.
+    const HORN_DELAY: Ticks = Ticks::from_whole_secs(3);
 
     /// Allocates reloads and turrets, sized to a particular entity type.
     /// It can also give spawn protection.
@@ -70,12 +76,24 @@ impl EntityExtension {
         }
     }
 
-    /// Sets submerge, possibly also setting deactivate_delay to an appropriate value.
+    /// Sets submerge, possibly also setting submerge_delay to an appropriate value.
     pub fn set_submerge(&mut self, submerge: bool) {
         if submerge && !self.submerge {
             self.submerge_delay = Self::SUBMERGE_DELAY;
         }
         self.submerge = submerge;
+    }
+
+    /// Sounds horn, sets delay
+    pub fn sound_horn(&mut self, horn: bool) {
+        if horn && self.horn && self.horn_delay == Ticks::ZERO {
+            self.horn_delay = Self::HORN_DELAY;
+        }
+        self.horn = horn;
+    }
+
+    pub fn is_horn(&self) -> bool {
+        self.horn || self.horn_delay > Ticks::ZERO
     }
 
     /// Returns whether active sensors, or within deactivate sensor delay.
@@ -106,10 +124,12 @@ impl EntityExtension {
     /// Subtracts from the player's tickers:
     /// submerge
     /// deactivate_delay
+    /// horn_delay
     /// spawn_protection_remaining
     pub fn update_tickers(&mut self, delta: Ticks) {
         self.submerge_delay = self.submerge_delay.saturating_sub(delta);
         self.deactivate_delay = self.deactivate_delay.saturating_sub(delta);
+        self.horn_delay = self.horn_delay.saturating_sub(delta);
         self.spawn_protection_remaining = self.spawn_protection_remaining.saturating_sub(delta);
     }
 
@@ -133,6 +153,8 @@ impl Default for EntityExtension {
             submerge_delay: Ticks::ZERO,
             active: true,
             deactivate_delay: Ticks::ZERO,
+            horn: false,
+            horn_delay: Ticks::ZERO,
             spawn_protection_remaining: Self::SPAWN_PROTECTION_INITIAL,
             reloads: box_default_n(0),
             turrets: arc_default_n(0),

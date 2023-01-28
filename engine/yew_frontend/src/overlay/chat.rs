@@ -61,6 +61,7 @@ pub fn chat_overlay(props: &ChatProps) -> Html {
     let team_style = css!(
         r#"
         color: #AAAAAA;
+        user-select: none;
         "#
     );
 
