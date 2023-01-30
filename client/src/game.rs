@@ -336,10 +336,9 @@ impl GameClient for Mk48Game {
 
                 let friendly = context.state.core.is_friendly(contact.player_id());
                 let volume = Self::volume_at(distance);
-
                 let play_horn = contact.horn();
-
-                if data.kind == EntityKind::Aircraft || data.sub_kind == EntitySubKind::Aeroplane || data.sub_kind == EntitySubKind::Helicopter {
+                
+                if (data.kind == EntityKind::Aircraft && !matches!(entity_type, EntityType::Vindicator | EntityType::B2)) || data.sub_kind == EntitySubKind::Aeroplane || data.sub_kind == EntitySubKind::Helicopter {
                     if matches!(entity_type, EntityType::SuperEtendard | EntityType::F35 | EntityType::J20 | EntityType::Xwing) {
                         jet_volume += 1.25 * volume;
                     } else {

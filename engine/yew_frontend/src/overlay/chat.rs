@@ -133,6 +133,14 @@ pub fn chat_overlay(props: &ChatProps) -> Html {
         "#
     );
 
+    let chat_box_container = css!(
+        r#"
+        overflow-y:auto;
+        max-height:12rem;
+        scrollbar-color: #75AAFF transparent;
+        "#
+    );
+
     let ctw = use_ctw();
 
     let on_open_changed = ctw.change_common_settings_callback.reform(|open| {
@@ -253,6 +261,10 @@ pub fn chat_overlay(props: &ChatProps) -> Html {
                     if input.value().is_empty() {
                         input.set_value(&at_alias);
                         focus(&input);
+                    } else {
+                        let new_string = format!("{}{}", input.value(), at_alias).to_string();
+                        input.set_value(&new_string);
+                        focus(&input);
                     }
                 }
             }
@@ -355,10 +367,12 @@ pub fn chat_overlay(props: &ChatProps) -> Html {
             open={ctw.setting_cache.chat_dialog_shown}
             {on_open_changed}
         >
+        <div class={chat_box_container.clone()}>
             {items}
             if let Some(help_hint) = *help_hint {
                 <p><b>{"Automated help: "}{help_hint}</b></p>
             }
+        </div>
             <input
                 type="text"
                 name="message"

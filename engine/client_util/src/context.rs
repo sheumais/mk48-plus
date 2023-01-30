@@ -79,7 +79,7 @@ pub struct CoreState {
     /// TODO: Deprecate `pub`
     pub leaderboards: [Box<[LeaderboardDto]>; std::mem::variant_count::<PeriodId>()],
     pub liveboard: Vec<LiveboardDto>,
-    pub messages: HistoryBuffer<MessageDto, 9>,
+    pub messages: HistoryBuffer<MessageDto, 32>,
     pub(crate) players: HashMap<PlayerId, PlayerDto>,
     pub real_players: u32,
     pub teams: HashMap<TeamId, TeamDto>,

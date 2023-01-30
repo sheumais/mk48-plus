@@ -25,6 +25,15 @@ fn changelog_2023() -> Html { //<li>{""}</li>
         <>
             <h2>{"2023"}</h2>
 
+            <h3>{"28 Jan '23"}</h3>
+
+            <ul>
+                <li>{"Removed Titanic Easter Egg due to confusion"}</li>
+                <li>{"Changed sounds on Aeroplanes"}</li>
+                <li>{"Added scrollbar to chat"}</li>
+                <li>{"Added scrollbar styling for Firefox users"}</li>
+            </ul>
+
             <h3>{"26 Jan '23"}</h3>
 
             <ul>

@@ -201,6 +201,12 @@ impl World {
                                         .unwrap()
                                         .push(entity.transform.position)
                                 };
+                                entity.apply_altitude_target(
+                                    terrain,
+                                    Some(entity.extension().altitude_target()),
+                                    2.0,
+                                    delta,
+                                );
                             }
                             _ => {entity.apply_altitude_target(
                                     terrain,

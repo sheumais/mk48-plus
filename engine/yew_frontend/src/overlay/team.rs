@@ -239,6 +239,7 @@ pub fn team_overlay(props: &TeamOverlayProps) -> Html {
 
     const CHECK_MARK: &'static str = "✔";
     const X_MARK: &'static str = "✘";
+    const CROWN_MARK: &'static str = "✦";
 
     // TODO (use settings): on_open_changed={|o| ctw.dialogs.teams = o}}
     html! {
