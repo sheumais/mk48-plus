@@ -166,6 +166,7 @@ impl Contact {
         let changed_type = self.entity_type != model.entity_type;
         self.entity_type = model.entity_type;
 
+        self.horn = model.horn;
         self.altitude = self.altitude.lerp(model.altitude, lerp);
         self.damage = model.damage;
         self.player_id = model.player_id;

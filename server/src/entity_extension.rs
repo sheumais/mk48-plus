@@ -50,7 +50,7 @@ impl EntityExtension {
     /// How long submerging is delayed.
     const SUBMERGE_DELAY: Ticks = Ticks::from_repr(8);
     /// How long horns are delayed.
-    const HORN_DELAY: Ticks = Ticks::from_whole_secs(3);
+    const HORN_DELAY: Ticks = Ticks::from_repr(8);
 
     /// Allocates reloads and turrets, sized to a particular entity type.
     /// It can also give spawn protection.
@@ -86,7 +86,7 @@ impl EntityExtension {
 
     /// Sounds horn, sets delay
     pub fn sound_horn(&mut self, horn: bool) {
-        if horn && self.horn && self.horn_delay == Ticks::ZERO {
+        if horn && !self.horn && self.horn_delay == Ticks::ZERO {
             self.horn_delay = Self::HORN_DELAY;
         }
         self.horn = horn;

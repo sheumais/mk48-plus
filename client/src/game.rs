@@ -347,7 +347,7 @@ impl GameClient for Mk48Game {
                     }
                 }
 
-                if play_horn {horn_volume += 1.5 * volume};
+                if play_horn && matches!(data.sub_kind, EntitySubKind::Battleship | EntitySubKind::Carrier | EntitySubKind::Corvette | EntitySubKind::Cruiser | EntitySubKind::Destroyer | EntitySubKind::Dreadnought | EntitySubKind::Icebreaker | EntitySubKind::LandingShip | EntitySubKind::Lcs | EntitySubKind::Mtb | EntitySubKind::Passenger | EntitySubKind::Submarine | EntitySubKind::Tanker) {horn_volume += 1.5 * volume};
 
                 if context.state.game.entity_id.is_some() && distance < 250.0 {
                     let distance_scale = 1000.0 / (500.0 + distance);
