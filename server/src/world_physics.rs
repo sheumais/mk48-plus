@@ -333,8 +333,11 @@ impl World {
 
                     if !immune {
                         repair_eligible = false;
-
-                        if entity.kill_in(delta, Ticks::from_secs(4.0)) {
+                        if entity.entity_type == EntityType::Titanic && arctic {
+                            if entity.kill_in(delta, Ticks::from_secs(1.0)) {
+                                return Some((index, Fate::Remove(DeathReason::Terrain)));
+                            }
+                        } else if entity.kill_in(delta, Ticks::from_secs(4.0)) {
                             return Some((index, Fate::Remove(DeathReason::Terrain)));
                         }
                     }

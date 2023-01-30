@@ -344,6 +344,7 @@ impl Bot {
                     }),
                 pay: None,
                 hint: None,
+                horn: false,
             });
 
             if rng.gen_bool(self.aggression as f64) && data.level < self.level_ambition {

@@ -56,6 +56,8 @@ pub trait ContactTrait {
     fn data(&self) -> &'static EntityData {
         self.entity_type().unwrap().data()
     }
+
+    fn horn(&self) -> bool;
 }
 
 #[derive(Clone, Debug, PartialEq)]
@@ -69,6 +71,7 @@ pub struct Contact {
     player_id: Option<PlayerId>,
     reloads: Option<BitArray<ReloadsStorage>>,
     turrets: Option<Arc<[Angle]>>,
+    horn: bool,
 }
 
 impl Default for Contact {
@@ -83,6 +86,7 @@ impl Default for Contact {
             reloads: None,
             transform: Transform::default(),
             turrets: None,
+            horn: false,
         }
     }
 }
@@ -100,6 +104,7 @@ impl Contact {
         reloads: Option<BitArray<ReloadsStorage>>,
         transform: Transform,
         turrets: Option<Arc<[Angle]>>,
+        horn: bool,
     ) -> Self {
         Self {
             altitude,
@@ -111,6 +116,7 @@ impl Contact {
             reloads,
             transform,
             turrets,
+            horn,
         }
     }
 
@@ -160,6 +166,7 @@ impl Contact {
         let changed_type = self.entity_type != model.entity_type;
         self.entity_type = model.entity_type;
 
+        self.horn = model.horn;
         self.altitude = self.altitude.lerp(model.altitude, lerp);
         self.damage = model.damage;
         self.player_id = model.player_id;
@@ -278,6 +285,11 @@ impl ContactTrait for Contact {
     fn turrets_known(&self) -> bool {
         self.turrets.is_some()
     }
+
+    #[inline]
+    fn horn(&self) -> bool {
+        self.horn
+    }
 }
 
 /// Useful for efficiently serializing contact.
@@ -336,7 +348,7 @@ impl ContactHeader {
     }
 
     fn tuple_len(&self) -> usize {
-        12 - self.as_bits().count_zeros() as usize
+        13 - self.as_bits().count_zeros() as usize
     }
 }
 
@@ -398,6 +410,7 @@ impl<'a> Serialize for ContactSerializer<'a> {
         tup.serialize_element(&self.c.id)?;
         tup.serialize_element(&self.c.transform.position)?;
         tup.serialize_element(&self.c.transform.direction)?;
+        tup.serialize_element(&self.c.horn)?;
 
         // 8 optional elements.
         if self.h.has_vel {
@@ -561,6 +574,7 @@ impl<'de, 'a> Visitor<'de> for ContactDeserializer<'a> {
         self.c.id = seq.next_element()?.unwrap();
         self.c.transform.position = seq.next_element()?.unwrap();
         self.c.transform.direction = seq.next_element()?.unwrap();
+        self.c.horn = seq.next_element()?.unwrap();
 
         // 8 optional elements.
         if self.h.has_vel {

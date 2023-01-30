@@ -58,6 +58,7 @@ impl<'a> ContactRef<'a> {
             self.reloads,
             *self.transform(),
             self.turrets_arc().cloned(),
+            if self.entity.is_boat() {self.entity.extension().horn} else {false}, // non-boats never have horn
         )
     }
 
@@ -139,5 +140,10 @@ impl<'a> ContactTrait for ContactRef<'a> {
     #[inline]
     fn turrets_known(&self) -> bool {
         self.has_type && self.entity.is_boat()
+    }
+
+    #[inline]
+    fn horn(&self) -> bool {
+        self.entity.extension().horn
     }
 }

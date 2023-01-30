@@ -323,6 +323,7 @@ impl GameClient for Mk48Game {
         let mut aircraft_volume: f32 = 0.0;
         let mut jet_volume: f32 = 0.0;
         let mut need_to_dodge: f32 = 0.0;
+        let mut horn_volume: f32 = 0.0;
 
         for (_, InterpolatedContact { view: contact, .. }) in context.state.game.contacts.iter() {
             if let Some(entity_type) = contact.entity_type() {
@@ -335,7 +336,8 @@ impl GameClient for Mk48Game {
 
                 let friendly = context.state.core.is_friendly(contact.player_id());
                 let volume = Self::volume_at(distance);
-
+                let play_horn = contact.horn();
+                
                 if (data.kind == EntityKind::Aircraft && !matches!(entity_type, EntityType::Vindicator | EntityType::B2)) || data.sub_kind == EntitySubKind::Aeroplane || data.sub_kind == EntitySubKind::Helicopter {
                     if matches!(entity_type, EntityType::SuperEtendard | EntityType::F35 | EntityType::J20 | EntityType::Xwing) {
                         jet_volume += 1.25 * volume;
@@ -343,6 +345,8 @@ impl GameClient for Mk48Game {
                         aircraft_volume += 1.25 * volume;
                     }
                 }
+
+                if play_horn && matches!(data.sub_kind, EntitySubKind::Battleship | EntitySubKind::Carrier | EntitySubKind::Corvette | EntitySubKind::Cruiser | EntitySubKind::Destroyer | EntitySubKind::Dreadnought | EntitySubKind::Icebreaker | EntitySubKind::LandingShip | EntitySubKind::Lcs | EntitySubKind::Mtb | EntitySubKind::Passenger | EntitySubKind::Submarine | EntitySubKind::Tanker) {horn_volume += 1.5 * volume};
 
                 if context.state.game.entity_id.is_some() && distance < 250.0 {
                     let distance_scale = 1000.0 / (500.0 + distance);
@@ -389,6 +393,11 @@ impl GameClient for Mk48Game {
 
         if need_to_dodge >= 3.0 {
             Self::play_music(Audio::Dodge, &context.audio);
+        }
+        if horn_volume > 0.01 {
+            context
+                .audio
+                .play_with_volume(Audio::Horn, (horn_volume + 1.0).ln());
         }
 
         let score_delta = update.score.saturating_sub(context.state.game.score);
@@ -1601,6 +1610,7 @@ impl GameClient for Mk48Game {
                         None
                     },
                     hint,
+                    horn: context.keyboard.is_down(Key::H),
                 };
 
                 // Some things are not idempotent.

@@ -221,6 +221,7 @@ impl CommandTrait for Control {
             let extension = entity.extension_mut();
             extension.set_submerge(self.submerge);
             extension.set_active(self.active);
+            extension.sound_horn(self.horn);
 
             drop(player);
 
