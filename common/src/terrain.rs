@@ -598,7 +598,6 @@ impl Terrain {
         for l in -(half_length as i32)..=half_length as i32 {
             for w in -(half_width as i32)..=half_width as i32 {
                 let l = l as f32 * dx;
-                // causes panics
                 let w = w as f32 * dy;
                 let pos = dim_transform.transform.position + normal * l + tangent * w;
 

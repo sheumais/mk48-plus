@@ -55,6 +55,8 @@ pub struct Control {
     pub pay: Option<Pay>,
     /// Optional hints.
     pub hint: Option<Hint>,
+    /// Horn Volume
+    pub horn: bool,
 }
 
 /// Fire/use a single weapon.
