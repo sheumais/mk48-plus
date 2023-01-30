@@ -550,7 +550,7 @@ impl GameClient for Mk48Game {
 
                 let visual_range = entity_type.data().sensors.visual.range
                     * map_ranges(altitude, -1.0..0.0, 0.4..0.8, true);
-                let visual_restriction = map_ranges(altitude, 0.0..-1.0, 0.0..0.8, true);
+                let visual_restriction = map_ranges(altitude, 0.0..-1.0, 0.0..0.8, true).powf(0.33);
                 let area = strict_area_border(entity_type);
                 (visual_range, visual_restriction, area)
             } else {

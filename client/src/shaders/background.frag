@@ -89,30 +89,30 @@ vec3 perm(vec3 x) {
 vec3 dist(vec3 x, vec3 y) {
     return (x * x + y * y);
 }
-
+//https://iquilezles.org/articles/smoothvoronoi/
 vec2 worley(vec2 P) {
-    float K = 0.142857142857;
-    float Ko = 0.428571428571;
-    vec2 Pi = mod(floor(P), 289.0);
+    float K = .142857142857;
+    float Ko = .428571428571;
+    vec2 Pi = mod(floor(P), 289.);
     vec2 Pf = fract(P);
-    vec3 oi = vec3(-1.0, 0.0, 1.0);
-    vec3 of = vec3(-0.5, 0.5, 1.5);
+    vec3 oi = vec3(-1., 0., 1.);
+    vec3 of = vec3(-.5, .5, 1.5);
     vec3 px = perm(Pi.x + oi);
     vec3 p = perm(px.x + Pi.y + oi);
     vec3 ox = fract(p * K) - Ko;
-    vec3 oy = mod(floor(p * K),7.0) * K - Ko;
-    vec3 dx = Pf.x + 0.5 + ox;
+    vec3 oy = mod(floor(p * K),7.) * K - Ko;
+    vec3 dx = Pf.x + .5 + ox;
     vec3 dy = Pf.y - of + oy;
     vec3 d1 = dist(dx,dy);
     p = perm(px.y + Pi.y + oi);
     ox = fract(p * K) - Ko;
-    oy = mod(floor(p * K),7.0) * K - Ko;
-    dx = Pf.x - 0.5 + ox;
+    oy = mod(floor(p * K),7.) * K - Ko;
+    dx = Pf.x - .5 + ox;
     dy = Pf.y - of + oy;
     vec3 d2 = dist(dx,dy);
     p = perm(px.z + Pi.y + oi);
     ox = fract(p * K) - Ko;
-    oy = mod(floor(p * K),7.0) * K - Ko;
+    oy = mod(floor(p * K),7.) * K - Ko;
     dx = Pf.x - 1.5 + ox;
     dy = Pf.y - of + oy;
     vec3 d3 = dist(dx,dy);
@@ -126,8 +126,9 @@ vec2 worley(vec2 P) {
     d1.yz = min(d1.yz, d2.yz);
     d1.y = min(d1.y, d1.z);
     d1.y = min(d1.y, d2.x);
-    return sqrt(d1.xy);
-}
+    float d = length(d1.xy);
+    float h = smoothstep( -1.0, 1.0, (d1.x-d)/0.1 );
+    return mix(d1.xy, sqrt(d1.xy), h)- h*(1.0-h)*.07692307692;} //1/13
 /* End modified source from github. */
 
 vec4 cubic(float v) {
