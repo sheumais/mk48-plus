@@ -115,7 +115,6 @@ pub fn team_overlay(props: &TeamOverlayProps) -> Html {
         r#"
         color: white;
         cursor: pointer;
-        font-weight: bold;
         white-space: nowrap;
     "#
     );
@@ -128,7 +127,7 @@ pub fn team_overlay(props: &TeamOverlayProps) -> Html {
 
     let owner_css_class = css!(
         r#"
-        text-decoration: underline;
+        font-weight: bold;
     "#
     );
 
@@ -181,6 +180,13 @@ pub fn team_overlay(props: &TeamOverlayProps) -> Html {
                     )));
                 }
             }
+        }
+    };
+
+    let on_promote_to_captain = {
+        let cb = team_request_callback.clone();
+        move |player_id: PlayerId| {
+            cb.emit(TeamRequest::Promote(player_id));
         }
     };
 
@@ -239,7 +245,7 @@ pub fn team_overlay(props: &TeamOverlayProps) -> Html {
 
     const CHECK_MARK: &'static str = "✔";
     const X_MARK: &'static str = "✘";
-    const CROWN_MARK: &'static str = "✦";
+    const CROWN_MARK: &'static str = "🜲";
 
     // TODO (use settings): on_open_changed={|o| ctw.dialogs.teams = o}}
     html! {
@@ -255,13 +261,15 @@ pub fn team_overlay(props: &TeamOverlayProps) -> Html {
                 <table class={table_css_class}>
                     {core_state.members.iter().filter_map(|player_id| core_state.player_or_bot(*player_id)).map(|PlayerDto{alias, player_id, team_captain, ..}| {
                         let on_kick_from_team = on_kick_from_team.clone();
-
+                        let on_promote_to_captain = on_promote_to_captain.clone();
                         html_nested!{
                             <tr class={tr_css_class.clone()}>
-                                <td class={classes!(name_css_class.clone(), team_captain.then(|| owner_css_class.clone()))}>{alias}</td>
                                 if i_am_team_captain {
+                                    <td class={classes!(name_css_class.clone(), team_captain.then(|| owner_css_class.clone()))} onclick={move |_| on_promote_to_captain(player_id)} title={t.team_promote_hint()}>{alias}</td>
                                     <td><button class={classes!(button_css_class.clone(), hidden_css_class.clone())}>{CHECK_MARK}</button></td>
                                     <td><button class={classes!(button_css_class.clone(), team_captain.then(|| hidden_css_class.clone()))} onclick={move |_| on_kick_from_team(player_id)} title={t.team_kick_hint()}>{X_MARK}</button></td>
+                                } else {
+                                    <td class={classes!(name_css_class.clone(), team_captain.then(|| owner_css_class.clone()))}>{alias}</td>                                     
                                 }
                             </tr>
                         }
@@ -269,6 +277,7 @@ pub fn team_overlay(props: &TeamOverlayProps) -> Html {
                     {core_state.joiners.iter().filter_map(|player_id| core_state.player_or_bot(*player_id)).map(|PlayerDto{alias, player_id, ..}| {
                         let on_accept_join_team = on_accept_join_team.clone();
                         let on_reject_join_team = on_reject_join_team.clone();
+                        
                         html_nested!{
                             <tr class={tr_css_class.clone()}>
                                 <td class={classes!(name_css_class.clone(), name_pending_css_class.clone())}>{alias}</td>

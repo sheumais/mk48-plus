@@ -77,6 +77,7 @@ pub trait Translation: Sized {
     s!(team_create_hint);
     s!(team_deny_hint);
     s!(team_kick_hint);
+    s!(team_promote_hint);
     s!(team_leave_hint);
     s!(team_name_placeholder);
     s!(team_request_hint);
@@ -459,6 +460,23 @@ impl Translation for LanguageId {
         }
     }
 
+    fn team_promote_hint(self) -> &'static str {
+        match self {
+            Bork => "Probork to Borktain",
+            German => "Promote to Captain",
+            English => "Promote to Captain",
+            Spanish => "Promote to Captain",
+            French => "Promote to Captain",
+            Italian => "Promote to Captain",
+            Arabic => "Promote to Captain",
+            Japanese => "Promote to Captain",
+            Russian => "Promote to Captain",
+            Vietnamese => "Promote to Captain",
+            SimplifiedChinese => "晋升为队长",
+            Hindi => "Promote to Captain",
+        }
+    }
+
     fn team_leave_hint(self) -> &'static str {
         match self {
             Bork => "Unbork",
@@ -497,7 +515,7 @@ impl Translation for LanguageId {
         match self {
             Bork => "Bork",
             German => "Anfragen",
-            English => "Request Join",
+            English => "Apply",
             Spanish => "Solicitar unirse",
             French => "Demande d'adhésion",
             Italian => "Chiedi di unirti",

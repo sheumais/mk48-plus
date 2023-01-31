@@ -116,7 +116,7 @@ impl PlayerAlias {
         }
 
         let ret = Self(trim_and_slice_up_to_array_string(rustrict::trim_to_width(
-            &string, 14,
+            &string, 13,
         )));
 
         return if ret.0.is_empty() {
@@ -191,7 +191,7 @@ impl FromStr for Referrer {
 }
 
 impl TeamName {
-    const MAX_CHARS: usize = 6;
+    const MAX_CHARS: usize = 7;
     /// In units of `m`.
     #[cfg(feature = "server")]
     const MAX_WIDTH: usize = 8;

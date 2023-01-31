@@ -1163,7 +1163,7 @@ impl GameClient for Mk48Game {
                                 + Vec2::new(0.0, overlay_vertical_position);
                             layer.graphics.draw_triangle(
                                 triangle_position + Vec2::new(0.0, 0.01 * zoom),
-                                Vec2::splat(0.0075 * zoom),
+                                Vec2::splat(0.01 * zoom + data.damage * 5.0),
                                 180f32.to_radians(),
                                 color.extend(1.0),
                             );

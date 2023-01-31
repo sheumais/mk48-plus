@@ -98,6 +98,12 @@ pub fn leaderboard_overlay(props: &LeaderboardProps) -> Html {
         td.score {
             text-align: right;
         }
+
+        td.team {
+            color: #AAAAAA;
+            font-weight: bold;
+            text-align: left;
+        }
     "#
     );
 
@@ -155,7 +161,14 @@ pub fn leaderboard_overlay(props: &LeaderboardProps) -> Html {
                             .map(|team_dto| team_dto.name);
                         html_nested! {
                             <tr class={fake.then(|| fake_style.clone())}>
-                                <td class="name">{team_name.map(|team_name| format!("[{}] {}", team_name, player.alias)).unwrap_or(player.alias.to_string())}</td>
+                                if team_name.is_some() {
+                                    <td class="team">{format!("[{}]", team_name.unwrap())}</td>
+                                    <td class="name">{player.alias}</td>
+                                }
+                                else {
+                                    <td class="name">{player.alias}</td>
+                                    <td class="team">{""}</td>
+                                }
                                 <td class="score">{(props.fmt_score)(dto.score)}</td>
                             </tr>
                         }
