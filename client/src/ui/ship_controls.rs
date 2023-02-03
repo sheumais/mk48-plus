@@ -113,10 +113,11 @@ fn surface_button(
         Html::default()
     } else {
         let onclick = ui_event_callback.reform(move |_: MouseEvent| UiEvent::Submerge(!submerge));
+        let surface_or_dive = if submerge {t.ship_surface_label()} else {t.ship_dive_label()};
 
         html! {
-            <div class={classes!(button_style.clone(), (!submerge).then(|| button_selected_style.clone()))} {onclick} title={t.ship_surface_hint()}>
-                {t.ship_surface_label()}
+            <div class={classes!(button_style.clone(), (submerge).then(|| button_selected_style.clone()))} {onclick} title={t.ship_surface_hint()}>
+                {surface_or_dive}
             </div>
         }
     }

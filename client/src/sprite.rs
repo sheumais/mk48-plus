@@ -130,6 +130,19 @@ impl SpriteLayer {
         };
 
         // TODO make sprites and entities have same aspect ratio.
+        // glam::mat3::Mat3
+        // pub fn from_scale_angle_translation(scale: Vec2, angle: f32, translation: Vec2) -> Self
+        // Creates an affine transformation matrix from the given 2D scale, rotation angle (in radians) and translation.
+
+        // The resulting matrix can be used to transform 2D points and vectors. See Self::transform_point2() and Self::transform_vector2().
+        // pub fn from_scale_angle_translation(scale: Vec2, angle: f32, translation: Vec2) -> Self {
+        //     let (sin, cos) = angle.sin_cos();
+        //     Self::from_cols(
+        //         Vec3::new(cos * scale.x, sin * scale.x, 0.0),
+        //         Vec3::new(-sin * scale.y, cos * scale.y, 0.0),
+        //         Vec3::new(translation.x, translation.y, 1.0),
+        //     )
+        // }
         let matrix = Mat3::from_scale_angle_translation(
             Vec2::new(dimensions.x, dimensions.x / sprite.aspect),
             angle,
@@ -142,8 +155,17 @@ impl SpriteLayer {
             Vec2::new(0.5, 0.5),
             Vec2::new(-0.5, 0.5),
         ];
+        // Creates an affine transformation matrix from the given 2D rotation angle (in radians).
 
+        // The resulting matrix can be used to transform 2D points and vectors. See Self::transform_point2() and Self::transform_vector2().
         let normal_matrix = Mat3::from_angle(angle);
+        // glam::mat3::Mat3
+        // pub fn transform_vector2(&self, other: Vec2) -> Vec2
+        // Rotates the given 2D vector.
+
+        // This is the equivalent of multiplying other as a 3D vector where z is 0.
+
+        // This method assumes that self contains a valid affine transform
         let tangent = normal_matrix.transform_vector2(Vec2::new(1.0, 0.0));
         debug_assert!(tangent.is_normalized());
 

@@ -223,11 +223,11 @@ void main() {
     if (height >= HIGH_LAND) {
         vec3 highLand;
         if (ocean) {
-            highLand = mix((vec3(0.68371207, 1.1779866, 0.16889346) * detail.y + vec3(0.007670317, -0.0036472604, 0.013303946)) * vec3(0.9, 1.25, 0.9), lowLand, 0.02);
+            highLand = mix((vec3(0.68371207, 1.1779866, 0.16889346) * detail.y + vec3(0.007670317, -0.0036472604, 0.013303946)), lowLand, 0.02);
         } else {
             highLand = lowLand * 1.2;
         }
-        fragColor = vec4(mix(lowLand, highLand, min((height - HIGH_LAND) * (1.0 / (1.0 - HIGH_LAND)), 1.0)) * light, 1.0); // Low land to high land
+        fragColor = vec4(mix(lowLand, highLand, min((height - HIGH_LAND) * (1.25 / (1.0 - HIGH_LAND)), 1.0)) * light, 1.0); // Low land to high land
     } else {
         #define WAVE_HEIGHT 0.035
 
@@ -252,7 +252,7 @@ void main() {
             #endif
             sandHeight += wn.x - 1.25 * WAVE_HEIGHT * float(ocean);
 
-            vec3 deep = mix(vec3(0.,0.02,0.141), vec3(0.,0.027,0.075), arctic) * (mix(light, waterLight, 0.6));
+            vec3 deep = mix(vec3(0.,0.02,0.141), vec3(0.,0.027,0.075), arctic) * clamp((mix(waterLight, light, height)), 0.0, 1.0);
             vec3 shallow = mix(vec3(0.02979, 0.1017, 0.2178), vec3(0.0, 0.05, 0.115), arctic) * waterLight;
             vec3 w = mix(deep, shallow, pow(0.005, abs(sandHeight - height))); // Deep to shallow water.
             vec3 waveN = normalize(cross(vec3(uDerivative, 0.0, dFdx(wn.y)), vec3(0.0, uDerivative, dFdy(wn.y))));

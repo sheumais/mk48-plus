@@ -192,6 +192,7 @@ pub trait Mk48Translation: Sized {
 
     s!(ship_surface_label);
     fn ship_surface_hint(self) -> String;
+    s!(ship_dive_label);
 
     s!(team_fleet_label);
     s!(team_fleet_name_placeholder);
@@ -390,7 +391,7 @@ impl Mk48Translation for LanguageId {
         match self {
             Arabic => "هليكوبتر",
             Bork => "borkopter",
-            English => "helicopter",
+            English => "Helicopter",
             French => "hélicoptère",
             German => "Helicopter",
             Hindi => "हेलीकॉप्टर",
@@ -407,7 +408,7 @@ impl Mk48Translation for LanguageId {
         match self {
             Arabic => "طائرة",
             Bork => "flying bork",
-            English => "plane",
+            English => "Plane",
             French => "avion",
             German => "Flugzeug",
             Hindi => "विमान",
@@ -441,7 +442,7 @@ impl Mk48Translation for LanguageId {
         match self {
             Arabic => "سفينة حربية",
             Bork => "borkererer",
-            English => "battleship",
+            English => "Battleship",
             French => "bataille navale",
             German => "Kriegsschiff",
             Hindi => "युद्धपोत",
@@ -475,7 +476,7 @@ impl Mk48Translation for LanguageId {
         match self {
             Arabic => "حاملة طائرات",
             Bork => "bork carrier",
-            English => "aircraft carrier",
+            English => "Aircraft Carrier",
             French => "porte-avions",
             German => "Flugzeugträger",
             Hindi => "विमान वाहक",
@@ -509,7 +510,7 @@ impl Mk48Translation for LanguageId {
         match self {
             Arabic => "كورفيت",
             Bork => "minibork",
-            English => "corvette",
+            English => "Corvette",
             French => "corvette",
             German => "Korvette",
             Hindi => "कौर्वेट",
@@ -543,7 +544,7 @@ impl Mk48Translation for LanguageId {
         match self {
             Arabic => "طراد",
             Bork => "borkerer",
-            English => "cruiser",
+            English => "Cruiser",
             French => "croiseur",
             German => "Kreuzer",
             Hindi => "क्रूजर",
@@ -577,7 +578,7 @@ impl Mk48Translation for LanguageId {
         match self {
             Arabic => "مدمر",
             Bork => "borker",
-            English => "destroyer",
+            English => "Destroyer",
             French => "destructeur",
             German => "Zerstörer",
             Hindi => "मिटाने वाला",
@@ -611,7 +612,7 @@ impl Mk48Translation for LanguageId {
         match self {
             Arabic => "مدرعة",
             Bork => "dreadbork",
-            English => "dreadnought",
+            English => "Dreadnought",
             French => "cuirassé",
             German => "Schlachtschiff",
             Hindi => "एक प्रकार का लड़ाई का जहाज़",
@@ -645,7 +646,7 @@ impl Mk48Translation for LanguageId {
         match self {
             Arabic => "الحفارة",
             Bork => "land borker",
-            English => "dredger",
+            English => "Dredger",
             French => "dragueur",
             German => "Baggerschiff",
             Hindi => "ड्रैजेर",
@@ -679,7 +680,7 @@ impl Mk48Translation for LanguageId {
         match self {
             Arabic => "الحوامات",
             Bork => "hoverbork",
-            English => "hovercraft",
+            English => "Hovercraft",
             French => "aéroglisseur",
             German => "Luftkissenfahrzeug",
             Hindi => "हुवरक्रफ़्ट",
@@ -711,18 +712,18 @@ impl Mk48Translation for LanguageId {
 
     fn entity_boat_landingship_name(self) -> &'static str {
         match self {
-            Arabic => "landing ship",
-            Bork => "landing ship",
-            English => "landing ship",
-            French => "landing ship",
-            German => "landing ship",
-            Hindi => "landing ship",
-            Italian => "landing ship",
-            Japanese => "landing ship",
-            Russian => "landing ship",
-            SimplifiedChinese => "landing ship",
-            Spanish => "landing ship",
-            Vietnamese => "landing ship",
+            Arabic => "Landing Ship",
+            Bork => "Landing Ship",
+            English => "Landing Ship",
+            French => "Landing Ship",
+            German => "Landing Ship",
+            Hindi => "Landing Ship",
+            Italian => "Landing Ship",
+            Japanese => "Landing Ship",
+            Russian => "Landing Ship",
+            SimplifiedChinese => "Landing Ship",
+            Spanish => "Landing Ship",
+            Vietnamese => "Landing Ship",
         }
     }
 
@@ -747,7 +748,7 @@ impl Mk48Translation for LanguageId {
         match self {
             Arabic => "كاسحة الجليد",
             Bork => "iceborker",
-            English => "icebreaker",
+            English => "Icebreaker",
             French => "brise-glace",
             German => "Eisbrecher",
             Hindi => "आइसब्रेकर",
@@ -793,7 +794,7 @@ impl Mk48Translation for LanguageId {
         match self {
             Arabic => "سفينة قتالية ساحلية",
             Bork => "coastal bork",
-            English => "littoral combat ship",
+            English => "Littoral Combat Ship",
             French => "navire de combat côtier",
             German => "Küstennahes Kampfschiff",
             Hindi => "समुद्रतटीय लड़ाकू जहाज",
@@ -827,7 +828,7 @@ impl Mk48Translation for LanguageId {
         match self {
             Arabic => "طبقة منجم",
             Bork => "borklayer",
-            English => "minelayer",
+            English => "Minelayer",
             French => "mouilleur de mines",
             German => "Minenleger",
             Hindi => "सुरंग लगानेवाला जहाज़",
@@ -861,7 +862,7 @@ impl Mk48Translation for LanguageId {
         match self {
             Arabic => "قارب طوربيد بمحرك",
             Bork => "motor-torpedo bork",
-            English => "motor-torpedo boat",
+            English => "Motor-torpedo Boat",
             French => "bateau lance-torpilles",
             German => "Motor-Torpedo Boot",
             Hindi => "मोटर-टारपीडो नाव",
@@ -878,7 +879,7 @@ impl Mk48Translation for LanguageId {
         match self {
             Arabic => "القرصان",
             Bork => "illegal bork",
-            English => "pirate",
+            English => "Pirate",
             French => "pirate",
             German => "Pirat",
             Hindi => "समुद्री डाकू",
@@ -912,7 +913,7 @@ impl Mk48Translation for LanguageId {
         match self {
             Arabic => "سفينة الكبش",
             Bork => "pointy bork",
-            English => "ram",
+            English => "Ram",
             French => "bélier",
             German => "Rammbock",
             Hindi => "राम जहाज",
@@ -946,7 +947,7 @@ impl Mk48Translation for LanguageId {
         match self {
             Arabic => "غواصة",
             Bork => "underwater bork",
-            English => "submarine",
+            English => "Submarine",
             French => "sous-marin",
             German => "U-Boot",
             Hindi => "पनडुब्बी",
@@ -980,7 +981,7 @@ impl Mk48Translation for LanguageId {
         match self {
             Arabic => "ناقلة",
             Bork => "oil borker",
-            English => "tanker",
+            English => "Tanker",
             French => "pétrolier",
             German => "Tanker",
             Hindi => "टैंकर",
@@ -1235,7 +1236,7 @@ impl Mk48Translation for LanguageId {
         match self {
             Arabic => "شرك السونار",
             Bork => "underwater bork distractor",
-            English => "sonar decoy",
+            English => "Sonar Decoy",
             French => "leurre sonar",
             German => "Echolot Täuschkörper",
             Hindi => "सोनार डिकॉय",
@@ -1252,7 +1253,7 @@ impl Mk48Translation for LanguageId {
         match self {
             Arabic => "بنية",
             Bork => "structure",
-            English => "structure",
+            English => "Structure",
             French => "structure",
             German => "Struktur",
             Hindi => "संरचना",
@@ -1269,7 +1270,7 @@ impl Mk48Translation for LanguageId {
         match self {
             Arabic => "المودع",
             Bork => "land borker",
-            English => "depositor",
+            English => "Depositor",
             French => "déposant",
             German => "Ablagerer",
             Hindi => "जमाकर्ता",
@@ -1303,7 +1304,7 @@ impl Mk48Translation for LanguageId {
         match self {
             Arabic => "عمق الشحن",
             Bork => "depth bork",
-            English => "depth charge",
+            English => "Depth Charge",
             French => "grenade sous-marine",
             German => "Wasserbombe",
             Hindi => "जलगत बम",
@@ -1320,7 +1321,7 @@ impl Mk48Translation for LanguageId {
         match self {
             Arabic => "لغم بحري",
             Bork => "magnetic bork",
-            English => "mine",
+            English => "Mine",
             French => "mine",
             German => "Mine",
             Hindi => "नौसेना खान",
@@ -1337,7 +1338,7 @@ impl Mk48Translation for LanguageId {
         match self {
             Arabic => "صاروخ",
             Bork => "guided airbork",
-            English => "missile",
+            English => "Missile",
             French => "missile",
             German => "Lenkrakete",
             Hindi => "मिसाइल",
@@ -1388,7 +1389,7 @@ impl Mk48Translation for LanguageId {
         match self {
             Arabic => "صاروخ",
             Bork => "airbork",
-            English => "rocket",
+            English => "Rocket",
             French => "fusée",
             German => "Rakete",
             Hindi => "राकेट",
@@ -1405,7 +1406,7 @@ impl Mk48Translation for LanguageId {
         match self {
             Arabic => "صاروخ أرض جو",
             Bork => "surface-to-air bork",
-            English => "surface-to-air missile",
+            English => "Surface-to-air Missile",
             French => "missile sol-air",
             German => "Flugabwehrrakete",
             Hindi => "सतह से हवा में मार करने वाली मिसाइल",
@@ -1422,7 +1423,7 @@ impl Mk48Translation for LanguageId {
         match self {
             Arabic => "قذيفة",
             Bork => "destructive bork",
-            English => "shell",
+            English => "Shell",
             French => "obus",
             German => "Kanone",
             Hindi => "खोल",
@@ -1439,7 +1440,7 @@ impl Mk48Translation for LanguageId {
         match self {
             Arabic => "قذيفة",
             Bork => "destructive bork",
-            English => "tank shell",
+            English => "Tank Shell",
             French => "obus",
             German => "Kanone",
             Hindi => "खोल",
@@ -1454,18 +1455,18 @@ impl Mk48Translation for LanguageId {
 
     fn entity_weapon_laser_name(self) -> &'static str {
         match self {
-            Arabic => "laser",
-            Bork => "laser",
-            English => "laser",
-            French =>"laser",
-            German => "laser",
-            Hindi => "laser",
-            Italian => "laser",
-            Japanese => "laser",
-            Russian => "laser",
-            SimplifiedChinese => "laser",
-            Spanish => "laser",
-            Vietnamese => "laser",
+            Arabic => "Laser",
+            Bork => "Laser",
+            English => "Laser",
+            French =>"Laser",
+            German => "Laser",
+            Hindi => "Laser",
+            Italian => "Laser",
+            Japanese => "Laser",
+            Russian => "Laser",
+            SimplifiedChinese => "Laser",
+            Spanish => "Laser",
+            Vietnamese => "Laser",
         }
     }
 
@@ -1473,7 +1474,7 @@ impl Mk48Translation for LanguageId {
         match self {
             Arabic => "نسف",
             Bork => "underwater bork",
-            English => "torpedo",
+            English => "Torpedo",
             French => "torpille",
             German => "Torpedo",
             Hindi => "टारपीडो",
@@ -1637,6 +1638,23 @@ impl Mk48Translation for LanguageId {
             SimplifiedChinese => "表面",
             Spanish => "Superficie",
             Vietnamese => "Mặt",
+        }
+    }
+
+    fn ship_dive_label(self) -> &'static str {
+        match self {
+            Arabic => "يغوص",
+            Bork => "Dive",
+            English => "Dive",
+            French => "Plonger",
+            German => "Tauchen",
+            Hindi => "गोता लगाना",
+            Italian => "Tuffo",
+            Japanese => "運転",
+            Russian => "Погружение",
+            SimplifiedChinese => "潜水",
+            Spanish => "Bucear",
+            Vietnamese => "Lặn",
         }
     }
 

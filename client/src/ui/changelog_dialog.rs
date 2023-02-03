@@ -26,6 +26,12 @@ fn changelog_2023() -> Html { //<li>{""}</li>
             <h2>{"2023"}</h2>
 
             <h3>{"31 Jan '23"}</h3>
+                <li>{"Changed UI"}</li>
+                <li>{"Changed background shader to show more greenery"}</li>
+                <li>{"Fixed bug where bombs on the B-2 were visible"}</li>
+            <ul>
+
+            <h3>{"31 Jan '23"}</h3>
                 <li>{"Clicking names on your team now promotes them to leader"}</li>
                 <li>{"Weapon triangle indicators now scale their size with damage"}</li>
                 <li>{"Started standardising naming convention across the UI"}</li>

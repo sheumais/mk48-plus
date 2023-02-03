@@ -55,8 +55,7 @@ pub fn team_overlay(props: &TeamOverlayProps) -> Html {
         padding: 0.1em 0.5em;
 
         :disabled {
-            opacity: 0.6;
-            cursor: initial;
+            visibility: hidden;
         }
 
         :hover:not(:disabled) {
@@ -142,7 +141,6 @@ pub fn team_overlay(props: &TeamOverlayProps) -> Html {
     let team_request_callback = ctw.team_request_callback;
     let input_ref = use_node_ref();
     let team_name_empty = use_state_eq(|| true);
-
     let on_open_changed = ctw.change_common_settings_callback.reform(|open| {
         Box::new(
             move |common_settings: &mut CommonSettings, browser_storages: &mut BrowserStorages| {
@@ -171,10 +169,12 @@ pub fn team_overlay(props: &TeamOverlayProps) -> Html {
     let on_create_team = {
         let cb = team_request_callback.clone();
         let input_ref = input_ref.clone();
+        let team_name_empty = team_name_empty.clone();
         move || {
             if let Some(input) = input_ref.cast::<HtmlInputElement>() {
                 let new_team_name = input.value();
                 if !new_team_name.is_empty() {
+                    team_name_empty.set(true);
                     cb.emit(TeamRequest::Create(TeamName::new_input_sanitized(
                         &new_team_name,
                     )));
@@ -245,7 +245,6 @@ pub fn team_overlay(props: &TeamOverlayProps) -> Html {
 
     const CHECK_MARK: &'static str = "✔";
     const X_MARK: &'static str = "✘";
-    const CROWN_MARK: &'static str = "🜲";
 
     // TODO (use settings): on_open_changed={|o| ctw.dialogs.teams = o}}
     html! {

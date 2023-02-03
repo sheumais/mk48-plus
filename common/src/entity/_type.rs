@@ -388,7 +388,7 @@ pub enum EntityType {
     #[size(length = 21.0, width = 52.4, draft = 1.0)]
     #[props(speed = 282.944)]
     #[sensors(visual = 1000, radar = 1000)]
-    #[armament(Mk82, count = 12)]
+    #[armament(Mk82, count = 12, hidden)]
     B2, 
     #[info(
         label = "Clemenceau",
