@@ -199,6 +199,16 @@ pub enum EntityType {
     #[armament(Mark18)]
     Avenger,
     #[info(
+        label = "Shenyang J-15",
+        link = "https://en.wikipedia.org/wiki/Shenyang_J-15"
+    )]
+    #[entity(Aircraft, Plane, level = 9)]
+    #[size(length = 22.28, width = 15.0)]
+    #[props(speed = 343, range = 350000)]
+    #[sensors(visual)]
+    #[armament(Yj18)]
+    J15,
+    #[info(
         label = "Nakajima E4N",
         link = "https://en.wikipedia.org/wiki/Nakajima_E4N"
     )]
@@ -286,6 +296,16 @@ pub enum EntityType {
     #[sensors(visual)]
     #[armament(Mark54, side = 0.75, symmetrical)]
     SuperFrelon,
+    #[info(
+        label = "Changhe Z-18",
+        link = "https://en.wikipedia.org/wiki/Changhe_Z-18"
+    )]
+    #[entity(Aircraft, Heli, level = 9)]
+    #[size(length = 23.1, width = 18.949)]
+    #[props(speed = 69, range = 1020000)]
+    #[sensors(visual)]
+    #[armament(Yu7, side = 0.0)]
+    Z18,
     #[info(
         label = "Akula",
         link = "https://en.wikipedia.org/wiki/Akula-class_submarine"
@@ -394,7 +414,7 @@ pub enum EntityType {
         label = "Clemenceau",
         link = "https://en.wikipedia.org/wiki/Clemenceau-class_aircraft_carrier"
     )]
-    #[entity(Boat, Carrier, level = 9)]
+    #[entity(Boat, Carrier, level = 8)]
     #[size(length = 265, width = 48.6523, draft = 8.6, mast = 61.5)]
     #[props(speed = 16.46223)]
     #[sensors(radar, visual)]
@@ -451,6 +471,32 @@ pub enum EntityType {
     #[turret(_200Mm, forward = 84.6, side = -15, medium)]
     #[exhaust(forward = 35, side = -16)]
     Kaga,
+    #[info(
+        label = "Liaoning",
+        link = "https://en.wikipedia.org/wiki/Chinese_aircraft_carrier_Liaoning"
+    )]
+    #[entity(Boat, Carrier, level = 9)]
+    #[size(length = 304.5, width = 67, draft = 11, mast = 80)]
+    #[props(speed = 14.918)]
+    #[sensors(radar, visual)]
+    #[armament(J15, forward = -30, side = -3, angle = 6.3, count = 2, external)]
+    #[armament(J15, forward = -10, side = 15, angle = -15, count = 2, external)]
+    #[armament(J15, forward = 25, count = 2, side = 3, external)]
+    #[armament(J15, forward = -65, count = 2, side = 3, external)]
+    #[armament(J15, forward = -125, count = 2, side = 3, external)]
+    #[armament(J15, forward = -110, count = 2, side = -15, angle = 60, external)]
+    #[armament(Z18, forward = -80, side = 20, angle = 0, external)]
+    #[armament(Z18, forward = 30, side = 22.5, angle = 0, external)]
+    #[armament(Z18, forward = 40, side = -18, angle = 0, external)]
+    #[turret(Hq10, forward = 70, side = 18, medium)]
+    #[turret(Hq10, forward = 68, side = -21, medium)]
+    #[turret(Hq10, forward = -126, side = -26, medium)]
+    #[turret(Hq10, forward = -114, side = 24, medium)]
+    #[turret(Type730, forward = -135, side = -23, slow)]
+    #[turret(Type730, forward = -125, side = 23, slow)]
+    #[exhaust(forward = -44, side = -25)]
+    #[exhaust(forward = -48, side = -25)]
+    Liaoning,
     #[info(
         label = "CH-47 Chinook",
         link = "https://en.wikipedia.org/wiki/Boeing_CH-47_Chinook"
@@ -1528,6 +1574,12 @@ pub enum EntityType {
     #[offset(forward = 0)]
     #[armament(_30X130MmR, count = 12, angle = 0)]
     M230,
+    #[info(label = "Type 730 CIWS")]
+    #[entity(Turret, Gun)]
+    #[size(length = 5.0, width = 3.2917)]
+    #[offset(forward = 0.0)]
+    #[armament(_30X165MmR, forward = 1.1, count = 4, angle = 0)]
+    Type730,
     #[info(label = "Turbolaser Batteries")]
     #[entity(Turret, Gun)]
     #[size(length = 1, width = 1)]
@@ -1682,6 +1734,15 @@ pub enum EntityType {
     #[armament(Vt1, side = 0.947, angle = 0, symmetrical)]
     Crotale,
     #[info(
+        label = "HQ-10",
+        link = "https://en.wikipedia.org/wiki/HQ-10"
+    )]
+    #[entity(Turret, Sam)]
+    #[size(length = 5.0, width = 3.75)]
+    #[offset(forward = 0.08)]
+    #[armament(Hq10SAM, count = 2, forward = 0.8)]
+    Hq10,
+    #[info(
         label = "H/PJ-38",
         link = "https://en.wikipedia.org/wiki/H/PJ-38_130mm_naval_gun"
     )]
@@ -1813,6 +1874,11 @@ pub enum EntityType {
     #[size(length = 0.130, width = 0.03)]
     #[props(speed = 805, range = 4000)]
     _30X130MmR,
+    #[info(label = "30 x 165 mmR")]
+    #[entity(Weapon, Shell)]
+    #[size(length = 0.165, width = 0.03)]
+    #[props(speed = 1150, range = 4500)]
+    _30X165MmR,
     #[info(label = "762 x 54 mmR")]
     #[entity(Weapon, Shell)]
     #[size(length = 0.762, width = 0.05372)]
@@ -2007,6 +2073,15 @@ pub enum EntityType {
     #[sensors(sonar)]
     Mark54,
     #[info(
+        label = "Yu-7",
+        link = "https://en.wikipedia.org/wiki/Yu-7_torpedo"
+    )]
+    #[entity(Weapon, Torpedo, level = 7)]
+    #[size(length = 2.72, width = 0.324)]
+    #[props(speed = 20.0, range = 7500)]
+    #[sensors(sonar)]
+    Yu7,
+    #[info(
         label = "Mark 8",
         link = "http://www.navweaps.com/Weapons/WNUS_16-45_mk5.php"
     )]
@@ -2154,6 +2229,15 @@ pub enum EntityType {
     #[props(speed = 1200, range = 6000)]
     #[sensors(radar)]
     Vt1,
+    #[info(
+        label = "HQ-10",
+        link = "https://en.wikipedia.org/wiki/HQ-10"
+    )]
+    #[entity(Weapon, Sam, level = 5)]
+    #[size(length = 2.0, width = 0.12)]
+    #[props(speed = 686, range = 9000)]
+    #[sensors(radar)]
+    Hq10SAM,
     #[info(
         label = "LS-6",
         link = "https://en.wikipedia.org/wiki/LS_PGB"

@@ -163,7 +163,7 @@ pub fn pack_sprite_sheet(
                             let mut image = resize(
                                 &image,
                                 params.width,
-                                (params.width as f32 / aspect) as u32,
+                                (params.width as f32 / aspect).ceil() as u32,
                                 FilterType::Lanczos3,
                             );
                             if let Some(f) = output.pre_process {
