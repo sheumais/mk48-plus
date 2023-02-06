@@ -102,7 +102,7 @@ pub fn leaderboard_overlay(props: &LeaderboardProps) -> Html {
         td.team {
             color: #AAAAAA;
             font-weight: bold;
-            text-align: left;
+            text-align: right;
         }
     "#
     );
@@ -166,8 +166,8 @@ pub fn leaderboard_overlay(props: &LeaderboardProps) -> Html {
                                     <td class="name">{player.alias}</td>
                                 }
                                 else {
-                                    <td class="name">{player.alias}</td>
                                     <td class="team">{""}</td>
+                                    <td class="name">{player.alias}</td>
                                 }
                                 <td class="score">{(props.fmt_score)(dto.score)}</td>
                             </tr>

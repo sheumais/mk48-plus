@@ -25,6 +25,12 @@ fn changelog_2023() -> Html { //<li>{""}</li>
         <>
             <h2>{"2023"}</h2>
 
+            <h3>{"6 Feb '23"}</h3>
+            <ul>
+                <li>{"Fixed the leaderboard naming schema"}</li>
+                <li>{"Made speed and acceleration scale with health percentage for non-submarines. Minimum set at 1/3 of respective maximums."}</li>
+            </ul>
+
             <h3>{"5 Feb '23"}</h3>
             <ul>
                 <li>{"Added the Liaoning Aircraft Carrier"}</li>

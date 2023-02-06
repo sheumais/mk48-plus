@@ -5,6 +5,7 @@ use crate::angle::Angle;
 use crate::entity::{EntityData, EntityKind, EntitySubKind};
 use crate::guidance::Guidance;
 use crate::velocity::Velocity;
+use crate::ticks::Ticks;
 use glam::Vec2;
 use serde::{Deserialize, Serialize};
 use std::ops::Add;
@@ -45,6 +46,7 @@ impl Transform {
         guidance: Guidance,
         mut max_speed: f32,
         delta_seconds: f32,
+        ticks: Ticks,
     ) {
         debug_assert!(max_speed >= 0.0);
         debug_assert!(delta_seconds >= 0.0);
@@ -91,17 +93,24 @@ impl Transform {
                 max_speed *= 1.0 / 3.0
             }
         }
-
+        let mut delta_velocity;
+        if data.kind == EntityKind::Boat && data.sub_kind != EntitySubKind::Submarine {
         // Velocity is brought within acceptable parameters not by clamping it directly,
         // but by always moving towards an in-range target velocity (clamped here). This is
         // so that zero-max-speed objects like collectibles can temporarily experience
         // non-zero velocity.
-        let mut delta_velocity = guidance
+        delta_velocity = guidance
+            .velocity_target
+            .to_mps()
+            .clamp(max_speed * Velocity::MAX_REVERSE_SCALE, max_speed * (1.0/3.0 + 2.0/3.0 * (1.0 - ticks.to_secs() / data.max_health().to_secs())))
+            - self.velocity.to_mps();
+        } else {
+        delta_velocity = guidance
             .velocity_target
             .to_mps()
             .clamp(max_speed * Velocity::MAX_REVERSE_SCALE, max_speed)
             - self.velocity.to_mps();
-
+        }
         if data.sub_kind == EntitySubKind::Helicopter {delta_velocity = guidance
             .velocity_target
             .to_mps()
@@ -112,7 +121,8 @@ impl Transform {
         // Clamp maximum acceleration to limit faster missiles.
         let is_aeroplane = if data.sub_kind == EntitySubKind::Aeroplane || data.sub_kind == EntitySubKind::Helicopter {1.0} else {0.0};
         let mut max_accel = 1.0 / 3.0 * delta_seconds * max_speed.clamp(15.0, 500.0);
-        if data.kind == EntityKind::Boat {max_accel = 1.0 / 3.0 * (1.0 + is_aeroplane) * delta_seconds * max_speed.clamp(15.0, 49.0)};
+        if data.kind == EntityKind::Boat {max_accel = 1.0 / 3.0 * (1.0 + is_aeroplane) * delta_seconds * max_speed.clamp(15.0, 49.0) * (1.0/3.0 + 2.0/3.0 * (1.0 - ticks.to_secs() / data.max_health().to_secs()))};
+        if data.sub_kind == EntitySubKind::Submarine {max_accel = 1.0 / 3.0 * delta_seconds * max_speed.clamp(15.0, 49.0)};
         self.velocity = Velocity::from_mps(
             self.velocity.to_mps()
                 + delta_velocity.clamp(

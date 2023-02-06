@@ -137,12 +137,13 @@ impl Contact {
                 }
                 _ => f32::INFINITY,
             };
-
+            let damage = self.damage;
             self.transform_mut().apply_guidance(
                 entity_type.data(),
                 guidance,
                 max_speed,
                 delta_seconds,
+                damage,
             );
         }
         self.transform_mut().do_kinematics(delta_seconds);

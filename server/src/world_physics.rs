@@ -246,7 +246,7 @@ impl World {
 
                 entity
                     .transform
-                    .apply_guidance(data, entity.guidance, max_speed, delta_seconds);
+                    .apply_guidance(data, entity.guidance, max_speed, delta_seconds, entity.ticks);
                 entity.transform.do_kinematics(delta_seconds);
 
                 let arctic = entity.transform.position.y >= ARCTIC;
