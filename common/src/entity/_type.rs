@@ -1119,7 +1119,7 @@ pub enum EntityType {
         label = "Seawolf",
         link = "https://en.wikipedia.org/wiki/Seawolf-class_submarine"
     )]
-    #[entity(Boat, Submarine, level = 9)]
+    #[entity(Boat, Submarine, level = 8)]
     #[size(length = 108, width = 17.6133, draft = 11)]
     #[props(speed = 18.00556, depth = 400, stealth = 0.5)]
     #[sensors(radar, sonar, visual)]
@@ -1424,7 +1424,7 @@ pub enum EntityType {
         label = "Yasen",
         link = "https://en.wikipedia.org/wiki/Yasen-class_submarine"
     )]
-    #[entity(Boat, Submarine, level = 8)]
+    #[entity(Boat, Submarine, level = 9)]
     #[size(length = 130, width = 19.804688, draft = 10)]
     #[props(speed = 18.00556, depth = 450)]
     #[sensors(radar, sonar, visual)]

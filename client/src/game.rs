@@ -1255,16 +1255,22 @@ impl GameClient for Mk48Game {
                         };
                         layer.airborne_particles.add(particle1);
                         layer.airborne_particles.add(particle2);
-                    } else if data.sub_kind == EntitySubKind::Drone || data.sub_kind == EntitySubKind::Starship || data.sub_kind == EntitySubKind::Helicopter || data.sub_kind == EntitySubKind::Laser { // no particles on drones/starship
+                    } else if data.sub_kind == EntitySubKind::Drone || data.sub_kind == EntitySubKind::Starship || data.sub_kind == EntitySubKind::Helicopter || data.sub_kind == EntitySubKind::Laser || data.kind == EntityKind::Aircraft{ // no particles on drones/starship
+                    } else if data.kind == EntityKind::Weapon && contact.altitude().is_airborne() {
+                        let position = contact.transform().position;
+                        let velocity = Vec2::new(0.0, 0.0);
+                        let particle = Mk48Particle {
+                            position,
+                            velocity,
+                            radius: 1.5,
+                            color: 1.0,
+                            smoothness: 0.4,
+                        };
+                        layer.airborne_particles.add(particle);
                     } else {
                         let is_airborne = contact.altitude().is_airborne();
                         let spread = match (data.kind, data.sub_kind) {
                             _ if !is_airborne => 0.16,
-                            (EntityKind::Aircraft, _) => 0.08,
-                            (
-                                EntityKind::Weapon,
-                                EntitySubKind::Rocket | EntitySubKind::RocketTorpedo,
-                            ) => 0.08,
                             _ => 0.04,
                         };
 

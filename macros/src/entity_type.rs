@@ -572,7 +572,7 @@ pub(crate) fn derive_entity_type(input: TokenStream) -> TokenStream {
                          */
                     }
                     "Sam" => {
-                        damage = Some(0.2);
+                        damage = Some(0.19 * entity.length().powf(0.7));
                     }
                     "Mine" => {
                         damage = Some(entity.length());

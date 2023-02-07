@@ -100,6 +100,8 @@ pub fn team_overlay(props: &TeamOverlayProps) -> Html {
         r#"
         color: white;
         width: 100%;
+        border-spacing: 0;
+        border-collapse: collapse;
         "#
     );
 
@@ -115,19 +117,25 @@ pub fn team_overlay(props: &TeamOverlayProps) -> Html {
         color: white;
         cursor: pointer;
         white-space: nowrap;
-    "#
+        "#
     );
 
     let name_pending_css_class = css!(
         r#"
         filter: brightness(0.7);
-    "#
+        "#
     );
 
     let owner_css_class = css!(
         r#"
         font-weight: bold;
-    "#
+        "#
+    );
+
+    let no_padding_class = css!(
+        r#"
+        padding: 0;
+        "#
     );
 
     let ctw = use_ctw();
@@ -289,7 +297,7 @@ pub fn team_overlay(props: &TeamOverlayProps) -> Html {
                 <button onclick={move |_| on_leave_team()} class={button_css_class}>{t.team_leave_hint()}</button>
             } else {
                 <form onsubmit={move |e: SubmitEvent| {e.prevent_default(); on_create_team();}}>
-                    <table>
+                    <table class={table_css_class}>
                         {core_state.teams.iter().sorted_by(cmp_teams).take(5).map(|(_, &TeamDto{closed, name, team_id, ..})| {
                             let on_request_join_team = on_request_join_team.clone();
                             let unavailable = closed || core_state.joins.contains(&team_id);
@@ -304,7 +312,7 @@ pub fn team_overlay(props: &TeamOverlayProps) -> Html {
                             }
                         }).collect::<Html>()}
                         <tr>
-                            <td>
+                            <td class={no_padding_class}>
                                 <input
                                     ref={input_ref}
                                     type="text"

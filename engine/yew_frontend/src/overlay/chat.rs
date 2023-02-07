@@ -18,7 +18,7 @@ use core_protocol::rpc::{ChatRequest, PlayerRequest};
 use js_sys::JsString;
 use std::str::pattern::Pattern;
 use stylist::yew::styled_component;
-use web_sys::{window, HtmlInputElement, InputEvent, KeyboardEvent, MouseEvent};
+use web_sys::{window, HtmlInputElement, InputEvent, Event, KeyboardEvent, MouseEvent};
 use yew::{
     classes, html, html_nested, use_effect_with_deps, use_node_ref, use_state_eq, AttrValue,
     Callback, Html, Properties,
@@ -174,6 +174,13 @@ pub fn chat_overlay(props: &ChatProps) -> Html {
             let string = input.value();
             help_hint.set(help_hint_of(&hints, &string));
             on_save_chat_message.emit(string.clone());
+        }
+    };
+    let onload = {
+        move |event: Event| {
+            let loaded_element: HtmlInputElement = event_target(&event);
+            let height = loaded_element.scroll_height();
+            loaded_element.set_scroll_top(height);
         }
     };
 
@@ -368,7 +375,7 @@ pub fn chat_overlay(props: &ChatProps) -> Html {
             open={ctw.setting_cache.chat_dialog_shown}
             {on_open_changed}
         >
-        <div class={chat_box_container.clone()}>
+        <div {onload} class={chat_box_container.clone()}>
             {items}
             if let Some(help_hint) = *help_hint {
                 <p><b>{"Automated help: "}{help_hint}</b></p>

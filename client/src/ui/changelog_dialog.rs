@@ -25,6 +25,17 @@ fn changelog_2023() -> Html { //<li>{""}</li>
         <>
             <h2>{"2023"}</h2>
 
+            <h3>{"7 Feb '23"}</h3>
+            <ul>
+                <li>{"Swapped the levels of the Yasen and Seawolf submarines"}</li>
+                <li>{"Changed bot names so that I can practice my phonetic alphabet"}</li>
+                <li>{"Changed particles on some entities"}</li>
+                <li>{"Increased damage on all Surface-to-air missiles"}</li>
+                <li>{"Fixed border-margin formatting on the team panel"}</li>
+                <li>{"Modified the number of bots"}</li>
+                <li>{"Made chat auto-scroll to the bottom upon loading"}</li>
+            </ul>
+
             <h3>{"6 Feb '23"}</h3>
             <ul>
                 <li>{"Fixed the leaderboard naming schema"}</li>

@@ -1,69 +1,26 @@
-Beijing
-Tokyo
-Moscow
-Jakarta
-Cairo
-Seoul
-Mexico City
-London
-Dhaka
+Alpha
+Bravo
+Charlie
+Delta
+Echo
+Foxtrot
+Golf
+Hotel
+India
+Juliette
+Kilo
 Lima
-Tehran
-Bangkok
-Hanoi
-Baghdad
-Riyadh
-Hong Kong
-Santiago
-Ankara
-Singapore
-Kabul
-Nairobi
-Algiers
-Berlin
-Madrid
-Kuwait City
-Guatemala City
-Pretoria
-Kyiv
-Buenos Aires
-Pyongyang
-Quito
-Rome
-Brasilia
-Taipei
-Phnom Penh
-Caracas
-Paris
-Havana
-Harare
-Damascus
-Minsk
-Vienna
-Warsaw
-Manila
-Kuala Lumpur
-Bucharest
-Budapest
-Belgrade
-Dakar
-Prague
-Tripoli
-Ottawa
-Islamabad
-Stockholm
-Jerusalem
-Amsterdam
-Panama City
-Oslo
-Macau
-Washington D.C.
-Kingston
-Helsinki
-Copenhagen
-Athens
-Rabat
-Vilnius
-Dublin
-Lisbon
-Canberra
+Mike
+November
+Oscar
+Papa
+Quebec
+Romeo
+Sierra
+Tango
+Uniform
+Victor
+Whiskey
+Xray
+Yankee
+Zulu
